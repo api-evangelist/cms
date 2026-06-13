@@ -1,0 +1,64 @@
+name: CMS API Plans
+description: Centers for Medicare and Medicaid Services APIs are provided as free
+  government public services. Most data APIs require no API key and are available
+  without cost. Developer APIs such as the Marketplace API, Finder API, and Procedure
+  Price Lookup (PPL) API require an API key obtainable at no charge from CMS. The
+  PPL API additionally requires a separately purchased annual AMA license. There are
+  no paid tiers or subscription plans for CMS APIs.
+plans:
+  - name: Free - No Key Required
+    description: Public data access APIs requiring no API key or registration. Includes
+      the Provider Data Catalog API (data.cms.gov) which has no rate limits and no
+      authentication requirement.
+    url: https://data.cms.gov/provider-data/docs
+    features:
+      - No API key required
+      - No rate limits
+      - Free public access
+      - Provider data, quality measures, drug spending datasets
+    apis:
+      - Provider Data Catalog API
+
+  - name: Free - API Key Required
+    description: Developer APIs requiring a free API key obtainable by submitting
+      a key request form on developer.cms.gov. Keys expire every 60 days and are
+      automatically renewed via email notification.
+    url: https://developer.cms.gov/
+    features:
+      - Free API key via request form
+      - Keys expire every 60 days with automatic renewal
+      - Rate limited (Finder API limited to 1000 requests/minute)
+      - Access to Marketplace API, Finder API
+    apis:
+      - Marketplace API
+      - Finder API
+
+  - name: Free - OAuth2 / Credentialed Access
+    description: Claims data APIs (Blue Button 2.0, BCDA, AB2D, DPC) requiring OAuth
+      2.0 registration and approval. Applications must register with CMS and receive
+      client credentials. Sandbox environments available for testing with synthetic
+      data before production access.
+    url: https://bluebutton.cms.gov/
+    features:
+      - OAuth 2.0 client credentials
+      - Sandbox environment with synthetic data
+      - Production access requires CMS approval
+      - FHIR-based bulk data access
+    apis:
+      - Blue Button 2.0 API
+      - Beneficiary Claims Data API (BCDA)
+      - AB2D API
+      - Data at the Point of Care (DPC) API
+
+  - name: Free (AMA License Required) - PPL API
+    description: The Procedure Price Lookup API requires both a free CMS API key and
+      a separately purchased annual AMA (American Medical Association) license for
+      CPT code access.
+    url: https://developer.cms.gov/ppl-api/
+    features:
+      - Free CMS API key
+      - Requires annual AMA CPT license (purchased from AMA)
+      - Bulk cost data access
+      - CPT/HCPCS procedure codes and Medicare pricing
+    apis:
+      - Procedure Price Lookup (PPL) API

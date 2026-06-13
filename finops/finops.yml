@@ -1,0 +1,55 @@
+name: CMS API FinOps
+description: Centers for Medicare and Medicaid Services APIs are funded as US federal
+  government public services at no cost to developers or end users. All CMS APIs are
+  free to use. Cost considerations are limited to the AMA annual license required
+  for the Procedure Price Lookup (PPL) API and any infrastructure costs developers
+  incur building applications on top of CMS APIs.
+finops:
+  model: Free Public Government APIs
+  cost: $0.00
+  notes: All CMS APIs are provided free of charge as a public service of the US federal
+    government. No subscription fees, usage fees, or metered billing apply.
+
+  costDrivers:
+    - name: AMA CPT License (PPL API only)
+      description: The Procedure Price Lookup API requires an annual license for CPT
+        codes purchased directly from the American Medical Association (AMA). This
+        is not a CMS fee — it is payable to AMA.
+      cost: Variable (set by AMA annually)
+      required: Only for PPL API users
+      source: https://www.ama-assn.org/practice-management/cpt/cpt-licensing
+
+    - name: Developer Infrastructure
+      description: Any costs for servers, cloud hosting, or developer tooling used
+        to build applications consuming CMS APIs are the responsibility of the application
+        developer. CMS does not charge for API access.
+      cost: Developer responsibility
+
+  savings:
+    - name: No API Key Cost
+      description: API keys for Marketplace API, Finder API, and PPL API are issued
+        free of charge by CMS upon request.
+
+    - name: No Data Licensing Fee
+      description: Medicare provider data, quality measures, and public health datasets
+        available via data.cms.gov are free public domain government data with no
+        licensing fees.
+
+    - name: Sandbox Environments
+      description: Free sandbox environments with synthetic data are available for
+        Blue Button 2.0, BCDA, AB2D, and DPC APIs enabling development and testing
+        without production data access costs.
+      sandboxes:
+        - url: https://sandbox.bluebutton.cms.gov/v1/accounts/login
+          api: Blue Button 2.0
+        - url: https://sandbox.dpc.cms.gov/users/sign_in
+          api: DPC API
+        - url: https://bcda.cms.gov/
+          api: BCDA
+
+  compliance:
+    - note: Applications consuming CMS beneficiary claims data (Blue Button 2.0, BCDA,
+        AB2D, DPC) must comply with applicable HIPAA requirements and CMS data use
+        agreements.
+    - note: PPL API users must maintain a valid AMA CPT license in compliance with
+        AMA licensing terms.

@@ -1,0 +1,58 @@
+name: CMS API Rate Limits
+description: Rate limits for Centers for Medicare and Medicaid Services APIs vary
+  by API product. Public data catalog APIs have no enforced rate limits. Developer
+  APIs with API keys are rate limited with details communicated via response headers.
+  Claims data APIs using OAuth2 return 429 Too Many Requests responses with Retry-After
+  headers when limits are exceeded.
+rateLimits:
+  - name: Provider Data Catalog API
+    description: No rate limits are enforced on the Provider Data Catalog API (data.cms.gov).
+      High-volume applications should contact the PDC support team for guidance on
+      best practices.
+    limit: None
+    window: None
+    notes: Contact PDC support for high-volume usage guidance
+
+  - name: Finder API
+    description: All Finder API keys are rate limited to 1000 requests per minute.
+      This limit applies per API key.
+    limit: 1000 requests per minute
+    window: 1 minute
+    enforcement: Per API key
+    notes: API keys expire every 60 days with automatic email renewal
+
+  - name: Marketplace API
+    description: Rate limits apply to the Marketplace API and are communicated through
+      response header information. Specific numerical limits are not publicly documented.
+    limit: Rate limited (details in response headers)
+    window: Not publicly specified
+    enforcement: Per API key
+    notes: Check response headers for rate limit status; API keys expire every 60
+      days
+
+  - name: Blue Button 2.0 API
+    description: Rate limits apply. Details are provided in response headers. Applications
+      should implement retry logic with exponential backoff.
+    limit: Not publicly specified
+    window: Not publicly specified
+    enforcement: Per OAuth2 client
+    errorCode: 429 Too Many Requests
+    notes: Use Retry-After header value when backing off
+
+  - name: BCDA / AB2D / DPC APIs
+    description: A 429 Too Many Requests response is returned when making too many
+      HTTP requests within a time period. Applications must wait the duration specified
+      in the Retry-After response header before retrying.
+    limit: Not publicly specified
+    window: Not publicly specified
+    enforcement: Per OAuth2 client
+    errorCode: 429 Too Many Requests
+    retryHeader: Retry-After
+    notes: Implements standard OAuth2 bearer token rate limiting; implement exponential
+      backoff in clients
+
+  - name: Procedure Price Lookup (PPL) API
+    description: Rate limits are not publicly documented. Requires API key authentication.
+    limit: Not publicly specified
+    window: Not publicly specified
+    enforcement: Per API key

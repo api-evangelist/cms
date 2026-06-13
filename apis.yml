@@ -1,0 +1,229 @@
+aid: cms
+name: Centers for Medicare and Medicaid Services
+description: The Centers for Medicare and Medicaid Services (CMS) provides a suite
+  of public REST APIs enabling developers to access Medicare provider data, quality
+  measures, drug spending, health plan finder, beneficiary claims, and public health
+  insurance datasets. CMS APIs support interoperability standards including HL7 FHIR
+  and OAuth 2.0 to power healthcare applications across the US health system.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/cms/refs/heads/main/apis.yml
+created: '2026-06-13'
+modified: '2026-06-13'
+specificationVersion: '0.19'
+tags:
+  - Medicare
+  - Medicaid
+  - Healthcare
+  - Health Insurance
+  - FHIR
+  - Federal Government
+  - Drug Spending
+  - Provider Data
+  - Quality Measures
+  - Claims Data
+apis:
+  - name: CMS Marketplace API
+    description: Delivers data that helps users find and evaluate health care insurance
+      plans, providers, and coverage information on the ACA Health Insurance Marketplace.
+      Powers Healthcare.gov and third-party services with plan search, eligibility
+      estimates, drug and provider coverage lookups, and out-of-pocket cost calculations.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://developer.cms.gov/marketplace-api/
+    baseURL: https://marketplace.api.healthcare.gov/api/v1
+    tags:
+      - Health Insurance
+      - ACA
+      - Marketplace
+      - Plan Search
+      - Drug Coverage
+      - Provider Coverage
+    properties:
+      - type: Documentation
+        url: https://developer.cms.gov/marketplace-api/
+      - type: OpenAPI
+        url: https://developer.cms.gov/marketplace-api/api-spec
+      - type: Authentication
+        url: https://developer.cms.gov/marketplace-api/key-request.html
+    contact:
+      - FN: CMS Marketplace API Support
+        email: marketplace-api@cms-provider-directory.uservoice.com
+
+  - name: CMS Blue Button 2.0 API
+    description: A standards-based API that delivers Medicare Part A, B, and D claims
+      data for over 60 million Medicare beneficiaries. Uses HL7 FHIR standard for
+      beneficiary data and OAuth 2.0 for authorization, enabling beneficiaries to
+      connect their claims data to applications and research programs they trust.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://bluebutton.cms.gov/
+    baseURL: https://api.bluebutton.cms.gov
+    tags:
+      - Medicare
+      - Claims Data
+      - FHIR
+      - OAuth2
+      - Beneficiary
+      - Part A
+      - Part B
+      - Part D
+    properties:
+      - type: Documentation
+        url: https://bluebutton.cms.gov/api-documentation
+      - type: OpenAPI
+        url: https://sandbox.bluebutton.cms.gov/docs/openapi
+      - type: Sandbox
+        url: https://sandbox.bluebutton.cms.gov/v1/accounts/login
+      - type: GitHubRepository
+        url: https://github.com/CMSgov/bluebutton-web-server
+    contact:
+      - FN: Blue Button Developer Group
+        url: https://groups.google.com/g/developer-group-for-cms-blue-button-api
+
+  - name: CMS Beneficiary Claims Data API (BCDA)
+    description: Enables Medicare Accountable Care Organizations (ACOs) and alternative
+      payment model participants to retrieve Medicare Part A, B, and D claims data
+      for their attributed enrollees. Implements the HL7 Bulk FHIR Implementation
+      Guide and delivers NDJSON formatted claims data updated at least weekly.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://bcda.cms.gov/
+    baseURL: https://bcda.cms.gov
+    tags:
+      - Medicare
+      - ACO
+      - Claims Data
+      - FHIR
+      - Bulk Data
+      - Part A
+      - Part B
+      - Part D
+    properties:
+      - type: Documentation
+        url: https://bcda.cms.gov/api-documentation.html
+      - type: GitHubRepository
+        url: https://github.com/CMSgov/bcda-app
+    contact:
+      - FN: BCDA Developer Community
+        url: https://groups.google.com/g/bc-api
+
+  - name: CMS AB2D API (Claims Data to Part D Sponsors)
+    description: Enables stand-alone Medicare Part D Prescription Drug Plan sponsors
+      to retrieve bulk Medicare Part A and B claims data for their active beneficiaries
+      using the FHIR standard in NDJSON format. Authenticates via Okta-based OAuth
+      2.0 bearer tokens.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://ab2d.cms.gov/
+    baseURL: https://api.ab2d.cms.gov
+    tags:
+      - Medicare
+      - Part D
+      - Claims Data
+      - FHIR
+      - Bulk Data
+      - Prescription Drug Plans
+    properties:
+      - type: Documentation
+        url: https://ab2d.cms.gov/api-documentation
+      - type: AdvancedGuide
+        url: https://ab2d.cms.gov/advanced-user-guide.html
+
+  - name: CMS Data at the Point of Care (DPC) API
+    description: Provides Original Medicare claims data to fee-for-service Medicare
+      providers in a structured, standardized FHIR format at the point of care. Helps
+      providers gain complete views of patient medical histories to improve care coordination
+      and reduce redundant testing.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://dpc.cms.gov/
+    baseURL: https://sandbox.dpc.cms.gov
+    tags:
+      - Medicare
+      - FHIR
+      - Provider
+      - Point of Care
+      - Claims Data
+      - Care Coordination
+    properties:
+      - type: Documentation
+        url: https://dpc.cms.gov/docsV1
+      - type: GitHubRepository
+        url: https://github.com/CMSgov/dpc-app
+    contact:
+      - FN: DPC API Developer Group
+        url: https://groups.google.com/d/forum/dpc-api
+
+  - name: CMS Finder API
+    description: The API behind Finder.Healthcare.gov that helps users find private
+      health plans available outside the Health Insurance Marketplace. Supports individual
+      plan lookups, small group plan searches, and geographic lookups by ZIP code.
+      Rate limited to 1000 requests per minute.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://developer.cms.gov/finder-api/
+    baseURL: https://finder.healthcare.gov
+    tags:
+      - Health Insurance
+      - Plan Finder
+      - Individual Plans
+      - Small Group Plans
+      - Healthcare.gov
+    properties:
+      - type: Documentation
+        url: https://finder.healthcare.gov/#services
+      - type: Authentication
+        url: https://developer.cms.gov/finder-api/key-request.html
+
+  - name: CMS Procedure Price Lookup (PPL) API
+    description: Provides bulk cost data including AMA procedure descriptions and
+      Medicare cost data for approximately 4,000 CPT/HCPCS medical procedure codes
+      in hospital outpatient settings and ambulatory surgical centers. Requires both
+      an AMA license and a CMS API key.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://developer.cms.gov/ppl-api/
+    baseURL: https://developer.cms.gov/ppl-api
+    tags:
+      - Procedure Pricing
+      - CPT Codes
+      - HCPCS
+      - Medicare
+      - Cost Data
+      - Hospital Outpatient
+    properties:
+      - type: Documentation
+        url: https://developer.cms.gov/ppl-api/
+      - type: OpenAPI
+        url: https://developer.cms.gov/ppl-api/api-spec
+
+  - name: CMS Quality Payment Program (QPP) Submissions API
+    description: Enables QPP participants to submit quality performance data and receive
+      real-time performance scoring feedback. Supports Merit-based Incentive Payment
+      System (MIPS) and Advanced Alternative Payment Model (APM) data submissions
+      for Medicare quality reporting.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://cmsgov.github.io/qpp-submissions-docs/
+    baseURL: https://qpp.cms.gov/api
+    tags:
+      - Quality Payment Program
+      - QPP
+      - MIPS
+      - APM
+      - Medicare Quality
+      - Performance Scoring
+    properties:
+      - type: Documentation
+        url: https://cmsgov.github.io/qpp-submissions-docs/
+
+common:
+  - type: Portal
+    url: https://developer.cms.gov/
+  - type: DataPortal
+    url: https://data.cms.gov/
+  - type: ProviderDataCatalog
+    url: https://data.cms.gov/provider-data/
+  - type: GitHubOrganization
+    url: https://github.com/cmsgov
+  - type: InteroperabilityGuidance
+    url: https://www.cms.gov/priorities/burden-reduction/overview/interoperability/implementation-guides-standards/application-programming-interfaces-apis-relevant-standards-implementation-guides-igs
+  - type: PublicDatasets
+    url: https://www.cms.gov/data-research/cms-data/data-available-everyone
+
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
