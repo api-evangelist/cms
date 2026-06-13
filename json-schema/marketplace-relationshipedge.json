@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RelationshipEdge",
+  "description": "Schema for RelationshipEdge from CMS Marketplace API",
+  "properties": {
+    "super_id": {
+      "type": "string",
+      "description": "enrollee id"
+    },
+    "sub_id": {
+      "type": "string",
+      "description": "enrollee id"
+    },
+    "relationship": {
+      "$ref": "#/definitions/Relationship"
+    }
+  }
+}

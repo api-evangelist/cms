@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CrosswalkCode",
+  "description": "Schema for CrosswalkCode from CMS Marketplace API",
+  "properties": {
+    "code": {
+      "description": "Integer code value",
+      "format": "integer",
+      "type": "number"
+    },
+    "description": {
+      "description": "Human readable code description",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

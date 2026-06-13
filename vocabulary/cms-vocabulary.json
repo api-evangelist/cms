@@ -1,0 +1,983 @@
+{
+  "title": "CMS API Vocabulary",
+  "description": "Vocabulary terms derived from Centers for Medicare and Medicaid Services APIs including Marketplace API and Procedure Price Lookup API",
+  "source": "https://developer.cms.gov/",
+  "terms": [
+    {
+      "term": "Address",
+      "type": "object",
+      "description": "A Address object in the CMS Marketplace API",
+      "properties": [
+        "city",
+        "state",
+        "street_1",
+        "street_2",
+        "zipcode",
+        "countyfips"
+      ]
+    },
+    {
+      "term": "ApplicationError400",
+      "type": "object",
+      "description": "A ApplicationError400 object in the CMS Marketplace API",
+      "properties": [
+        "code",
+        "status",
+        "msg",
+        "err"
+      ]
+    },
+    {
+      "term": "ApplicationError404",
+      "type": "object",
+      "description": "A ApplicationError404 object in the CMS Marketplace API",
+      "properties": [
+        "code",
+        "status",
+        "msg",
+        "err"
+      ]
+    },
+    {
+      "term": "APT",
+      "type": "object",
+      "description": "A APT object in the CMS Marketplace API",
+      "properties": [
+        "market_year",
+        "tiers"
+      ]
+    },
+    {
+      "term": "APTTier",
+      "type": "object",
+      "description": "A APTTier object in the CMS Marketplace API",
+      "properties": [
+        "pctFPL",
+        "pctPremium"
+      ]
+    },
+    {
+      "term": "Benefit",
+      "type": "object",
+      "description": "A Benefit object in the CMS Marketplace API",
+      "properties": [
+        "name",
+        "covered",
+        "cost_sharings",
+        "explanation",
+        "exclusions",
+        "has_limits",
+        "limit_unit",
+        "limit_quantity"
+      ]
+    },
+    {
+      "term": "CostSharing",
+      "type": "object",
+      "description": "A CostSharing object in the CMS Marketplace API",
+      "properties": [
+        "coinsurance_options",
+        "coinsurance_rate",
+        "copay_amount",
+        "copay_options",
+        "network_tier",
+        "csr",
+        "display_string"
+      ]
+    },
+    {
+      "term": "Crosswalk",
+      "type": "object",
+      "description": "A Crosswalk object in the CMS Marketplace API",
+      "properties": [
+        "levels",
+        "reasons",
+        "data"
+      ]
+    },
+    {
+      "term": "CrosswalkCode",
+      "type": "object",
+      "description": "A CrosswalkCode object in the CMS Marketplace API",
+      "properties": [
+        "code",
+        "description"
+      ]
+    },
+    {
+      "term": "CrosswalkData",
+      "type": "object",
+      "description": "A CrosswalkData object in the CMS Marketplace API",
+      "properties": [
+        "state",
+        "previous_plan_id",
+        "new_plan_id",
+        "fips",
+        "level",
+        "reason",
+        "zipcodes"
+      ]
+    },
+    {
+      "term": "CSRRequestEnum",
+      "type": "object",
+      "description": "Cost-sharing reduction (CSR) override for requests",
+      "properties": []
+    },
+    {
+      "term": "CostSharingReductionEnum",
+      "type": "object",
+      "description": "Cost-sharing reduction (CSR)",
+      "properties": []
+    },
+    {
+      "term": "CSREligibilityEnum",
+      "type": "object",
+      "description": "Cost-sharing reduction (CSR)",
+      "properties": []
+    },
+    {
+      "term": "County",
+      "type": "object",
+      "description": "A County object in the CMS Marketplace API",
+      "properties": [
+        "fips",
+        "name",
+        "state"
+      ]
+    },
+    {
+      "term": "CurrentEnrollment",
+      "type": "object",
+      "description": "Current/existing enrollment information used to determine tobacco status for CiC enrollments. This will ensure rate calculation is done correctly.",
+      "properties": [
+        "plan_id",
+        "effective_date",
+        "uses_tobacco"
+      ]
+    },
+    {
+      "term": "DataVersion",
+      "type": "object",
+      "description": "A DataVersion object in the CMS Marketplace API",
+      "properties": [
+        "name",
+        "updated"
+      ]
+    },
+    {
+      "term": "DecileEnum",
+      "type": "object",
+      "description": "A DecileEnum object in the CMS Marketplace API",
+      "properties": []
+    },
+    {
+      "term": "DecileMapping",
+      "type": "object",
+      "description": "A DecileMapping object in the CMS Marketplace API",
+      "properties": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    {
+      "term": "DecileUtilizationMapping",
+      "type": "object",
+      "description": "A DecileUtilizationMapping object in the CMS Marketplace API",
+      "properties": [
+        "male",
+        "femaile"
+      ]
+    },
+    {
+      "term": "DecileUtilizationAgeMap",
+      "type": "object",
+      "description": "A DecileUtilizationAgeMap object in the CMS Marketplace API",
+      "properties": [
+        "6",
+        "18",
+        "26",
+        "35",
+        "45",
+        "55",
+        "999"
+      ]
+    },
+    {
+      "term": "Deductible",
+      "type": "object",
+      "description": "A Deductible object in the CMS Marketplace API",
+      "properties": [
+        "amount",
+        "csr",
+        "family_cost",
+        "network_tier",
+        "type",
+        "individual",
+        "family",
+        "display_string"
+      ]
+    },
+    {
+      "term": "DiseaseMgmtProgramsEnum",
+      "type": "object",
+      "description": "A DiseaseMgmtProgramsEnum object in the CMS Marketplace API",
+      "properties": []
+    },
+    {
+      "term": "Drug",
+      "type": "object",
+      "description": "A Drug object in the CMS Marketplace API",
+      "properties": [
+        "id",
+        "name",
+        "rxcui",
+        "strength",
+        "route",
+        "full_name",
+        "rxterms_dose_form",
+        "rxnorm_dose_form"
+      ]
+    },
+    {
+      "term": "Coverage",
+      "type": "object",
+      "description": "A Coverage object in the CMS Marketplace API",
+      "properties": []
+    },
+    {
+      "term": "DrugCoverage",
+      "type": "object",
+      "description": "A DrugCoverage object in the CMS Marketplace API",
+      "properties": [
+        "rxcui",
+        "plan_id",
+        "coverage",
+        "generic_rxcui"
+      ]
+    },
+    {
+      "term": "Eligibility",
+      "type": "object",
+      "description": "A Eligibility object in the CMS Marketplace API",
+      "properties": [
+        "aptc",
+        "csr",
+        "hardship_exemption",
+        "is_medicaid_chip"
+      ]
+    },
+    {
+      "term": "FamilyCostEnum",
+      "type": "object",
+      "description": "family cost enumeration for MOOPs and deductibles",
+      "properties": []
+    },
+    {
+      "term": "HRA",
+      "type": "object",
+      "description": "monthly employee HRA from employer",
+      "properties": []
+    },
+    {
+      "term": "Range",
+      "type": "object",
+      "description": "A Range object in the CMS Marketplace API",
+      "properties": [
+        "min",
+        "max"
+      ]
+    },
+    {
+      "term": "PlanSearchFilter",
+      "type": "object",
+      "description": "plan search filter",
+      "properties": [
+        "disease_mgmt_programs",
+        "division",
+        "issuer",
+        "issuers",
+        "metal_levels",
+        "metal_level",
+        "metal_design_types",
+        "design_types",
+        "premium",
+        "type",
+        "types",
+        "deductible",
+        "hsa",
+        "oopc",
+        "child_dental_coverage",
+        "adult_dental_coverage",
+        "drugs",
+        "providers",
+        "quality_rating",
+        "simple_choice",
+        "premium_range",
+        "deductible_range"
+      ]
+    },
+    {
+      "term": "GenderEnum",
+      "type": "object",
+      "description": "A GenderEnum object in the CMS Marketplace API",
+      "properties": []
+    },
+    {
+      "term": "Household",
+      "type": "object",
+      "description": "If a household is not included, will default to Individual household",
+      "properties": [
+        "income",
+        "unemployment_received",
+        "people",
+        "has_married_couple",
+        "effective_date"
+      ]
+    },
+    {
+      "term": "ICHRAResponse",
+      "type": "object",
+      "description": "A ICHRAResponse object in the CMS Marketplace API",
+      "properties": [
+        "affordable",
+        "premium"
+      ]
+    },
+    {
+      "term": "LowestCostPlanHousehold",
+      "type": "object",
+      "description": "A LowestCostPlanHousehold object in the CMS Marketplace API",
+      "properties": [
+        "income",
+        "people"
+      ]
+    },
+    {
+      "term": "InsuranceMarketEnum",
+      "type": "object",
+      "description": "A InsuranceMarketEnum object in the CMS Marketplace API",
+      "properties": []
+    },
+    {
+      "term": "Issuer",
+      "type": "object",
+      "description": "A Issuer object in the CMS Marketplace API",
+      "properties": [
+        "eligible_dependents",
+        "id",
+        "individual_url",
+        "name",
+        "shop_url",
+        "state",
+        "toll_free",
+        "tty"
+      ]
+    },
+    {
+      "term": "MOOP",
+      "type": "object",
+      "description": "maximum out-of-pocket",
+      "properties": [
+        "amount",
+        "csr",
+        "family_cost",
+        "network_tier",
+        "type",
+        "individual",
+        "family",
+        "display_string"
+      ]
+    },
+    {
+      "term": "MarketYear",
+      "type": "object",
+      "description": "A MarketYear object in the CMS Marketplace API",
+      "properties": []
+    },
+    {
+      "term": "MarketYears",
+      "type": "object",
+      "description": "Current and supported market years",
+      "properties": [
+        "current",
+        "supported"
+      ]
+    },
+    {
+      "term": "MarketEnum",
+      "type": "object",
+      "description": "A MarketEnum object in the CMS Marketplace API",
+      "properties": []
+    },
+    {
+      "term": "MarketplaceModelEnum",
+      "type": "object",
+      "description": "A MarketplaceModelEnum object in the CMS Marketplace API",
+      "properties": []
+    },
+    {
+      "term": "MetalLevelEnum",
+      "type": "object",
+      "description": "A MetalLevelEnum object in the CMS Marketplace API",
+      "properties": []
+    },
+    {
+      "term": "DesignTypeEnum",
+      "type": "object",
+      "description": "A DesignTypeEnum object in the CMS Marketplace API",
+      "properties": []
+    },
+    {
+      "term": "MetalDesignType",
+      "type": "object",
+      "description": "A MetalDesignType object in the CMS Marketplace API",
+      "properties": [
+        "metal_level",
+        "design_types"
+      ]
+    },
+    {
+      "term": "NetworkTierEnum",
+      "type": "object",
+      "description": "A NetworkTierEnum object in the CMS Marketplace API",
+      "properties": []
+    },
+    {
+      "term": "Person",
+      "type": "object",
+      "description": "A Person object in the CMS Marketplace API",
+      "properties": [
+        "age",
+        "dob",
+        "has_mec",
+        "is_parent",
+        "is_pregnant",
+        "pregnant_with",
+        "uses_tobacco",
+        "last_tobacco_use_date",
+        "gender",
+        "utilization_level",
+        "relationship",
+        "does_not_cohabitate",
+        "aptc_eligible",
+        "current_enrollment"
+      ]
+    },
+    {
+      "term": "LowestCostPlanPerson",
+      "type": "object",
+      "description": "A LowestCostPlanPerson object in the CMS Marketplace API",
+      "properties": [
+        "age",
+        "uses_tobacco"
+      ]
+    },
+    {
+      "term": "LowestCostPlanResponse",
+      "type": "object",
+      "description": "A LowestCostPlanResponse object in the CMS Marketplace API",
+      "properties": [
+        "id",
+        "name",
+        "premium",
+        "metal_level"
+      ]
+    },
+    {
+      "term": "Place",
+      "type": "object",
+      "description": "A Place object in the CMS Marketplace API",
+      "properties": [
+        "countyfips",
+        "state",
+        "zipcode"
+      ]
+    },
+    {
+      "term": "Plan",
+      "type": "object",
+      "description": "A Plan object in the CMS Marketplace API",
+      "properties": [
+        "id",
+        "name",
+        "benefits",
+        "deductibles",
+        "disease_mgmt_programs",
+        "has_national_network",
+        "quality_rating",
+        "insurance_market",
+        "issuer",
+        "market",
+        "max_age_child",
+        "metal_level",
+        "moops",
+        "premium",
+        "premium_w_credit",
+        "ehb_premium",
+        "pediatric_ehb_premium",
+        "aptc_eligible_premium",
+        "guaranteed_rate",
+        "simple_choice",
+        "product_division",
+        "specialist_referral_required",
+        "state",
+        "type",
+        "benefits_url",
+        "brochure_url",
+        "formulary_url",
+        "network_url",
+        "hsa_eligible",
+        "oopc",
+        "suppression_state",
+        "tobacco_lookback",
+        "certification",
+        "network_adequacy",
+        "sbcs",
+        "rx_3mo_mail_order",
+        "is_ineligible",
+        "covers_nonhyde_abortion",
+        "service_area_id"
+      ]
+    },
+    {
+      "term": "PlanSearchRequest",
+      "type": "object",
+      "description": "A PlanSearchRequest object in the CMS Marketplace API",
+      "properties": [
+        "filter",
+        "household",
+        "offset",
+        "order",
+        "place",
+        "sort",
+        "year",
+        "market",
+        "aptc_override",
+        "csr_override",
+        "catastrophic_override",
+        "suppressed_plan_ids"
+      ]
+    },
+    {
+      "term": "PlanTypeEnum",
+      "type": "object",
+      "description": "A PlanTypeEnum object in the CMS Marketplace API",
+      "properties": []
+    },
+    {
+      "term": "ProductDivisionEnum",
+      "type": "object",
+      "description": "A ProductDivisionEnum object in the CMS Marketplace API",
+      "properties": []
+    },
+    {
+      "term": "Provider",
+      "type": "object",
+      "description": "A Provider object in the CMS Marketplace API",
+      "properties": [
+        "name",
+        "gender",
+        "specialties",
+        "type",
+        "accepting",
+        "npi",
+        "languages",
+        "facility_types",
+        "taxonomy"
+      ]
+    },
+    {
+      "term": "ProviderCoverage",
+      "type": "object",
+      "description": "A ProviderCoverage object in the CMS Marketplace API",
+      "properties": [
+        "npi",
+        "plan_id",
+        "coverage",
+        "addresses",
+        "accepting"
+      ]
+    },
+    {
+      "term": "ProviderGenderEnum",
+      "type": "object",
+      "description": "A ProviderGenderEnum object in the CMS Marketplace API",
+      "properties": []
+    },
+    {
+      "term": "NearbyProvider",
+      "type": "object",
+      "description": "A NearbyProvider object in the CMS Marketplace API",
+      "properties": [
+        "provider",
+        "address",
+        "distance"
+      ]
+    },
+    {
+      "term": "ProviderTypeEnum",
+      "type": "object",
+      "description": "A ProviderTypeEnum object in the CMS Marketplace API",
+      "properties": []
+    },
+    {
+      "term": "QualityRating",
+      "type": "object",
+      "description": "A QualityRating object in the CMS Marketplace API",
+      "properties": [
+        "available",
+        "year",
+        "global_rating",
+        "global_not_rated_reason",
+        "clinical_quality_management_rating",
+        "clinical_quality_management_not_rated_reason",
+        "enrollee_experience_rating",
+        "enrollee_experience_not_rated_reason",
+        "plan_efficiency_rating",
+        "plan_efficiency_not_rated_reason"
+      ]
+    },
+    {
+      "term": "RateArea",
+      "type": "object",
+      "description": "A RateArea object in the CMS Marketplace API",
+      "properties": [
+        "state",
+        "area"
+      ]
+    },
+    {
+      "term": "Relationship",
+      "type": "object",
+      "description": "Should match one of the [listed valid relationships](#introduction/more-information-about-households).",
+      "properties": []
+    },
+    {
+      "term": "SBCScenario",
+      "type": "object",
+      "description": "A SBCScenario object in the CMS Marketplace API",
+      "properties": [
+        "deductible",
+        "copay",
+        "coinsurance",
+        "limit"
+      ]
+    },
+    {
+      "term": "State",
+      "type": "object",
+      "description": "A State object in the CMS Marketplace API",
+      "properties": [
+        "abbrev",
+        "fips",
+        "hix_name",
+        "hix_url",
+        "marketplace",
+        "name",
+        "shop_hix_name",
+        "shop_hix_url",
+        "shop_marketplace",
+        "8962_link",
+        "8965_link",
+        "assister_program_url"
+      ]
+    },
+    {
+      "term": "Guideline",
+      "type": "object",
+      "description": "A Guideline object in the CMS Marketplace API",
+      "properties": [
+        "household_size",
+        "guideline"
+      ]
+    },
+    {
+      "term": "PovertyGuideline",
+      "type": "object",
+      "description": "A PovertyGuideline object in the CMS Marketplace API",
+      "properties": [
+        "add_per_person_after_eight",
+        "guidelines"
+      ]
+    },
+    {
+      "term": "LowIncomeChild",
+      "type": "object",
+      "description": "A LowIncomeChild object in the CMS Marketplace API",
+      "properties": [
+        "min_age",
+        "max_age",
+        "pc_fpl"
+      ]
+    },
+    {
+      "term": "StateMedicaidList",
+      "type": "object",
+      "description": "A StateMedicaidList object in the CMS Marketplace API",
+      "properties": [
+        "fiscal_year",
+        "fiscal_quarter",
+        "states"
+      ]
+    },
+    {
+      "term": "StateMedicaid",
+      "type": "object",
+      "description": "A StateMedicaid object in the CMS Marketplace API",
+      "properties": [
+        "name",
+        "abbrev",
+        "fiscal_year",
+        "fiscal_quarter",
+        "pc_fpl_parent",
+        "pc_fpl_pregnant",
+        "pc_fpl_adult",
+        "pc_fpl_child_newborn",
+        "pc_fpl_child_1_5",
+        "pc_fpl_child_6_18",
+        "low_income_child",
+        "chip"
+      ]
+    },
+    {
+      "term": "UtilizationEnum",
+      "type": "object",
+      "description": "A UtilizationEnum object in the CMS Marketplace API",
+      "properties": []
+    },
+    {
+      "term": "ZIPCounty",
+      "type": "object",
+      "description": "A ZIPCounty object in the CMS Marketplace API",
+      "properties": [
+        "fips",
+        "name",
+        "state",
+        "zipcode"
+      ]
+    },
+    {
+      "term": "NPI",
+      "type": "object",
+      "description": "A NPI object in the CMS Marketplace API",
+      "properties": []
+    },
+    {
+      "term": "PlanID",
+      "type": "object",
+      "description": "A PlanID object in the CMS Marketplace API",
+      "properties": []
+    },
+    {
+      "term": "RxCUI",
+      "type": "object",
+      "description": "A RxCUI object in the CMS Marketplace API",
+      "properties": []
+    },
+    {
+      "term": "Enrollment",
+      "type": "object",
+      "description": "A Enrollment object in the CMS Marketplace API",
+      "properties": [
+        "enrollmentGroups",
+        "enrollees"
+      ]
+    },
+    {
+      "term": "EnrollmentGroup",
+      "type": "object",
+      "description": "A EnrollmentGroup object in the CMS Marketplace API",
+      "properties": [
+        "id",
+        "aptc",
+        "planID"
+      ]
+    },
+    {
+      "term": "Enrollee",
+      "type": "object",
+      "description": "A Enrollee object in the CMS Marketplace API",
+      "properties": [
+        "enrollmentGroupID",
+        "tobaccoDate"
+      ]
+    },
+    {
+      "term": "RelationshipEdge",
+      "type": "object",
+      "description": "A RelationshipEdge object in the CMS Marketplace API",
+      "properties": [
+        "super_id",
+        "sub_id",
+        "relationship"
+      ]
+    },
+    {
+      "term": "ExtendedEnrollee",
+      "type": "object",
+      "description": "A ExtendedEnrollee object in the CMS Marketplace API",
+      "properties": [
+        "id",
+        "name",
+        "gender",
+        "dob",
+        "location",
+        "csr",
+        "is_filer",
+        "effective_age",
+        "has_hardship",
+        "relationship",
+        "allowed_metal_levels",
+        "allowed_plan_ids",
+        "current_enrollment"
+      ]
+    },
+    {
+      "term": "ExtendedEnrollment",
+      "type": "object",
+      "description": "A ExtendedEnrollment object in the CMS Marketplace API",
+      "properties": [
+        "maxAPTC",
+        "year",
+        "is_custom",
+        "division",
+        "enrollment_groups",
+        "enrollees"
+      ]
+    },
+    {
+      "term": "APTC",
+      "type": "object",
+      "description": "A APTC object in the CMS Marketplace API",
+      "properties": [
+        "aptc_amount",
+        "is_catastrophic",
+        "enrollment_groups"
+      ]
+    },
+    {
+      "term": "APTCEnrollmentGroup",
+      "type": "object",
+      "description": "A APTCEnrollmentGroup object in the CMS Marketplace API",
+      "properties": [
+        "id",
+        "aptc_eligible_premium",
+        "division",
+        "enrollees"
+      ]
+    },
+    {
+      "term": "APTCEnrollee",
+      "type": "object",
+      "description": "A APTCEnrollee object in the CMS Marketplace API",
+      "properties": [
+        "is_pediatric",
+        "aptc_percentage"
+      ]
+    },
+    {
+      "term": "APTCAllocationResult",
+      "type": "object",
+      "description": "A APTCAllocationResult object in the CMS Marketplace API",
+      "properties": [
+        "enrollment_group_id",
+        "amount"
+      ]
+    },
+    {
+      "term": "FlattenedEnrollmentGroup",
+      "type": "object",
+      "description": "A FlattenedEnrollmentGroup object in the CMS Marketplace API",
+      "properties": [
+        "id",
+        "csr",
+        "enrollees",
+        "grouping_reason",
+        "year",
+        "subscriber_id",
+        "relationships",
+        "effective_date"
+      ]
+    },
+    {
+      "term": "PlanIDList",
+      "type": "object",
+      "description": "A PlanIDList object in the CMS Marketplace API",
+      "properties": []
+    },
+    {
+      "term": "SuppressionStatus",
+      "type": "object",
+      "description": "A SuppressionStatus object in the CMS Marketplace API",
+      "properties": []
+    },
+    {
+      "term": "CertificationStatus",
+      "type": "object",
+      "description": "A CertificationStatus object in the CMS Marketplace API",
+      "properties": []
+    },
+    {
+      "term": "StateCounty",
+      "type": "object",
+      "description": "A StateCounty object in the CMS Marketplace API",
+      "properties": [
+        "state",
+        "counties"
+      ]
+    },
+    {
+      "term": "CountyZips",
+      "type": "object",
+      "description": "A CountyZips object in the CMS Marketplace API",
+      "properties": [
+        "name",
+        "fips",
+        "zips"
+      ]
+    },
+    {
+      "term": "StateRateArea",
+      "type": "object",
+      "description": "A StateRateArea object in the CMS Marketplace API",
+      "properties": [
+        "state",
+        "rateAreas"
+      ]
+    },
+    {
+      "term": "RateAreaCounty",
+      "type": "object",
+      "description": "A RateAreaCounty object in the CMS Marketplace API",
+      "properties": [
+        "rateArea",
+        "counties"
+      ]
+    },
+    {
+      "term": "Code",
+      "type": "object",
+      "description": "A Code object in the CMS PPL API",
+      "api": "PPL",
+      "properties": [
+        "code",
+        "description",
+        "frequency"
+      ]
+    },
+    {
+      "term": "Cost",
+      "type": "object",
+      "description": "A Cost object in the CMS PPL API",
+      "api": "PPL",
+      "properties": [
+        "facilityType",
+        "cost",
+        "copay",
+        "total"
+      ]
+    }
+  ]
+}

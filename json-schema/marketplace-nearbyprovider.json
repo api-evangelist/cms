@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "NearbyProvider",
+  "description": "Schema for NearbyProvider from CMS Marketplace API",
+  "properties": {
+    "provider": {
+      "$ref": "#/definitions/Provider"
+    },
+    "address": {
+      "$ref": "#/definitions/Address"
+    },
+    "distance": {
+      "type": "number",
+      "minimum": 0,
+      "title": "Distance in miles from address, eg., from a proximity search"
+    }
+  },
+  "type": "object",
+  "required": [
+    "provider",
+    "distance"
+  ]
+}

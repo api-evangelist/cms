@@ -1,0 +1,9 @@
+{
+  "title": "Code Example",
+  "description": "Example Code object from CMS PPL API",
+  "example": {
+    "code": "string",
+    "description": "string",
+    "frequency": 0
+  }
+}

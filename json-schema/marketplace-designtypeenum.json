@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DesignTypeEnum",
+  "description": "Schema for DesignTypeEnum from CMS Marketplace API",
+  "enum": [
+    "DESIGN1",
+    "DESIGN2",
+    "DESIGN3",
+    "DESIGN4",
+    "DESIGN5",
+    "NOT_APPLICABLE"
+  ],
+  "type": "string",
+  "properties": {}
+}

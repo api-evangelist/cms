@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CertificationStatus",
+  "description": "Schema for CertificationStatus from CMS Marketplace API",
+  "type": "string",
+  "enum": [
+    "Certified",
+    "Not Certified",
+    "Decertified",
+    "Certified Off-Exchange SADP"
+  ]
+}

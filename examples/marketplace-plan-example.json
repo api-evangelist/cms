@@ -1,0 +1,109 @@
+{
+  "title": "Plan Example",
+  "description": "Example Plan object from CMS Marketplace API",
+  "example": {
+    "id": "string",
+    "name": "string",
+    "benefits": [
+      {
+        "name": {},
+        "covered": {},
+        "cost_sharings": {},
+        "explanation": {},
+        "exclusions": {},
+        "has_limits": {},
+        "limit_unit": {},
+        "limit_quantity": {}
+      }
+    ],
+    "deductibles": [
+      {
+        "amount": {},
+        "csr": {},
+        "family_cost": {},
+        "network_tier": {},
+        "type": {},
+        "individual": {},
+        "family": {},
+        "display_string": {}
+      }
+    ],
+    "disease_mgmt_programs": [
+      {}
+    ],
+    "has_national_network": false,
+    "quality_rating": {
+      "available": false,
+      "year": 0,
+      "global_rating": 0,
+      "global_not_rated_reason": "string",
+      "clinical_quality_management_rating": 0,
+      "clinical_quality_management_not_rated_reason": "string",
+      "enrollee_experience_rating": 0,
+      "enrollee_experience_not_rated_reason": "string",
+      "plan_efficiency_rating": 0,
+      "plan_efficiency_not_rated_reason": "string"
+    },
+    "insurance_market": {},
+    "issuer": {
+      "eligible_dependents": [
+        {}
+      ],
+      "id": "string",
+      "individual_url": "string",
+      "name": "string",
+      "shop_url": "string",
+      "state": "string",
+      "toll_free": "string",
+      "tty": "string"
+    },
+    "market": {},
+    "max_age_child": 0.0,
+    "metal_level": {},
+    "moops": [
+      {
+        "amount": {},
+        "csr": {},
+        "family_cost": {},
+        "network_tier": {},
+        "type": {},
+        "individual": {},
+        "family": {},
+        "display_string": {}
+      }
+    ],
+    "premium": 0.0,
+    "premium_w_credit": 0.0,
+    "ehb_premium": 0.0,
+    "pediatric_ehb_premium": 0.0,
+    "aptc_eligible_premium": 0.0,
+    "guaranteed_rate": false,
+    "simple_choice": false,
+    "product_division": "HealthCare",
+    "specialist_referral_required": false,
+    "state": "string",
+    "type": "Indemnity",
+    "benefits_url": "string",
+    "brochure_url": "string",
+    "formulary_url": "string",
+    "network_url": "string",
+    "hsa_eligible": false,
+    "oopc": 0.0,
+    "suppression_state": "Available",
+    "tobacco_lookback": 0,
+    "certification": "Certified",
+    "network_adequacy": {
+      "scope": "string",
+      "networks": {}
+    },
+    "sbcs": {
+      "baby": null,
+      "diabetes": null,
+      "fracture": null
+    },
+    "rx_3mo_mail_order": false,
+    "is_ineligible": false,
+    "covers_nonhyde_abortion": false,
+    "service_area_id": "string"
+  }
+}

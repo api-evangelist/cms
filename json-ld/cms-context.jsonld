@@ -1,0 +1,514 @@
+{
+  "@context": {
+    "@vocab": "https://developer.cms.gov/vocab/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "cms": "https://developer.cms.gov/vocab/",
+    "fhir": "http://hl7.org/fhir/",
+    "city": "cms:city",
+    "state": "cms:state",
+    "street_1": "cms:street_1",
+    "street_2": "cms:street_2",
+    "zipcode": "cms:zipcode",
+    "countyfips": "cms:countyfips",
+    "code": "cms:code",
+    "status": "cms:status",
+    "msg": "cms:msg",
+    "err": "cms:err",
+    "market_year": {
+      "@id": "cms:market_year",
+      "@type": "xsd:integer"
+    },
+    "tiers": "cms:tiers",
+    "pctFPL": "cms:pctFPL",
+    "pctPremium": "cms:pctPremium",
+    "name": "cms:name",
+    "covered": {
+      "@id": "cms:covered",
+      "@type": "xsd:boolean"
+    },
+    "cost_sharings": "cms:cost_sharings",
+    "explanation": "cms:explanation",
+    "exclusions": "cms:exclusions",
+    "has_limits": {
+      "@id": "cms:has_limits",
+      "@type": "xsd:boolean"
+    },
+    "limit_unit": "cms:limit_unit",
+    "limit_quantity": {
+      "@id": "cms:limit_quantity",
+      "@type": "xsd:decimal"
+    },
+    "coinsurance_options": "cms:coinsurance_options",
+    "coinsurance_rate": {
+      "@id": "cms:coinsurance_rate",
+      "@type": "xsd:decimal"
+    },
+    "copay_amount": {
+      "@id": "cms:copay_amount",
+      "@type": "xsd:decimal"
+    },
+    "copay_options": "cms:copay_options",
+    "network_tier": "cms:network_tier",
+    "csr": "cms:csr",
+    "display_string": "cms:display_string",
+    "levels": "cms:levels",
+    "reasons": "cms:reasons",
+    "data": "cms:data",
+    "description": "cms:description",
+    "previous_plan_id": "cms:previous_plan_id",
+    "new_plan_id": "cms:new_plan_id",
+    "fips": "cms:fips",
+    "level": {
+      "@id": "cms:level",
+      "@type": "xsd:decimal"
+    },
+    "reason": {
+      "@id": "cms:reason",
+      "@type": "xsd:decimal"
+    },
+    "zipcodes": "cms:zipcodes",
+    "plan_id": "cms:plan_id",
+    "effective_date": "cms:effective_date",
+    "uses_tobacco": {
+      "@id": "cms:uses_tobacco",
+      "@type": "xsd:boolean"
+    },
+    "updated": "cms:updated",
+    "low": "cms:low",
+    "medium": "cms:medium",
+    "high": "cms:high",
+    "male": "cms:male",
+    "femaile": "cms:femaile",
+    "6": "cms:6",
+    "18": "cms:18",
+    "26": "cms:26",
+    "35": "cms:35",
+    "45": "cms:45",
+    "55": "cms:55",
+    "999": "cms:999",
+    "amount": {
+      "@id": "cms:amount",
+      "@type": "xsd:decimal"
+    },
+    "family_cost": "cms:family_cost",
+    "type": "cms:type",
+    "individual": {
+      "@id": "cms:individual",
+      "@type": "xsd:boolean"
+    },
+    "family": {
+      "@id": "cms:family",
+      "@type": "xsd:boolean"
+    },
+    "id": "cms:id",
+    "rxcui": "cms:rxcui",
+    "strength": "cms:strength",
+    "route": "cms:route",
+    "full_name": "cms:full_name",
+    "rxterms_dose_form": "cms:rxterms_dose_form",
+    "rxnorm_dose_form": "cms:rxnorm_dose_form",
+    "coverage": "cms:coverage",
+    "generic_rxcui": "cms:generic_rxcui",
+    "aptc": {
+      "@id": "cms:aptc",
+      "@type": "xsd:decimal"
+    },
+    "hardship_exemption": {
+      "@id": "cms:hardship_exemption",
+      "@type": "xsd:boolean"
+    },
+    "is_medicaid_chip": {
+      "@id": "cms:is_medicaid_chip",
+      "@type": "xsd:boolean"
+    },
+    "min": {
+      "@id": "cms:min",
+      "@type": "xsd:decimal"
+    },
+    "max": {
+      "@id": "cms:max",
+      "@type": "xsd:decimal"
+    },
+    "disease_mgmt_programs": "cms:disease_mgmt_programs",
+    "division": "cms:division",
+    "issuer": "cms:issuer",
+    "issuers": "cms:issuers",
+    "metal_levels": "cms:metal_levels",
+    "metal_level": "cms:metal_level",
+    "metal_design_types": "cms:metal_design_types",
+    "design_types": "cms:design_types",
+    "premium": {
+      "@id": "cms:premium",
+      "@type": "xsd:decimal"
+    },
+    "types": "cms:types",
+    "deductible": {
+      "@id": "cms:deductible",
+      "@type": "xsd:decimal"
+    },
+    "hsa": {
+      "@id": "cms:hsa",
+      "@type": "xsd:boolean"
+    },
+    "oopc": {
+      "@id": "cms:oopc",
+      "@type": "xsd:decimal"
+    },
+    "child_dental_coverage": {
+      "@id": "cms:child_dental_coverage",
+      "@type": "xsd:boolean"
+    },
+    "adult_dental_coverage": {
+      "@id": "cms:adult_dental_coverage",
+      "@type": "xsd:boolean"
+    },
+    "drugs": "cms:drugs",
+    "providers": "cms:providers",
+    "quality_rating": {
+      "@id": "cms:quality_rating",
+      "@type": "xsd:decimal"
+    },
+    "simple_choice": {
+      "@id": "cms:simple_choice",
+      "@type": "xsd:boolean"
+    },
+    "premium_range": "cms:premium_range",
+    "deductible_range": "cms:deductible_range",
+    "income": {
+      "@id": "cms:income",
+      "@type": "xsd:decimal"
+    },
+    "unemployment_received": "cms:unemployment_received",
+    "people": "cms:people",
+    "has_married_couple": {
+      "@id": "cms:has_married_couple",
+      "@type": "xsd:boolean"
+    },
+    "affordable": {
+      "@id": "cms:affordable",
+      "@type": "xsd:boolean"
+    },
+    "eligible_dependents": "cms:eligible_dependents",
+    "individual_url": "cms:individual_url",
+    "shop_url": "cms:shop_url",
+    "toll_free": "cms:toll_free",
+    "tty": "cms:tty",
+    "current": {
+      "@id": "cms:current",
+      "@type": "xsd:decimal"
+    },
+    "supported": "cms:supported",
+    "age": {
+      "@id": "cms:age",
+      "@type": "xsd:decimal"
+    },
+    "dob": "cms:dob",
+    "has_mec": {
+      "@id": "cms:has_mec",
+      "@type": "xsd:boolean"
+    },
+    "is_parent": {
+      "@id": "cms:is_parent",
+      "@type": "xsd:boolean"
+    },
+    "is_pregnant": {
+      "@id": "cms:is_pregnant",
+      "@type": "xsd:boolean"
+    },
+    "pregnant_with": {
+      "@id": "cms:pregnant_with",
+      "@type": "xsd:decimal"
+    },
+    "last_tobacco_use_date": "cms:last_tobacco_use_date",
+    "gender": "cms:gender",
+    "utilization_level": "cms:utilization_level",
+    "relationship": "cms:relationship",
+    "does_not_cohabitate": {
+      "@id": "cms:does_not_cohabitate",
+      "@type": "xsd:boolean"
+    },
+    "aptc_eligible": {
+      "@id": "cms:aptc_eligible",
+      "@type": "xsd:boolean"
+    },
+    "current_enrollment": "cms:current_enrollment",
+    "benefits": "cms:benefits",
+    "deductibles": "cms:deductibles",
+    "has_national_network": {
+      "@id": "cms:has_national_network",
+      "@type": "xsd:boolean"
+    },
+    "insurance_market": "cms:insurance_market",
+    "market": "cms:market",
+    "max_age_child": {
+      "@id": "cms:max_age_child",
+      "@type": "xsd:decimal"
+    },
+    "moops": "cms:moops",
+    "premium_w_credit": {
+      "@id": "cms:premium_w_credit",
+      "@type": "xsd:decimal"
+    },
+    "ehb_premium": {
+      "@id": "cms:ehb_premium",
+      "@type": "xsd:decimal"
+    },
+    "pediatric_ehb_premium": {
+      "@id": "cms:pediatric_ehb_premium",
+      "@type": "xsd:decimal"
+    },
+    "aptc_eligible_premium": {
+      "@id": "cms:aptc_eligible_premium",
+      "@type": "xsd:decimal"
+    },
+    "guaranteed_rate": {
+      "@id": "cms:guaranteed_rate",
+      "@type": "xsd:boolean"
+    },
+    "product_division": "cms:product_division",
+    "specialist_referral_required": {
+      "@id": "cms:specialist_referral_required",
+      "@type": "xsd:boolean"
+    },
+    "benefits_url": "cms:benefits_url",
+    "brochure_url": "cms:brochure_url",
+    "formulary_url": "cms:formulary_url",
+    "network_url": "cms:network_url",
+    "hsa_eligible": {
+      "@id": "cms:hsa_eligible",
+      "@type": "xsd:boolean"
+    },
+    "suppression_state": "cms:suppression_state",
+    "tobacco_lookback": {
+      "@id": "cms:tobacco_lookback",
+      "@type": "xsd:integer"
+    },
+    "certification": "cms:certification",
+    "network_adequacy": "cms:network_adequacy",
+    "sbcs": "cms:sbcs",
+    "rx_3mo_mail_order": {
+      "@id": "cms:rx_3mo_mail_order",
+      "@type": "xsd:boolean"
+    },
+    "is_ineligible": {
+      "@id": "cms:is_ineligible",
+      "@type": "xsd:boolean"
+    },
+    "covers_nonhyde_abortion": {
+      "@id": "cms:covers_nonhyde_abortion",
+      "@type": "xsd:boolean"
+    },
+    "service_area_id": "cms:service_area_id",
+    "filter": "cms:filter",
+    "household": "cms:household",
+    "offset": {
+      "@id": "cms:offset",
+      "@type": "xsd:decimal"
+    },
+    "order": "cms:order",
+    "place": "cms:place",
+    "sort": "cms:sort",
+    "year": {
+      "@id": "cms:year",
+      "@type": "xsd:decimal"
+    },
+    "aptc_override": {
+      "@id": "cms:aptc_override",
+      "@type": "xsd:decimal"
+    },
+    "csr_override": "cms:csr_override",
+    "catastrophic_override": {
+      "@id": "cms:catastrophic_override",
+      "@type": "xsd:boolean"
+    },
+    "suppressed_plan_ids": "cms:suppressed_plan_ids",
+    "specialties": "cms:specialties",
+    "accepting": "cms:accepting",
+    "npi": "cms:npi",
+    "languages": "cms:languages",
+    "facility_types": "cms:facility_types",
+    "taxonomy": "cms:taxonomy",
+    "addresses": "cms:addresses",
+    "provider": "cms:provider",
+    "address": "cms:address",
+    "distance": {
+      "@id": "cms:distance",
+      "@type": "xsd:decimal"
+    },
+    "available": {
+      "@id": "cms:available",
+      "@type": "xsd:boolean"
+    },
+    "global_rating": {
+      "@id": "cms:global_rating",
+      "@type": "xsd:integer"
+    },
+    "global_not_rated_reason": "cms:global_not_rated_reason",
+    "clinical_quality_management_rating": {
+      "@id": "cms:clinical_quality_management_rating",
+      "@type": "xsd:integer"
+    },
+    "clinical_quality_management_not_rated_reason": "cms:clinical_quality_management_not_rated_reason",
+    "enrollee_experience_rating": {
+      "@id": "cms:enrollee_experience_rating",
+      "@type": "xsd:integer"
+    },
+    "enrollee_experience_not_rated_reason": "cms:enrollee_experience_not_rated_reason",
+    "plan_efficiency_rating": {
+      "@id": "cms:plan_efficiency_rating",
+      "@type": "xsd:integer"
+    },
+    "plan_efficiency_not_rated_reason": "cms:plan_efficiency_not_rated_reason",
+    "area": {
+      "@id": "cms:area",
+      "@type": "xsd:integer"
+    },
+    "copay": {
+      "@id": "cms:copay",
+      "@type": "xsd:decimal"
+    },
+    "coinsurance": {
+      "@id": "cms:coinsurance",
+      "@type": "xsd:decimal"
+    },
+    "limit": {
+      "@id": "cms:limit",
+      "@type": "xsd:decimal"
+    },
+    "abbrev": "cms:abbrev",
+    "hix_name": "cms:hix_name",
+    "hix_url": "cms:hix_url",
+    "marketplace": "cms:marketplace",
+    "shop_hix_name": "cms:shop_hix_name",
+    "shop_hix_url": "cms:shop_hix_url",
+    "shop_marketplace": "cms:shop_marketplace",
+    "8962_link": "cms:8962_link",
+    "8965_link": "cms:8965_link",
+    "assister_program_url": "cms:assister_program_url",
+    "household_size": {
+      "@id": "cms:household_size",
+      "@type": "xsd:decimal"
+    },
+    "guideline": {
+      "@id": "cms:guideline",
+      "@type": "xsd:decimal"
+    },
+    "add_per_person_after_eight": {
+      "@id": "cms:add_per_person_after_eight",
+      "@type": "xsd:decimal"
+    },
+    "guidelines": "cms:guidelines",
+    "min_age": {
+      "@id": "cms:min_age",
+      "@type": "xsd:decimal"
+    },
+    "max_age": {
+      "@id": "cms:max_age",
+      "@type": "xsd:decimal"
+    },
+    "pc_fpl": {
+      "@id": "cms:pc_fpl",
+      "@type": "xsd:decimal"
+    },
+    "fiscal_year": {
+      "@id": "cms:fiscal_year",
+      "@type": "xsd:decimal"
+    },
+    "fiscal_quarter": {
+      "@id": "cms:fiscal_quarter",
+      "@type": "xsd:decimal"
+    },
+    "states": "cms:states",
+    "pc_fpl_parent": {
+      "@id": "cms:pc_fpl_parent",
+      "@type": "xsd:decimal"
+    },
+    "pc_fpl_pregnant": {
+      "@id": "cms:pc_fpl_pregnant",
+      "@type": "xsd:decimal"
+    },
+    "pc_fpl_adult": {
+      "@id": "cms:pc_fpl_adult",
+      "@type": "xsd:decimal"
+    },
+    "pc_fpl_child_newborn": {
+      "@id": "cms:pc_fpl_child_newborn",
+      "@type": "xsd:decimal"
+    },
+    "pc_fpl_child_1_5": {
+      "@id": "cms:pc_fpl_child_1_5",
+      "@type": "xsd:decimal"
+    },
+    "pc_fpl_child_6_18": {
+      "@id": "cms:pc_fpl_child_6_18",
+      "@type": "xsd:decimal"
+    },
+    "low_income_child": "cms:low_income_child",
+    "chip": "cms:chip",
+    "enrollmentGroups": "cms:enrollmentGroups",
+    "enrollees": "cms:enrollees",
+    "planID": "cms:planID",
+    "enrollmentGroupID": "cms:enrollmentGroupID",
+    "tobaccoDate": "cms:tobaccoDate",
+    "super_id": "cms:super_id",
+    "sub_id": "cms:sub_id",
+    "location": "cms:location",
+    "is_filer": {
+      "@id": "cms:is_filer",
+      "@type": "xsd:boolean"
+    },
+    "effective_age": {
+      "@id": "cms:effective_age",
+      "@type": "xsd:integer"
+    },
+    "has_hardship": {
+      "@id": "cms:has_hardship",
+      "@type": "xsd:boolean"
+    },
+    "allowed_metal_levels": "cms:allowed_metal_levels",
+    "allowed_plan_ids": "cms:allowed_plan_ids",
+    "maxAPTC": {
+      "@id": "cms:maxAPTC",
+      "@type": "xsd:decimal"
+    },
+    "is_custom": {
+      "@id": "cms:is_custom",
+      "@type": "xsd:boolean"
+    },
+    "enrollment_groups": "cms:enrollment_groups",
+    "aptc_amount": {
+      "@id": "cms:aptc_amount",
+      "@type": "xsd:decimal"
+    },
+    "is_catastrophic": {
+      "@id": "cms:is_catastrophic",
+      "@type": "xsd:boolean"
+    },
+    "is_pediatric": {
+      "@id": "cms:is_pediatric",
+      "@type": "xsd:boolean"
+    },
+    "aptc_percentage": {
+      "@id": "cms:aptc_percentage",
+      "@type": "xsd:decimal"
+    },
+    "enrollment_group_id": {
+      "@id": "cms:enrollment_group_id",
+      "@type": "xsd:decimal"
+    },
+    "grouping_reason": "cms:grouping_reason",
+    "subscriber_id": "cms:subscriber_id",
+    "relationships": "cms:relationships",
+    "counties": "cms:counties",
+    "zips": "cms:zips",
+    "rateAreas": "cms:rateAreas",
+    "rateArea": {
+      "@id": "cms:rateArea",
+      "@type": "xsd:integer"
+    }
+  },
+  "title": "CMS API JSON-LD Context",
+  "description": "JSON-LD context for Centers for Medicare and Medicaid Services API data",
+  "source": "https://developer.cms.gov/"
+}

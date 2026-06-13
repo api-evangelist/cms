@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "FamilyCostEnum",
+  "description": "family cost enumeration for MOOPs and deductibles",
+  "enum": [
+    "Individual",
+    "Family Per Person",
+    "Family"
+  ],
+  "type": "string",
+  "properties": {}
+}

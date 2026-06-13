@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "APTCEnrollmentGroup",
+  "description": "Schema for APTCEnrollmentGroup from CMS Marketplace API",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "aptc_eligible_premium": {
+      "type": "number",
+      "format": "float"
+    },
+    "division": {
+      "$ref": "#/definitions/ProductDivisionEnum"
+    },
+    "enrollees": {
+      "type": "array",
+      "$ref": "#/definitions/APTCEnrollee"
+    }
+  }
+}

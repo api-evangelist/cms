@@ -1,0 +1,24 @@
+{
+  "title": "Person Example",
+  "description": "Example Person object from CMS Marketplace API",
+  "example": {
+    "age": 0.0,
+    "dob": "string",
+    "has_mec": false,
+    "is_parent": false,
+    "is_pregnant": false,
+    "pregnant_with": 0.0,
+    "uses_tobacco": false,
+    "last_tobacco_use_date": "string",
+    "gender": "Male",
+    "utilization_level": "Low",
+    "relationship": {},
+    "does_not_cohabitate": false,
+    "aptc_eligible": false,
+    "current_enrollment": {
+      "plan_id": {},
+      "effective_date": "string",
+      "uses_tobacco": false
+    }
+  }
+}

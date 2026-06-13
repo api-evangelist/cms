@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LowIncomeChild",
+  "description": "Schema for LowIncomeChild from CMS Marketplace API",
+  "properties": {
+    "min_age": {
+      "description": "Minimum age",
+      "format": "integer",
+      "type": "number"
+    },
+    "max_age": {
+      "description": "Maximum age",
+      "format": "integer",
+      "type": "number"
+    },
+    "pc_fpl": {
+      "description": "Percentage federal poverty level",
+      "format": "float",
+      "type": "number"
+    }
+  },
+  "type": "object"
+}

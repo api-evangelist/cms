@@ -1,0 +1,90 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "StateMedicaid",
+  "description": "Schema for StateMedicaid from CMS Marketplace API",
+  "properties": {
+    "name": {
+      "description": "Uppercase name",
+      "type": "string"
+    },
+    "abbrev": {
+      "description": "2-letter USPS abbreviation",
+      "type": "string"
+    },
+    "fiscal_year": {
+      "description": "4 digit fiscal year",
+      "format": "integer",
+      "type": "number"
+    },
+    "fiscal_quarter": {
+      "description": "Fiscal quarter (1 - 4)",
+      "format": "integer",
+      "type": "number"
+    },
+    "pc_fpl_parent": {
+      "description": "Percentage federal poverty level parent caretaker",
+      "format": "float",
+      "type": "number"
+    },
+    "pc_fpl_pregnant": {
+      "description": "Percentage medicaid federal poverty level pregnant woman",
+      "format": "float",
+      "type": "number"
+    },
+    "pc_fpl_adult": {
+      "description": "Percentage federal poverty level adult group",
+      "format": "float",
+      "type": "number"
+    },
+    "pc_fpl_child_newborn": {
+      "description": "Percentage medicaid federal poverty level child",
+      "format": "float",
+      "type": "number"
+    },
+    "pc_fpl_child_1_5": {
+      "description": "Percentage medicaid federal poverty level child 1 - 5",
+      "format": "float",
+      "type": "number"
+    },
+    "pc_fpl_child_6_18": {
+      "description": "Percentage medicaid federal poverty level child 6 - 18",
+      "format": "float",
+      "type": "number"
+    },
+    "low_income_child": {
+      "description": "Low income child eligibility rules",
+      "items": {
+        "$ref": "#/definitions/LowIncomeChild"
+      },
+      "type": "array"
+    },
+    "chip": {
+      "description": "Children's Health Insurance Program eligibility rules",
+      "items": {
+        "$ref": "#/definitions/LowIncomeChild"
+      },
+      "type": "array"
+    }
+  },
+  "example": {
+    "name": "KANSAS",
+    "abbrev": "KS",
+    "fiscal_year": 2019,
+    "fiscal_quarter": 1,
+    "pc_fpl_parent": 0.33,
+    "pc_fpl_pregnant": 1.66,
+    "pc_fpl_adult": 0,
+    "pc_fpl_child_newborn": 1.66,
+    "pc_fpl_child_1_5": 1.49,
+    "pc_fpl_child_6_18": 1.33,
+    "low_income_child": [],
+    "chip": [
+      {
+        "min_age": 0,
+        "max_age": 18,
+        "pc_fpl": 2.35
+      }
+    ]
+  },
+  "type": "object"
+}

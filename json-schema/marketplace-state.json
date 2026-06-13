@@ -1,0 +1,65 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "State",
+  "description": "Schema for State from CMS Marketplace API",
+  "properties": {
+    "abbrev": {
+      "description": "2-letter USPS abbreviation",
+      "type": "string"
+    },
+    "fips": {
+      "description": "2-digit FIPS code",
+      "type": "string"
+    },
+    "hix_name": {
+      "type": "string"
+    },
+    "hix_url": {
+      "format": "uri",
+      "type": "string"
+    },
+    "marketplace": {
+      "$ref": "#/definitions/MarketplaceModelEnum"
+    },
+    "name": {
+      "type": "string"
+    },
+    "shop_hix_name": {
+      "type": "string"
+    },
+    "shop_hix_url": {
+      "format": "uri",
+      "type": "string"
+    },
+    "shop_marketplace": {
+      "$ref": "#/definitions/MarketplaceModelEnum"
+    },
+    "8962_link": {
+      "format": "uri",
+      "type": "string"
+    },
+    "8965_link": {
+      "format": "uri",
+      "type": "string"
+    },
+    "assister_program_url": {
+      "format": "uri",
+      "type": "string"
+    }
+  },
+  "example": {
+    "name": "Nevada",
+    "abbrev": "NV",
+    "fips": "32",
+    "marketplace_model": "FFM",
+    "shop_marketplace_model": "FFM",
+    "hix_name": "Nevada Health Link",
+    "hix_url": "https://www.nevadahealthlink.com/",
+    "shop_hix_name": "Nevada Health Link",
+    "shop_hix_url": "https://www.nevadahealthlink.com/",
+    "8962_link": "",
+    "8965_link": "",
+    "assister_program_url": "https://www.nevadahealthlink.com/find-assistance/"
+  },
+  "type": "object"
+}

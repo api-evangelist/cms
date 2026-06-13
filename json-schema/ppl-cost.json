@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Cost",
+  "description": "Schema for Cost from CMS PPL API",
+  "type": "object",
+  "required": [
+    "copay",
+    "cost",
+    "total",
+    "facilityType"
+  ],
+  "properties": {
+    "facilityType": {
+      "type": "string",
+      "description": "The type of facility that the cost data pertains to. Each facility type should only have one cost object per code."
+    },
+    "cost": {
+      "type": "number"
+    },
+    "copay": {
+      "type": "number"
+    },
+    "total": {
+      "type": "number"
+    }
+  },
+  "example": {
+    "cost": 1420,
+    "facilityType": "facilityType",
+    "copay": 355,
+    "total": 1775
+  }
+}

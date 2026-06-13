@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MOOP",
+  "description": "maximum out-of-pocket",
+  "properties": {
+    "amount": {
+      "type": "number"
+    },
+    "csr": {
+      "$ref": "#/definitions/CostSharingReductionEnum"
+    },
+    "family_cost": {
+      "type": "string",
+      "enum": [
+        "Individual",
+        "Family",
+        "Family Per Person"
+      ]
+    },
+    "network_tier": {
+      "$ref": "#/definitions/NetworkTierEnum"
+    },
+    "type": {
+      "enum": [
+        "Maximum Out of Pocket for Medical and Drug EHB Benefits (Total)",
+        "Maximum Out of Pocket for Medical EHB Benefits",
+        "Maximum Out of Pocket for Drug EHB Benefits"
+      ],
+      "type": "string"
+    },
+    "individual": {
+      "description": "Applies to individuals",
+      "type": "boolean"
+    },
+    "family": {
+      "description": "Applies to families",
+      "type": "boolean"
+    },
+    "display_string": {
+      "type": "string",
+      "description": "An optional human-readable description"
+    }
+  },
+  "type": "object"
+}

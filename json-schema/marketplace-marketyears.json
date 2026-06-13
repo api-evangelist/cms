@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MarketYears",
+  "description": "Current and supported market years",
+  "type": "object",
+  "properties": {
+    "current": {
+      "description": "Current market year",
+      "type": "number"
+    },
+    "supported": {
+      "description": "Supported market years",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/MarketYear"
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DecileEnum",
+  "description": "Schema for DecileEnum from CMS Marketplace API",
+  "enum": [
+    "Decile 1",
+    "Decile 2",
+    "Decile 3",
+    "Decile 4",
+    "Decile 5",
+    "Decile 6",
+    "Decile 7",
+    "Decile 8",
+    "Decile 9",
+    "Decile 10"
+  ],
+  "type": "string",
+  "properties": {}
+}

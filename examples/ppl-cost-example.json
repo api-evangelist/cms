@@ -1,0 +1,10 @@
+{
+  "title": "Cost Example",
+  "description": "Example Cost object from CMS PPL API",
+  "example": {
+    "facilityType": "string",
+    "cost": 0.0,
+    "copay": 0.0,
+    "total": 0.0
+  }
+}

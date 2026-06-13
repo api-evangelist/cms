@@ -1,0 +1,198 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Plan",
+  "description": "Schema for Plan from CMS Marketplace API",
+  "properties": {
+    "id": {
+      "description": "14-character HIOS plan ID",
+      "type": "string"
+    },
+    "name": {
+      "description": "Name of the insurance plan",
+      "type": "string"
+    },
+    "benefits": {
+      "items": {
+        "$ref": "#/definitions/Benefit"
+      },
+      "type": "array"
+    },
+    "deductibles": {
+      "items": {
+        "$ref": "#/definitions/Deductible"
+      },
+      "type": "array"
+    },
+    "disease_mgmt_programs": {
+      "items": {
+        "$ref": "#/definitions/DiseaseMgmtProgramsEnum"
+      },
+      "type": "array"
+    },
+    "has_national_network": {
+      "description": "if plan has a national network of providers",
+      "type": "boolean"
+    },
+    "quality_rating": {
+      "$ref": "#/definitions/QualityRating"
+    },
+    "insurance_market": {
+      "$ref": "#/definitions/InsuranceMarketEnum"
+    },
+    "issuer": {
+      "$ref": "#/definitions/Issuer"
+    },
+    "market": {
+      "$ref": "#/definitions/MarketEnum"
+    },
+    "max_age_child": {
+      "description": "the maximum age a person is considered a child on their parents' plan",
+      "format": "int32",
+      "type": "number"
+    },
+    "metal_level": {
+      "$ref": "#/definitions/MetalLevelEnum"
+    },
+    "moops": {
+      "items": {
+        "$ref": "#/definitions/MOOP"
+      },
+      "type": "array"
+    },
+    "premium": {
+      "description": "monthly premium in US dollars, unsubsidized (i.e., no APTC applied)",
+      "format": "float",
+      "type": "number"
+    },
+    "premium_w_credit": {
+      "description": "monthly premium in US dollars, with APTC applied",
+      "format": "float",
+      "type": "number"
+    },
+    "ehb_premium": {
+      "description": "monthly premium in US dollars, for essential health benefits portion of total premium",
+      "format": "float",
+      "type": "number"
+    },
+    "pediatric_ehb_premium": {
+      "description": "monthly pediatric portion of the ehb premium in US dollars",
+      "type": "number",
+      "format": "float"
+    },
+    "aptc_eligible_premium": {
+      "description": "the portion of the premium that is eligible for APTC",
+      "type": "number",
+      "format": "float"
+    },
+    "guaranteed_rate": {
+      "description": "true if the premiums are guaranteed (versus estimated)",
+      "type": "boolean"
+    },
+    "simple_choice": {
+      "description": "true if the plan is a Simple Choice plan",
+      "type": "boolean"
+    },
+    "product_division": {
+      "$ref": "#/definitions/ProductDivisionEnum"
+    },
+    "specialist_referral_required": {
+      "type": "boolean"
+    },
+    "state": {
+      "description": "2-letter USPS state abbreviation",
+      "type": "string"
+    },
+    "type": {
+      "$ref": "#/definitions/PlanTypeEnum"
+    },
+    "benefits_url": {
+      "type": "string"
+    },
+    "brochure_url": {
+      "type": "string"
+    },
+    "formulary_url": {
+      "type": "string"
+    },
+    "network_url": {
+      "type": "string"
+    },
+    "hsa_eligible": {
+      "description": "Is this plan eligible as an HSA?",
+      "type": "boolean"
+    },
+    "oopc": {
+      "description": "out-of-pocket cost; calculated when age, gender and utilization_level are present, otherwise -1",
+      "type": "number"
+    },
+    "suppression_state": {
+      "$ref": "#/definitions/SuppressionStatus"
+    },
+    "tobacco_lookback": {
+      "type": "integer"
+    },
+    "certification": {
+      "$ref": "#/definitions/CertificationStatus"
+    },
+    "network_adequacy": {
+      "description": "Network adequacy",
+      "type": "object",
+      "properties": {
+        "scope": {
+          "description": "The county for which the network adequacy is in scope",
+          "type": "string"
+        },
+        "networks": {
+          "description": "Specialty networks and their network types",
+          "type": "object"
+        }
+      }
+    },
+    "sbcs": {
+      "description": "Summary of benefits and costs",
+      "type": "object",
+      "properties": {
+        "baby": {
+          "description": "Typical yearly costs for having a healthy pregnancy and normal delivery for one person",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SBCScenario"
+            }
+          ]
+        },
+        "diabetes": {
+          "description": "Typical yearly costs for managing type 2 diabetes for one person",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SBCScenario"
+            }
+          ]
+        },
+        "fracture": {
+          "description": "Typical yearly costs for treating a simple fracture",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SBCScenario"
+            }
+          ]
+        }
+      }
+    },
+    "rx_3mo_mail_order": {
+      "description": "3-month in-network mail order pharmacy benefit",
+      "type": "boolean"
+    },
+    "is_ineligible": {
+      "description": "If the given enrollment group/household is ineligible for the plan by business rules, it will be flagged true",
+      "type": "boolean"
+    },
+    "covers_nonhyde_abortion": {
+      "type": "boolean"
+    },
+    "service_area_id": {
+      "description": "6-character id representing the geographic area the plan accepts members from.  The first two characters are the state's abbreviation.",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

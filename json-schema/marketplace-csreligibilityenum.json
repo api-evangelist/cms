@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CSREligibilityEnum",
+  "description": "Cost-sharing reduction (CSR)",
+  "type": "string",
+  "enum": [
+    "73% AV Level Silver Plan CSR",
+    "87% AV Level Silver Plan CSR",
+    "94% AV Level Silver Plan CSR"
+  ],
+  "properties": {}
+}

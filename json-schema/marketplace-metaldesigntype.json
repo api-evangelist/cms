@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MetalDesignType",
+  "description": "Schema for MetalDesignType from CMS Marketplace API",
+  "properties": {
+    "metal_level": {
+      "$ref": "#/definitions/MetalLevelEnum"
+    },
+    "design_types": {
+      "items": {
+        "$ref": "#/definitions/DesignTypeEnum"
+      },
+      "type": "array"
+    }
+  }
+}

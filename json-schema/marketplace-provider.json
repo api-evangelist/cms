@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Provider",
+  "description": "Schema for Provider from CMS Marketplace API",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "gender": {
+      "$ref": "#/definitions/ProviderGenderEnum"
+    },
+    "specialties": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "type": {
+      "$ref": "#/definitions/ProviderTypeEnum"
+    },
+    "accepting": {
+      "type": "string",
+      "enum": [
+        "accepting",
+        "not accepting",
+        "accepting in some locations",
+        "unknown"
+      ]
+    },
+    "npi": {
+      "type": "string",
+      "pattern": "^[0-9]{10}$",
+      "title": "National Provider Identifier"
+    },
+    "languages": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "facility_types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "If provider is a facility, this is a list of the applicable facility types"
+    },
+    "taxonomy": {
+      "type": "string",
+      "description": "provider taxonomy from National Uniform Claim Committee"
+    }
+  },
+  "type": "object",
+  "required": [
+    "name",
+    "type",
+    "npi"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LowestCostPlanResponse",
+  "description": "Schema for LowestCostPlanResponse from CMS Marketplace API",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "premium": {
+      "type": "number"
+    },
+    "metal_level": {
+      "$ref": "#/definitions/MetalLevelEnum"
+    }
+  },
+  "example": {
+    "id": "11111PA0000000",
+    "name": "The Best Plan You Ever Did See",
+    "premium": 850.16,
+    "metal_level": "Bronze"
+  },
+  "type": "object"
+}

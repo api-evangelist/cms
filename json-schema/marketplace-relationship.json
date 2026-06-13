@@ -1,0 +1,7 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Relationship",
+  "description": "Should match one of the [listed valid relationships](#introduction/more-information-about-households).",
+  "type": "string",
+  "properties": {}
+}

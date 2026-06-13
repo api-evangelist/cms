@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Address",
+  "description": "Schema for Address from CMS Marketplace API",
+  "properties": {
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "street_1": {
+      "type": "string"
+    },
+    "street_2": {
+      "type": "string"
+    },
+    "zipcode": {
+      "type": "string"
+    },
+    "countyfips": {
+      "description": "5-digit county FIPS code",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

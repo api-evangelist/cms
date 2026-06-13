@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Drug",
+  "description": "Schema for Drug from CMS Marketplace API",
+  "properties": {
+    "id": {
+      "description": "drug ID",
+      "type": "string",
+      "pattern": "^[0-9]{1,10}$"
+    },
+    "name": {
+      "description": "normalized SAB=RXNORM name",
+      "type": "string"
+    },
+    "rxcui": {
+      "$ref": "#/definitions/RxCUI"
+    },
+    "strength": {
+      "description": "strength information for this drug",
+      "type": "string"
+    },
+    "route": {
+      "description": "route information for this drug",
+      "type": "string"
+    },
+    "full_name": {
+      "description": "full name information for this drug",
+      "type": "string"
+    },
+    "rxterms_dose_form": {
+      "description": "rxtermsDoseForm value for this drug",
+      "type": "string"
+    },
+    "rxnorm_dose_form": {
+      "description": "rxnormDoseForm for this drug",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

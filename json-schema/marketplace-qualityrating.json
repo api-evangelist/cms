@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "QualityRating",
+  "description": "Schema for QualityRating from CMS Marketplace API",
+  "properties": {
+    "available": {
+      "type": "boolean",
+      "description": "True if the plan has a quality rating, otherwise false.  A plan can still be unrated when the quality rating is available"
+    },
+    "year": {
+      "x-example": 2019,
+      "type": "integer"
+    },
+    "global_rating": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 5
+    },
+    "global_not_rated_reason": {
+      "type": "string"
+    },
+    "clinical_quality_management_rating": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 5
+    },
+    "clinical_quality_management_not_rated_reason": {
+      "type": "string"
+    },
+    "enrollee_experience_rating": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 5
+    },
+    "enrollee_experience_not_rated_reason": {
+      "type": "string"
+    },
+    "plan_efficiency_rating": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 5
+    },
+    "plan_efficiency_not_rated_reason": {
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

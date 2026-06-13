@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ApplicationError400",
+  "description": "Schema for ApplicationError400 from CMS Marketplace API",
+  "properties": {
+    "code": {
+      "description": "Marketplace API status code",
+      "type": "string",
+      "example": "1003"
+    },
+    "status": {
+      "description": "HTTP status code",
+      "type": "string",
+      "example": "400"
+    },
+    "msg": {
+      "description": "Message describing the type of error",
+      "type": "string",
+      "example": "invalid get county request"
+    },
+    "err": {
+      "description": "Specific error encountered",
+      "type": "string",
+      "example": "FIPS: has invalid format"
+    }
+  },
+  "type": "object"
+}

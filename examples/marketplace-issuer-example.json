@@ -1,0 +1,16 @@
+{
+  "title": "Issuer Example",
+  "description": "Example Issuer object from CMS Marketplace API",
+  "example": {
+    "eligible_dependents": [
+      {}
+    ],
+    "id": "string",
+    "individual_url": "string",
+    "name": "string",
+    "shop_url": "string",
+    "state": "string",
+    "toll_free": "string",
+    "tty": "string"
+  }
+}

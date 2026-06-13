@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DiseaseMgmtProgramsEnum",
+  "description": "Schema for DiseaseMgmtProgramsEnum from CMS Marketplace API",
+  "enum": [
+    "Asthma",
+    "Heart Disease",
+    "Depression",
+    "Diabetes",
+    "High Blood Pressure and High Cholesterol",
+    "Low Back Pain",
+    "Pain Management",
+    "Pregnancy",
+    "Weight Loss Programs"
+  ],
+  "type": "string",
+  "properties": {}
+}

@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CostSharing",
+  "description": "Schema for CostSharing from CMS Marketplace API",
+  "properties": {
+    "coinsurance_options": {
+      "type": "string"
+    },
+    "coinsurance_rate": {
+      "format": "float",
+      "type": "number"
+    },
+    "copay_amount": {
+      "type": "number"
+    },
+    "copay_options": {
+      "type": "string"
+    },
+    "network_tier": {
+      "$ref": "#/definitions/NetworkTierEnum"
+    },
+    "csr": {
+      "$ref": "#/definitions/CostSharingReductionEnum"
+    },
+    "display_string": {
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

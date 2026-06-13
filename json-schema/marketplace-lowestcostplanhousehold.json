@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LowestCostPlanHousehold",
+  "description": "Schema for LowestCostPlanHousehold from CMS Marketplace API",
+  "properties": {
+    "income": {
+      "description": "household's yearly income in dollars",
+      "format": "float",
+      "type": "number"
+    },
+    "people": {
+      "description": "people in household applying for coverage/seeking eligibility esimate",
+      "items": {
+        "$ref": "#/definitions/LowestCostPlanPerson"
+      },
+      "type": "array"
+    }
+  },
+  "example": {
+    "income": 60000,
+    "people": [
+      {
+        "dob": "1979-01-06",
+        "current_plan": "45127PA0020020",
+        "csr_variant": "no_csr_eligibility",
+        "relationship": "Self",
+        "uses_tobacco": false,
+        "age": 39
+      }
+    ],
+    "effective_date": "2019-01-01"
+  },
+  "type": "object"
+}

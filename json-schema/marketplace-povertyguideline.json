@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PovertyGuideline",
+  "description": "Schema for PovertyGuideline from CMS Marketplace API",
+  "properties": {
+    "add_per_person_after_eight": {
+      "description": "For households over eight members add this value for each additional member",
+      "format": "integer",
+      "type": "number"
+    },
+    "guidelines": {
+      "description": "Household guidelines",
+      "items": {
+        "$ref": "#/definitions/Guideline"
+      },
+      "type": "array"
+    }
+  },
+  "type": "object"
+}

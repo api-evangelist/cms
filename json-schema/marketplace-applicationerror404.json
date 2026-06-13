@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ApplicationError404",
+  "description": "Schema for ApplicationError404 from CMS Marketplace API",
+  "properties": {
+    "code": {
+      "description": "Marketplace API status code",
+      "type": "string",
+      "example": "1006"
+    },
+    "status": {
+      "description": "HTTP status code",
+      "type": "string",
+      "example": "404"
+    },
+    "msg": {
+      "description": "Message describing the type of error",
+      "type": "string",
+      "example": "Plan not found"
+    },
+    "err": {
+      "description": "Specific error encountered",
+      "type": "string",
+      "example": "sql: No records found"
+    }
+  },
+  "type": "object"
+}

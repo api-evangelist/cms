@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Range",
+  "description": "Schema for Range from CMS Marketplace API",
+  "properties": {
+    "min": {
+      "format": "float",
+      "type": "number"
+    },
+    "max": {
+      "format": "float",
+      "type": "number"
+    }
+  },
+  "type": "object"
+}

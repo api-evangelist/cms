@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Benefit",
+  "description": "Schema for Benefit from CMS Marketplace API",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "covered": {
+      "type": "boolean"
+    },
+    "cost_sharings": {
+      "items": {
+        "$ref": "#/definitions/CostSharing"
+      },
+      "type": "array"
+    },
+    "explanation": {
+      "type": "string"
+    },
+    "exclusions": {
+      "type": "string"
+    },
+    "has_limits": {
+      "type": "boolean"
+    },
+    "limit_unit": {
+      "type": "string"
+    },
+    "limit_quantity": {
+      "format": "integer",
+      "type": "number"
+    }
+  },
+  "type": "object"
+}

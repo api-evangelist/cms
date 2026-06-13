@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Place",
+  "description": "Schema for Place from CMS Marketplace API",
+  "properties": {
+    "countyfips": {
+      "description": "5-digit county FIPS code",
+      "type": "string"
+    },
+    "state": {
+      "description": "2-letter USPS state abbreviation",
+      "type": "string"
+    },
+    "zipcode": {
+      "description": "5-digit ZIP Code",
+      "type": "string"
+    }
+  },
+  "required": [
+    "countyfips",
+    "state",
+    "zipcode"
+  ],
+  "example": {
+    "countyfips": "51107",
+    "state": "VA",
+    "zipcode": "20103"
+  },
+  "type": "object"
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "APTTier",
+  "description": "Schema for APTTier from CMS Marketplace API",
+  "properties": {
+    "pctFPL": {
+      "description": "Percentage of the Federal Poverty Line in regards to your income",
+      "$ref": "#/definitions/Range"
+    },
+    "pctPremium": {
+      "description": "Percentage of the premium to pay based on the income range",
+      "$ref": "#/definitions/Range"
+    }
+  },
+  "type": "object"
+}

@@ -1,0 +1,21 @@
+{
+  "title": "Provider Example",
+  "description": "Example Provider object from CMS Marketplace API",
+  "example": {
+    "name": "string",
+    "gender": {},
+    "specialties": [
+      "string"
+    ],
+    "type": {},
+    "accepting": "accepting",
+    "npi": "string",
+    "languages": [
+      "string"
+    ],
+    "facility_types": [
+      "string"
+    ],
+    "taxonomy": "string"
+  }
+}

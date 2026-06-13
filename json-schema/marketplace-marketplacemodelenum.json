@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MarketplaceModelEnum",
+  "description": "Schema for MarketplaceModelEnum from CMS Marketplace API",
+  "enum": [
+    "FFM",
+    "FFMPartnership",
+    "SBM",
+    "SupportedSBM"
+  ],
+  "type": "string",
+  "properties": {}
+}

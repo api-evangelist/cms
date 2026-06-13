@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Crosswalk",
+  "description": "Schema for Crosswalk from CMS Marketplace API",
+  "properties": {
+    "levels": {
+      "items": {
+        "$ref": "#/definitions/CrosswalkCode"
+      },
+      "type": "array"
+    },
+    "reasons": {
+      "items": {
+        "$ref": "#/definitions/CrosswalkCode"
+      },
+      "type": "array"
+    },
+    "data": {
+      "items": {
+        "$ref": "#/definitions/CrosswalkData"
+      },
+      "type": "array"
+    }
+  },
+  "type": "object"
+}

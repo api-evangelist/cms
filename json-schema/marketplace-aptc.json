@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "APTC",
+  "description": "Schema for APTC from CMS Marketplace API",
+  "properties": {
+    "aptc_amount": {
+      "format": "float",
+      "type": "number"
+    },
+    "is_catastrophic": {
+      "type": "boolean"
+    },
+    "enrollment_groups": {
+      "type": "array",
+      "$ref": "#/definitions/APTCEnrollmentGroup"
+    }
+  }
+}

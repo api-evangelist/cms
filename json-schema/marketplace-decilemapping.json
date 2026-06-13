@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DecileMapping",
+  "description": "Schema for DecileMapping from CMS Marketplace API",
+  "properties": {
+    "low": {
+      "$ref": "#/definitions/DecileUtilizationMapping"
+    },
+    "medium": {
+      "$ref": "#/definitions/DecileUtilizationMapping"
+    },
+    "high": {
+      "$ref": "#/definitions/DecileUtilizationMapping"
+    }
+  },
+  "type": "object"
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LowestCostPlanPerson",
+  "description": "Schema for LowestCostPlanPerson from CMS Marketplace API",
+  "properties": {
+    "age": {
+      "format": "integer",
+      "type": "number"
+    },
+    "uses_tobacco": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "type": "object"
+}

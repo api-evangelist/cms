@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SBCScenario",
+  "description": "Schema for SBCScenario from CMS Marketplace API",
+  "type": "object",
+  "properties": {
+    "deductible": {
+      "type": "number",
+      "format": "float"
+    },
+    "copay": {
+      "type": "number",
+      "format": "float"
+    },
+    "coinsurance": {
+      "type": "number",
+      "format": "float"
+    },
+    "limit": {
+      "type": "number",
+      "format": "float"
+    }
+  }
+}

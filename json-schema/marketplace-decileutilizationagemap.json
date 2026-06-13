@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DecileUtilizationAgeMap",
+  "description": "Schema for DecileUtilizationAgeMap from CMS Marketplace API",
+  "properties": {
+    "6": {
+      "$ref": "#/definitions/DecileEnum"
+    },
+    "18": {
+      "$ref": "#/definitions/DecileEnum"
+    },
+    "26": {
+      "$ref": "#/definitions/DecileEnum"
+    },
+    "35": {
+      "$ref": "#/definitions/DecileEnum"
+    },
+    "45": {
+      "$ref": "#/definitions/DecileEnum"
+    },
+    "55": {
+      "$ref": "#/definitions/DecileEnum"
+    },
+    "999": {
+      "$ref": "#/definitions/DecileEnum"
+    }
+  },
+  "type": "object"
+}

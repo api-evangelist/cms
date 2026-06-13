@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "NetworkTierEnum",
+  "description": "Schema for NetworkTierEnum from CMS Marketplace API",
+  "enum": [
+    "In-Network",
+    "In-Network Tier 2",
+    "Out-of-Network",
+    "Combined In-Out of Network"
+  ],
+  "type": "string",
+  "properties": {}
+}

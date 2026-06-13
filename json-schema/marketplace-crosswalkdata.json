@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CrosswalkData",
+  "description": "Schema for CrosswalkData from CMS Marketplace API",
+  "properties": {
+    "state": {
+      "description": "Two letter State designation",
+      "type": "string"
+    },
+    "previous_plan_id": {
+      "type": "string"
+    },
+    "new_plan_id": {
+      "type": "string"
+    },
+    "fips": {
+      "description": "County FIPS code",
+      "type": "string"
+    },
+    "level": {
+      "description": "Integer code value",
+      "format": "integer",
+      "type": "number"
+    },
+    "reason": {
+      "description": "Integer code value",
+      "format": "integer",
+      "type": "number"
+    },
+    "zipcodes": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    }
+  },
+  "type": "object"
+}

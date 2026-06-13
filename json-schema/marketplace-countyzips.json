@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CountyZips",
+  "description": "Schema for CountyZips from CMS Marketplace API",
+  "properties": {
+    "name": {
+      "type": "string",
+      "example": "Sedgwick"
+    },
+    "fips": {
+      "format": "^[0-9]{5}$",
+      "type": "string",
+      "example": 20173
+    },
+    "zips": {
+      "items": {
+        "format": "^[0-9]{5}$",
+        "example": 67212,
+        "type": "string"
+      },
+      "type": "array"
+    }
+  },
+  "type": "object"
+}

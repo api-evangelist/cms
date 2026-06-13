@@ -1,0 +1,113 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PlanSearchFilter",
+  "description": "plan search filter",
+  "properties": {
+    "disease_mgmt_programs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/DiseaseMgmtProgramsEnum"
+      }
+    },
+    "division": {
+      "$ref": "#/definitions/ProductDivisionEnum"
+    },
+    "issuer": {
+      "description": "Issuer name",
+      "type": "string"
+    },
+    "issuers": {
+      "description": "A List of Issuers names",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "metal_levels": {
+      "description": "A list of Metalic Levels",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/MetalLevelEnum"
+      }
+    },
+    "metal_level": {
+      "$ref": "#/definitions/MetalLevelEnum"
+    },
+    "metal_design_types": {
+      "description": "A list of Plan Design Type / Metalic Level Combinations",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/MetalDesignType"
+      }
+    },
+    "design_types": {
+      "description": "A list of Plan Design Types",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/DesignTypeEnum"
+      }
+    },
+    "premium": {
+      "type": "number"
+    },
+    "type": {
+      "$ref": "#/definitions/PlanTypeEnum"
+    },
+    "types": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/PlanTypeEnum"
+      },
+      "description": "a list of plan types"
+    },
+    "deductible": {
+      "type": "number"
+    },
+    "hsa": {
+      "description": "HSA eligibilty",
+      "type": "boolean"
+    },
+    "oopc": {
+      "description": "Out of Pocket Costs",
+      "type": "number"
+    },
+    "child_dental_coverage": {
+      "description": "Only show plans with child dental coverage",
+      "type": "boolean"
+    },
+    "adult_dental_coverage": {
+      "description": "Only show plans with adult dental coverage",
+      "type": "boolean"
+    },
+    "drugs": {
+      "description": "A list of RXCUIs",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[0-9]{5,7}$"
+      }
+    },
+    "providers": {
+      "description": "A list of NPIs",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[0-9]{10}$"
+      }
+    },
+    "quality_rating": {
+      "description": "Quality ratings for a plan",
+      "type": "number"
+    },
+    "simple_choice": {
+      "type": "boolean"
+    },
+    "premium_range": {
+      "$ref": "#/definitions/Range"
+    },
+    "deductible_range": {
+      "$ref": "#/definitions/Range"
+    }
+  },
+  "type": "object"
+}

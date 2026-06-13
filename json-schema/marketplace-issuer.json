@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Issuer",
+  "description": "Schema for Issuer from CMS Marketplace API",
+  "properties": {
+    "eligible_dependents": {
+      "description": "list of allowed relationship types for dependents",
+      "items": {
+        "$ref": "#/definitions/Relationship"
+      },
+      "type": "array"
+    },
+    "id": {
+      "description": "5-digit HIOS ID",
+      "type": "string"
+    },
+    "individual_url": {
+      "description": "URL for individual market plans",
+      "type": "string"
+    },
+    "name": {
+      "description": "issuer's name",
+      "type": "string"
+    },
+    "shop_url": {
+      "description": "URL for SHOP market plans",
+      "type": "string"
+    },
+    "state": {
+      "description": "2-letter USPS state abbreviation",
+      "type": "string"
+    },
+    "toll_free": {
+      "description": "toll-free customer service phone number",
+      "type": "string"
+    },
+    "tty": {
+      "description": "TTY customer service number)",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

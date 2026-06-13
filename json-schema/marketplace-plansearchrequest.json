@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PlanSearchRequest",
+  "description": "Schema for PlanSearchRequest from CMS Marketplace API",
+  "properties": {
+    "filter": {
+      "$ref": "#/definitions/PlanSearchFilter"
+    },
+    "household": {
+      "$ref": "#/definitions/Household"
+    },
+    "offset": {
+      "type": "number"
+    },
+    "order": {
+      "enum": [
+        "asc",
+        "desc"
+      ],
+      "type": "string"
+    },
+    "place": {
+      "$ref": "#/definitions/Place"
+    },
+    "sort": {
+      "enum": [
+        "premium",
+        "deductible",
+        "oopc",
+        "total_costs",
+        "quality_rating"
+      ],
+      "type": "string"
+    },
+    "year": {
+      "description": "defaults to current open enrollment year",
+      "x-example": 2019,
+      "type": "number"
+    },
+    "market": {
+      "$ref": "#/definitions/MarketEnum"
+    },
+    "aptc_override": {
+      "description": "override the aptc calculation with a specific amount",
+      "type": "number"
+    },
+    "csr_override": {
+      "$ref": "#/definitions/CSRRequestEnum"
+    },
+    "catastrophic_override": {
+      "description": "Force the display (or suppression) of catastrophic plans",
+      "type": "boolean"
+    },
+    "suppressed_plan_ids": {
+      "$ref": "#/definitions/PlanIDList"
+    }
+  },
+  "required": [
+    "place",
+    "market"
+  ],
+  "type": "object"
+}

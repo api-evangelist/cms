@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ProviderGenderEnum",
+  "description": "Schema for ProviderGenderEnum from CMS Marketplace API",
+  "enum": [
+    "Male",
+    "Female",
+    "Other",
+    "Transgender-female",
+    "Transgender-male",
+    "Non-binary",
+    "Non-disclose"
+  ],
+  "type": "string",
+  "properties": {}
+}

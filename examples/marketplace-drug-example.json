@@ -1,0 +1,14 @@
+{
+  "title": "Drug Example",
+  "description": "Example Drug object from CMS Marketplace API",
+  "example": {
+    "id": "string",
+    "name": "string",
+    "rxcui": {},
+    "strength": "string",
+    "route": "string",
+    "full_name": "string",
+    "rxterms_dose_form": "string",
+    "rxnorm_dose_form": "string"
+  }
+}

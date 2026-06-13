@@ -1,0 +1,8 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "NPI",
+  "description": "Schema for NPI from CMS Marketplace API",
+  "type": "string",
+  "pattern": "^[0-9]{10}$",
+  "properties": {}
+}

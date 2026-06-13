@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Code",
+  "description": "Schema for Code from CMS PPL API",
+  "type": "object",
+  "required": [
+    "code",
+    "description",
+    "frequency"
+  ],
+  "properties": {
+    "code": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "frequency": {
+      "type": "integer"
+    }
+  },
+  "example": {
+    "code": "code",
+    "description": "description",
+    "frequency": 0
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CSRRequestEnum",
+  "description": "Cost-sharing reduction (CSR) override for requests",
+  "type": "string",
+  "enum": [
+    "CSR73",
+    "CSR87",
+    "CSR94",
+    "LimitedCSR",
+    "ZeroCSR"
+  ]
+}

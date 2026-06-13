@@ -1,0 +1,12 @@
+{
+  "title": "Address Example",
+  "description": "Example Address object from CMS Marketplace API",
+  "example": {
+    "city": "string",
+    "state": "string",
+    "street_1": "string",
+    "street_2": "string",
+    "zipcode": "string",
+    "countyfips": "string"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SuppressionStatus",
+  "description": "Schema for SuppressionStatus from CMS Marketplace API",
+  "type": "string",
+  "enum": [
+    "Available",
+    "Suspended",
+    "Closed",
+    "Not Applicable"
+  ]
+}

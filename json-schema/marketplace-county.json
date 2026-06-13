@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "County",
+  "description": "Schema for County from CMS Marketplace API",
+  "properties": {
+    "fips": {
+      "type": "string",
+      "example": "04013"
+    },
+    "name": {
+      "type": "string",
+      "example": "Maricopa County"
+    },
+    "state": {
+      "description": "2-letter USPS state abbreviation",
+      "example": "AZ",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

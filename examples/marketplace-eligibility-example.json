@@ -1,0 +1,10 @@
+{
+  "title": "Eligibility Example",
+  "description": "Example Eligibility object from CMS Marketplace API",
+  "example": {
+    "aptc": 0.0,
+    "csr": {},
+    "hardship_exemption": false,
+    "is_medicaid_chip": false
+  }
+}

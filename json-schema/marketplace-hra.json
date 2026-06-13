@@ -1,0 +1,7 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "HRA",
+  "description": "monthly employee HRA from employer",
+  "format": "float",
+  "type": "number"
+}

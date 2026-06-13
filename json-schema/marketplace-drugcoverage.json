@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DrugCoverage",
+  "description": "Schema for DrugCoverage from CMS Marketplace API",
+  "properties": {
+    "rxcui": {
+      "$ref": "#/definitions/RxCUI"
+    },
+    "plan_id": {
+      "$ref": "#/definitions/PlanID"
+    },
+    "coverage": {
+      "$ref": "#/definitions/Coverage"
+    },
+    "generic_rxcui": {
+      "type": "string",
+      "description": "The RxCUI for the generic equivalent of the given drug"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PlanID",
+  "description": "Schema for PlanID from CMS Marketplace API",
+  "type": "string",
+  "pattern": "^[0-9]{5}[A-Z]{2}[0-9]{7}$",
+  "properties": {}
+}

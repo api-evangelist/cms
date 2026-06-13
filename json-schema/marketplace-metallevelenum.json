@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MetalLevelEnum",
+  "description": "Schema for MetalLevelEnum from CMS Marketplace API",
+  "enum": [
+    "Catastrophic",
+    "Silver",
+    "Bronze",
+    "Gold",
+    "Platinum"
+  ],
+  "type": "string",
+  "properties": {}
+}

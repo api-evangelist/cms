@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RateAreaCounty",
+  "description": "Schema for RateAreaCounty from CMS Marketplace API",
+  "properties": {
+    "rateArea": {
+      "description": "Rate area number for the given state.",
+      "type": "integer",
+      "example": 6
+    },
+    "counties": {
+      "description": "list of counties for given state",
+      "items": {
+        "$ref": "#/definitions/CountyZips"
+      },
+      "type": "array"
+    }
+  },
+  "type": "object"
+}

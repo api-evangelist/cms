@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PlanTypeEnum",
+  "description": "Schema for PlanTypeEnum from CMS Marketplace API",
+  "enum": [
+    "Indemnity",
+    "PPO",
+    "HMO",
+    "EPO",
+    "POS"
+  ],
+  "type": "string"
+}

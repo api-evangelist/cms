@@ -1,0 +1,28 @@
+{
+  "title": "Household Example",
+  "description": "Example Household object from CMS Marketplace API",
+  "example": {
+    "income": 0.0,
+    "unemployment_received": "Adult",
+    "people": [
+      {
+        "age": {},
+        "dob": {},
+        "has_mec": {},
+        "is_parent": {},
+        "is_pregnant": {},
+        "pregnant_with": {},
+        "uses_tobacco": {},
+        "last_tobacco_use_date": {},
+        "gender": {},
+        "utilization_level": {},
+        "relationship": {},
+        "does_not_cohabitate": {},
+        "aptc_eligible": {},
+        "current_enrollment": {}
+      }
+    ],
+    "has_married_couple": false,
+    "effective_date": "string"
+  }
+}

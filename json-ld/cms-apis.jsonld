@@ -1,0 +1,82 @@
+{
+  "@context": {
+    "schema": "https://schema.org/",
+    "cms": "https://developer.cms.gov/vocab/"
+  },
+  "@graph": [
+    {
+      "@type": "schema:WebAPI",
+      "@id": "https://developer.cms.gov/marketplace-api/",
+      "schema:name": "CMS Marketplace API",
+      "schema:description": "Delivers data that helps users find and evaluate health care insurance plans, providers, and coverage information on the ACA Health Insurance Marketplace",
+      "schema:url": "https://developer.cms.gov/marketplace-api/",
+      "schema:provider": {
+        "@type": "schema:GovernmentOrganization",
+        "schema:name": "Centers for Medicare and Medicaid Services",
+        "schema:url": "https://www.cms.gov/"
+      },
+      "schema:version": "1"
+    },
+    {
+      "@type": "schema:WebAPI",
+      "@id": "https://developer.cms.gov/ppl-api/",
+      "schema:name": "CMS Procedure Price Lookup API",
+      "schema:description": "Provides bulk cost data including AMA procedure descriptions and Medicare cost data for approximately 4,000 CPT/HCPCS medical procedure codes",
+      "schema:url": "https://developer.cms.gov/ppl-api/",
+      "schema:provider": {
+        "@type": "schema:GovernmentOrganization",
+        "schema:name": "Centers for Medicare and Medicaid Services",
+        "schema:url": "https://www.cms.gov/"
+      },
+      "schema:version": "1.1.1"
+    },
+    {
+      "@type": "schema:WebAPI",
+      "@id": "https://bluebutton.cms.gov/",
+      "schema:name": "CMS Blue Button 2.0 API",
+      "schema:description": "A standards-based API that delivers Medicare Part A, B, and D claims data for over 60 million Medicare beneficiaries using HL7 FHIR",
+      "schema:url": "https://bluebutton.cms.gov/",
+      "schema:provider": {
+        "@type": "schema:GovernmentOrganization",
+        "schema:name": "Centers for Medicare and Medicaid Services",
+        "schema:url": "https://www.cms.gov/"
+      }
+    },
+    {
+      "@type": "schema:WebAPI",
+      "@id": "https://bcda.cms.gov/",
+      "schema:name": "CMS Beneficiary Claims Data API",
+      "schema:description": "Enables Medicare Accountable Care Organizations to retrieve Medicare Part A, B, and D claims data for their attributed enrollees using HL7 Bulk FHIR",
+      "schema:url": "https://bcda.cms.gov/",
+      "schema:provider": {
+        "@type": "schema:GovernmentOrganization",
+        "schema:name": "Centers for Medicare and Medicaid Services",
+        "schema:url": "https://www.cms.gov/"
+      }
+    },
+    {
+      "@type": "schema:WebAPI",
+      "@id": "https://ab2d.cms.gov/",
+      "schema:name": "CMS AB2D API",
+      "schema:description": "Enables Medicare Part D sponsors to retrieve bulk Medicare Part A and B claims data using FHIR",
+      "schema:url": "https://ab2d.cms.gov/",
+      "schema:provider": {
+        "@type": "schema:GovernmentOrganization",
+        "schema:name": "Centers for Medicare and Medicaid Services",
+        "schema:url": "https://www.cms.gov/"
+      }
+    },
+    {
+      "@type": "schema:WebAPI",
+      "@id": "https://dpc.cms.gov/",
+      "schema:name": "CMS Data at the Point of Care API",
+      "schema:description": "Provides Original Medicare claims data to fee-for-service Medicare providers in FHIR format at the point of care",
+      "schema:url": "https://dpc.cms.gov/",
+      "schema:provider": {
+        "@type": "schema:GovernmentOrganization",
+        "schema:name": "Centers for Medicare and Medicaid Services",
+        "schema:url": "https://www.cms.gov/"
+      }
+    }
+  ]
+}

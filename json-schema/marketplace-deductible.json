@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Deductible",
+  "description": "Schema for Deductible from CMS Marketplace API",
+  "properties": {
+    "amount": {
+      "type": "number"
+    },
+    "csr": {
+      "$ref": "#/definitions/CostSharingReductionEnum"
+    },
+    "family_cost": {
+      "$ref": "#/definitions/FamilyCostEnum"
+    },
+    "network_tier": {
+      "$ref": "#/definitions/NetworkTierEnum"
+    },
+    "type": {
+      "enum": [
+        "Medical EHB Deductible",
+        "Combined Medical and Drug EHB Deductible",
+        "Drug EHB Deductible"
+      ],
+      "type": "string"
+    },
+    "individual": {
+      "description": "Applies to individuals",
+      "type": "boolean"
+    },
+    "family": {
+      "description": "Applies to families",
+      "type": "boolean"
+    },
+    "display_string": {
+      "type": "string",
+      "description": "An optional human-readable description"
+    }
+  },
+  "type": "object"
+}

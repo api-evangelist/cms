@@ -1,0 +1,10 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ProductDivisionEnum",
+  "description": "Schema for ProductDivisionEnum from CMS Marketplace API",
+  "enum": [
+    "HealthCare",
+    "Dental"
+  ],
+  "type": "string"
+}

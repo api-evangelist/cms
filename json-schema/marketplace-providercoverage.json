@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ProviderCoverage",
+  "description": "Schema for ProviderCoverage from CMS Marketplace API",
+  "properties": {
+    "npi": {
+      "$ref": "#/definitions/NPI"
+    },
+    "plan_id": {
+      "$ref": "#/definitions/PlanID"
+    },
+    "coverage": {
+      "$ref": "#/definitions/Coverage"
+    },
+    "addresses": {
+      "description": "at which addresses this provider is covered by the plan, if any",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Address"
+      }
+    },
+    "accepting": {
+      "type": "string",
+      "enum": [
+        "accepting",
+        "not accepting",
+        "accepting in some locations",
+        "unknown"
+      ]
+    }
+  }
+}
