@@ -6,7 +6,7 @@ description: The Centers for Medicare and Medicaid Services (CMS) provides a sui
   insurance datasets. CMS APIs support interoperability standards including HL7 FHIR
   and OAuth 2.0 to power healthcare applications across the US health system.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/cms/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -28,7 +28,7 @@ apis:
       plans, providers, and coverage information on the ACA Health Insurance Marketplace.
       Powers Healthcare.gov and third-party services with plan search, eligibility
       estimates, drug and provider coverage lookups, and out-of-pocket cost calculations.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developer.cms.gov/marketplace-api/
     baseURL: https://marketplace.api.healthcare.gov/api/v1
     tags:
@@ -54,7 +54,7 @@ apis:
       data for over 60 million Medicare beneficiaries. Uses HL7 FHIR standard for
       beneficiary data and OAuth 2.0 for authorization, enabling beneficiaries to
       connect their claims data to applications and research programs they trust.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://bluebutton.cms.gov/
     baseURL: https://api.bluebutton.cms.gov
     tags:
@@ -84,7 +84,7 @@ apis:
       payment model participants to retrieve Medicare Part A, B, and D claims data
       for their attributed enrollees. Implements the HL7 Bulk FHIR Implementation
       Guide and delivers NDJSON formatted claims data updated at least weekly.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://bcda.cms.gov/
     baseURL: https://bcda.cms.gov
     tags:
@@ -110,7 +110,7 @@ apis:
       to retrieve bulk Medicare Part A and B claims data for their active beneficiaries
       using the FHIR standard in NDJSON format. Authenticates via Okta-based OAuth
       2.0 bearer tokens.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://ab2d.cms.gov/
     baseURL: https://api.ab2d.cms.gov
     tags:
@@ -131,7 +131,7 @@ apis:
       providers in a structured, standardized FHIR format at the point of care. Helps
       providers gain complete views of patient medical histories to improve care coordination
       and reduce redundant testing.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://dpc.cms.gov/
     baseURL: https://sandbox.dpc.cms.gov
     tags:
@@ -155,7 +155,7 @@ apis:
       health plans available outside the Health Insurance Marketplace. Supports individual
       plan lookups, small group plan searches, and geographic lookups by ZIP code.
       Rate limited to 1000 requests per minute.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developer.cms.gov/finder-api/
     baseURL: https://finder.healthcare.gov
     tags:
@@ -175,7 +175,7 @@ apis:
       Medicare cost data for approximately 4,000 CPT/HCPCS medical procedure codes
       in hospital outpatient settings and ambulatory surgical centers. Requires both
       an AMA license and a CMS API key.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developer.cms.gov/ppl-api/
     baseURL: https://developer.cms.gov/ppl-api
     tags:
@@ -196,7 +196,7 @@ apis:
       real-time performance scoring feedback. Supports Merit-based Incentive Payment
       System (MIPS) and Advanced Alternative Payment Model (APM) data submissions
       for Medicare quality reporting.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://cmsgov.github.io/qpp-submissions-docs/
     baseURL: https://qpp.cms.gov/api
     tags:
