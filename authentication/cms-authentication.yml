@@ -1,0 +1,33 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/marketplace-openapi.json, openapi/ppl-openapi.json
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+  - query
+schemes:
+- name: API Key
+  type: apiKey
+  in: query
+  parameter: apikey
+  description: Your API key should be included as a query parameter with the request. You can
+    [fill out this form](https://cms.gov1.qualtrics.com/jfe/form/SV_4N2GHCJfNuX7n8x) to request
+    an API key.
+  sources:
+  - openapi/marketplace-openapi.json
+- name: apiKey
+  type: apiKey
+  in: header
+  parameter: apiKey
+  description: All requests must include the `apiKey` header containing your API Key.
+  sources:
+  - openapi/ppl-openapi.json
+- name: amaLicense
+  type: apiKey
+  in: header
+  parameter: amaLicense
+  description: All requests must include the `amaLicense` header containing your AMA License.
+  sources:
+  - openapi/ppl-openapi.json
