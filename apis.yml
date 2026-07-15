@@ -211,6 +211,8 @@ apis:
         url: https://cmsgov.github.io/qpp-submissions-docs/
 
 common:
+  - type: AgenticAccess
+    url: agentic-access/cms-agentic-access.yml
   - type: DomainSecurity
     url: security/cms-domain-security.yml
   - type: Authentication
