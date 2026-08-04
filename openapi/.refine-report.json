@@ -1,0 +1,34 @@
+{
+  "provider": "cms",
+  "sources": [
+    "cms-api-reference-api-openapi.yml",
+    "cms-bulk-data-api-openapi.yml",
+    "cms-code-search-api-openapi.yml",
+    "cms-cost-search-api-openapi.yml",
+    "cms-enrollments-api-openapi.yml",
+    "cms-geography-api-openapi.yml",
+    "cms-households-eligibility-api-openapi.yml",
+    "cms-insurance-issuers-api-openapi.yml",
+    "cms-insurance-plans-api-openapi.yml",
+    "cms-plans-api-openapi.yml",
+    "cms-provider-drug-coverage-api-openapi.yml"
+  ],
+  "outputs": [
+    "cms-api-reference-api-openapi.yml",
+    "cms-bulk-data-api-openapi.yml",
+    "cms-code-search-api-openapi.yml",
+    "cms-cost-search-api-openapi.yml",
+    "cms-enrollments-api-openapi.yml",
+    "cms-geography-api-openapi.yml",
+    "cms-households-eligibility-api-openapi.yml",
+    "cms-insurance-issuers-api-openapi.yml",
+    "cms-insurance-plans-api-openapi.yml",
+    "cms-plans-api-openapi.yml",
+    "cms-provider-drug-coverage-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

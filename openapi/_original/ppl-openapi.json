@@ -1,0 +1,318 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Procedure Price Lookup API",
+    "version": "1.1.1",
+    "description": "The Procedure Price Lookup (PPL) API provides a bulk cost data endpoint to the American Medical Association (AMA) procedure descriptions and cost data associated with a subset of the CPT/HCPCS codes for CMS application development partners.\nThe API allows users to get cost and copay data for approximately 4,000 medical procedures in hospital outpatient departments and ambulatory surgical centers.",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "ccxp-engineering@navapbc.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "tags": [
+    {
+      "name": "Code Search",
+      "description": "Search CPT/HCPCS codes by procedure codes or terms describing medical procedures. Get code details for a given procedure code."
+    },
+    {
+      "name": "Cost Search",
+      "description": "For a given procedure code or entire set of codes, get national averages for the amount Medicare pays hospitals or surgical centers, and the national average copay amounts."
+    }
+  ],
+  "paths": {
+    "/codes/{code}": {
+      "get": {
+        "tags": [
+          "Code Search"
+        ],
+        "summary": "Get information for a given code.",
+        "description": "Returns code data (code description and type of code) for a given code.",
+        "operationId": "getCodeInformation",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "description": "The code to find information for.",
+            "required": true,
+            "x-exportParamName": "Code",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful code search.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Code"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request or code format."
+          },
+          "401": {
+            "description": "Missing or invalid apiKey."
+          },
+          "403": {
+            "description": "Missing or invalid amaLicense."
+          },
+          "404": {
+            "description": "Code information not found."
+          },
+          "500": {
+            "description": "An internal server error has occurred for the request."
+          }
+        }
+      }
+    },
+    "/codes": {
+      "get": {
+        "tags": [
+          "Code Search"
+        ],
+        "summary": "Gets a set of codes for given search criteria",
+        "description": "Returns codes for the given search term. When no term parameter is given, returns data for ALL codes.",
+        "operationId": "getBatchCodes",
+        "parameters": [
+          {
+            "name": "term",
+            "in": "query",
+            "description": "Filter codes by the given term. The term is case-insensitive and can include the code.",
+            "required": false,
+            "x-exportParamName": "Term",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit the number of records returned by the search.",
+            "required": false,
+            "x-exportParamName": "Limit",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful code search",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Code"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameter(s)."
+          },
+          "401": {
+            "description": "Missing or invalid apiKey."
+          },
+          "403": {
+            "description": "Missing or invalid amaLicense."
+          },
+          "500": {
+            "description": "An internal error has occurred for the request."
+          }
+        }
+      }
+    },
+    "/costs/{code}": {
+      "get": {
+        "tags": [
+          "Cost Search"
+        ],
+        "summary": "Cost data for a given code",
+        "description": "Returns cost data for the given code.",
+        "operationId": "getCostByCode",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "description": "The code to find cost values for.",
+            "required": true,
+            "x-exportParamName": "Code",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful cost search.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Cost"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request or code format."
+          },
+          "401": {
+            "description": "Missing or invalid apiKey."
+          },
+          "403": {
+            "description": "Missing or invalid amaLicense."
+          },
+          "404": {
+            "description": "Cost information for the given code not found."
+          },
+          "500": {
+            "description": "An internal error has occurred for the request."
+          }
+        }
+      }
+    },
+    "/costs": {
+      "get": {
+        "tags": [
+          "Cost Search"
+        ],
+        "summary": "Gets a set of cost data for given limit",
+        "description": "Returns cost data for all codes. Limits the number of returned cost items to given Limit. If no Limit parameter is given, returns cost data for ALL codes.",
+        "operationId": "getBatchCosts",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit the number of records returned by the search.",
+            "required": false,
+            "x-exportParamName": "Limit",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful cost search.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Cost"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameter(s)."
+          },
+          "401": {
+            "description": "Missing or invalid apiKey."
+          },
+          "403": {
+            "description": "Missing or invalid amaLicense."
+          },
+          "500": {
+            "description": "An internal error has occurred for the request."
+          }
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  },
+  "servers": [
+    {
+      "url": "https://www.medicare.gov/api/procedure-price-lookup/api/v1/core"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "apiKey": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "apiKey",
+        "description": "All requests must include the `apiKey` header containing your API Key."
+      },
+      "amaLicense": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "amaLicense",
+        "description": "All requests must include the `amaLicense` header containing your AMA License."
+      }
+    },
+    "schemas": {
+      "Code": {
+        "type": "object",
+        "required": [
+          "code",
+          "description",
+          "frequency"
+        ],
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "frequency": {
+            "type": "integer"
+          }
+        },
+        "example": {
+          "code": "code",
+          "description": "description",
+          "frequency": 0
+        }
+      },
+      "Cost": {
+        "type": "object",
+        "required": [
+          "copay",
+          "cost",
+          "total",
+          "facilityType"
+        ],
+        "properties": {
+          "facilityType": {
+            "type": "string",
+            "description": "The type of facility that the cost data pertains to. Each facility type should only have one cost object per code."
+          },
+          "cost": {
+            "type": "number"
+          },
+          "copay": {
+            "type": "number"
+          },
+          "total": {
+            "type": "number"
+          }
+        },
+        "example": {
+          "cost": 1420,
+          "facilityType": "facilityType",
+          "copay": 355,
+          "total": 1775
+        }
+      }
+    }
+  }
+}
