@@ -391,6 +391,19 @@ apis:
   - type: Documentation
     url: https://developer.cms.gov/ppl-api/
 common:
+  - type: IssueTracker
+    url: https://github.com/CMSgov/bcda-app/issues
+  - type: Releases
+    url: https://github.com/CMSgov/bcda-app/releases
+  - type: SecurityPolicy
+    url: https://github.com/CMSgov/bcda-app/blob/main/SECURITY.md
+  - type: CodeOfConduct
+    url: https://github.com/CMSgov/bcda-app/blob/main/CODE_OF_CONDUCT.md
+  - type: ContributionGuide
+    url: https://github.com/CMSgov/bcda-app/blob/main/CONTRIBUTING.md
+  - type: License
+    name: CC0-1.0
+    url: https://github.com/CMSgov/bcda-app/blob/main/LICENSE
   - type: AgenticAccess
     url: agentic-access/cms-agentic-access.yml
   - type: DomainSecurity
