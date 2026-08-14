@@ -1,0 +1,772 @@
+{
+  "item": [
+    {
+      "id": "228e4c35-196c-4819-ac99-6991fe56f283",
+      "name": "Insurance Plans",
+      "description": {
+        "content": "Data on both health and dental insurance plans.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9e940589-feac-4410-83af-0a76cbe5d0d0",
+          "name": "Crosswalk a previous year plan",
+          "request": {
+            "name": "Crosswalk a previous year plan",
+            "description": {
+              "content": "Crosswalk a previous year plan to the next year's plan",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "crosswalk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "apikey",
+                  "value": "<string>",
+                  "description": "(Required) API key used for authentication"
+                },
+                {
+                  "disabled": false,
+                  "key": "year",
+                  "value": "<integer>",
+                  "description": "(Required) Previous year"
+                },
+                {
+                  "disabled": false,
+                  "key": "plan_id",
+                  "value": "<string>",
+                  "description": "(Required) Previous year plan ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>",
+                  "description": "(Required) State abbreviation"
+                },
+                {
+                  "disabled": false,
+                  "key": "zipcode",
+                  "value": "<string>",
+                  "description": "(Required) ZIP Code"
+                },
+                {
+                  "disabled": false,
+                  "key": "fips",
+                  "value": "<string>",
+                  "description": "(Required) FIPS code"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7230949b-d291-4e00-be90-f3b6ad47a350",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "crosswalk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apikey",
+                      "value": "d687412e7b53146b2631dc01974ad0a4"
+                    },
+                    {
+                      "key": "year",
+                      "value": "2018"
+                    },
+                    {
+                      "key": "plan_id",
+                      "value": "53882IL0040002"
+                    },
+                    {
+                      "key": "state",
+                      "value": "IL"
+                    },
+                    {
+                      "key": "zipcode",
+                      "value": "60647"
+                    },
+                    {
+                      "key": "fips",
+                      "value": "17031"
+                    },
+                    {
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"new_plan_id\": \"string\",\n  \"level\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7d5e4d70-8332-48f9-ac4d-1c1d2353628a",
+          "name": "Get multiple plans",
+          "request": {
+            "name": "Get multiple plans",
+            "description": {
+              "content": "#### Note\nUse this JSON example in the **POST** Body in the request pane to view results\n  ```\n{\n  \"household\": {\n      \"income\": 20000,\n      \"people\": [\n      {\n          \"age\": 34,\n          \"is_pregnant\": false,\n          \"is_parent\": false,\n          \"uses_tobacco\": false,\n          \"gender\": \"Male\"\n      }\n      ],\n      \"has_married_couple\": false\n  },\n  \"place\": {\n      \"countyfips\": \"51107\",\n      \"state\": \"VA\",\n      \"zipcode\": \"20103\"\n  },\n  \"market\": \"Individual\",\n  \"plan_ids\": [\n      \"11512NC0100031\"\n  ],\n  \"year\": 2019,\n  \"aptc_override\": 100,\n  \"csr_override\": \"CSR73\",\n  \"catastrophic_override\": true\n}\n  ```\nGet details on multiple plans, typically for plan comparison.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "plans"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "apikey",
+                  "value": "<string>",
+                  "description": "(Required) API key used for authentication"
+                },
+                {
+                  "disabled": false,
+                  "key": "year",
+                  "value": "<integer>",
+                  "description": "4 digit market year (Defaults to the current year when not specified)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"place\": {\n    \"countyfips\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipcode\": \"<string>\"\n  },\n  \"plan_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"household\": {\n    \"income\": \"<float>\",\n    \"unemployment_received\": \"<string>\",\n    \"people\": [\n      {\n        \"age\": \"<integer>\",\n        \"dob\": \"<string>\",\n        \"has_mec\": \"<boolean>\",\n        \"is_parent\": \"<boolean>\",\n        \"is_pregnant\": \"<boolean>\",\n        \"pregnant_with\": \"<number>\",\n        \"uses_tobacco\": \"<boolean>\",\n        \"last_tobacco_use_date\": \"<string>\",\n        \"gender\": \"<string>\",\n        \"utilization_level\": \"<string>\",\n        \"relationship\": {},\n        \"does_not_cohabitate\": \"<boolean>\",\n        \"aptc_eligible\": \"<boolean>\",\n        \"current_enrollment\": {\n          \"plan_id\": \"99408UU8364067\",\n          \"effective_date\": \"<string>\",\n          \"uses_tobacco\": \"<boolean>\"\n        }\n      },\n      {\n        \"age\": \"<integer>\",\n        \"dob\": \"<string>\",\n        \"has_mec\": \"<boolean>\",\n        \"is_parent\": \"<boolean>\",\n        \"is_pregnant\": \"<boolean>\",\n        \"pregnant_with\": \"<number>\",\n        \"uses_tobacco\": \"<boolean>\",\n        \"last_tobacco_use_date\": \"<string>\",\n        \"gender\": \"<string>\",\n        \"utilization_level\": \"<string>\",\n        \"relationship\": {},\n        \"does_not_cohabitate\": \"<boolean>\",\n        \"aptc_eligible\": \"<boolean>\",\n        \"current_enrollment\": {\n          \"plan_id\": \"53685XJ9630038\",\n          \"effective_date\": \"<string>\",\n          \"uses_tobacco\": \"<boolean>\"\n        }\n      }\n    ],\n    \"has_married_couple\": \"<boolean>\",\n    \"effective_date\": \"<string>\"\n  },\n  \"market\": \"SHOP\",\n  \"year\": \"<integer>\",\n  \"aptc_override\": \"<number>\",\n  \"csr_override\": \"<string>\",\n  \"catastrophic_override\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d4ac8b49-03bd-4e3e-8774-b9cc95eb8188",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apikey",
+                      "value": "d687412e7b53146b2631dc01974ad0a4"
+                    },
+                    {
+                      "key": "year",
+                      "value": "2019"
+                    },
+                    {
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"place\": {\n    \"countyfips\": \"51107\",\n    \"state\": \"VA\",\n    \"zipcode\": \"20103\"\n  },\n  \"plan_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"household\": {\n    \"income\": \"<float>\",\n    \"unemployment_received\": \"<string>\",\n    \"people\": [\n      {\n        \"age\": \"<integer>\",\n        \"dob\": \"<string>\",\n        \"has_mec\": \"<boolean>\",\n        \"is_parent\": \"<boolean>\",\n        \"is_pregnant\": \"<boolean>\",\n        \"pregnant_with\": \"<number>\",\n        \"uses_tobacco\": \"<boolean>\",\n        \"last_tobacco_use_date\": \"<string>\",\n        \"gender\": \"<string>\",\n        \"utilization_level\": \"<string>\",\n        \"relationship\": {},\n        \"does_not_cohabitate\": \"<boolean>\",\n        \"aptc_eligible\": \"<boolean>\",\n        \"current_enrollment\": {\n          \"plan_id\": \"90071LP3592803\",\n          \"effective_date\": \"<string>\",\n          \"uses_tobacco\": \"<boolean>\"\n        }\n      },\n      {\n        \"age\": \"<integer>\",\n        \"dob\": \"<string>\",\n        \"has_mec\": \"<boolean>\",\n        \"is_parent\": \"<boolean>\",\n        \"is_pregnant\": \"<boolean>\",\n        \"pregnant_with\": \"<number>\",\n        \"uses_tobacco\": \"<boolean>\",\n        \"last_tobacco_use_date\": \"<string>\",\n        \"gender\": \"<string>\",\n        \"utilization_level\": \"<string>\",\n        \"relationship\": {},\n        \"does_not_cohabitate\": \"<boolean>\",\n        \"aptc_eligible\": \"<boolean>\",\n        \"current_enrollment\": {\n          \"plan_id\": \"58657IK6659069\",\n          \"effective_date\": \"<string>\",\n          \"uses_tobacco\": \"<boolean>\"\n        }\n      }\n    ],\n    \"has_married_couple\": \"<boolean>\",\n    \"effective_date\": \"<string>\"\n  },\n  \"market\": \"Individual\",\n  \"year\": \"<integer>\",\n  \"aptc_override\": \"<number>\",\n  \"csr_override\": \"<string>\",\n  \"catastrophic_override\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"plans\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"benefits\": [\n        {\n          \"name\": \"string\",\n          \"covered\": true,\n          \"cost_sharings\": [\n            {\n              \"coinsurance_options\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"coinsurance_rate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"copay_amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"copay_options\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"network_tier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"csr\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display_string\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"coinsurance_options\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"coinsurance_rate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"copay_amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"copay_options\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"network_tier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"csr\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display_string\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"explanation\": \"string\",\n          \"exclusions\": \"string\",\n          \"has_limits\": true,\n          \"limit_unit\": \"string\",\n          \"limit_quantity\": 8027.849281048049\n        },\n        {\n          \"name\": \"string\",\n          \"covered\": false,\n          \"cost_sharings\": [\n            {\n              \"coinsurance_options\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"coinsurance_rate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"copay_amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"copay_options\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"network_tier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"csr\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display_string\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"coinsurance_options\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"coinsurance_rate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"copay_amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"copay_options\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"network_tier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"csr\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display_string\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"explanation\": \"string\",\n          \"exclusions\": \"string\",\n          \"has_limits\": false,\n          \"limit_unit\": \"string\",\n          \"limit_quantity\": 3671.055898459473\n        }\n      ],\n      \"deductibles\": [\n        {\n          \"amount\": 9896.98147733715,\n          \"csr\": \"73% AV Level Silver Plan CSR\",\n          \"family_cost\": \"Family Per Person\",\n          \"network_tier\": \"Out-of-Network\",\n          \"type\": \"Combined Medical and Drug EHB Deductible\",\n          \"individual\": true,\n          \"family\": false,\n          \"display_string\": \"string\"\n        },\n        {\n          \"amount\": 7750.586841029564,\n          \"csr\": \"Limited Cost Sharing Plan Variation\",\n          \"family_cost\": \"Individual\",\n          \"network_tier\": \"In-Network Tier 2\",\n          \"type\": \"Medical EHB Deductible\",\n          \"individual\": false,\n          \"family\": false,\n          \"display_string\": \"string\"\n        }\n      ],\n      \"disease_mgmt_programs\": [\n        \"Heart Disease\",\n        \"Pregnancy\"\n      ],\n      \"has_national_network\": false,\n      \"quality_rating\": {\n        \"available\": true,\n        \"year\": 4166,\n        \"global_rating\": 2,\n        \"global_not_rated_reason\": \"string\",\n        \"clinical_quality_management_rating\": 4,\n        \"clinical_quality_management_not_rated_reason\": \"string\",\n        \"enrollee_experience_rating\": 0,\n        \"enrollee_experience_not_rated_reason\": \"string\",\n        \"plan_efficiency_rating\": 2,\n        \"plan_efficiency_not_rated_reason\": \"string\"\n      },\n      \"insurance_market\": \"QHP\",\n      \"issuer\": {\n        \"id\": \"string\",\n        \"individual_url\": \"string\",\n        \"name\": \"string\",\n        \"shop_url\": \"string\",\n        \"state\": \"string\",\n        \"toll_free\": \"string\",\n        \"tty\": \"string\"\n      },\n      \"market\": \"Any\",\n      \"max_age_child\": 5953.727013408649,\n      \"metal_level\": \"Silver\",\n      \"moops\": [\n        {\n          \"amount\": 5057.85040943661,\n          \"csr\": \"73% AV Level Silver Plan CSR\",\n          \"family_cost\": \"Family Per Person\",\n          \"network_tier\": \"Out-of-Network\",\n          \"type\": \"Maximum Out of Pocket for Drug EHB Benefits\",\n          \"individual\": false,\n          \"family\": true,\n          \"display_string\": \"string\"\n        },\n        {\n          \"amount\": 1228.3598283827691,\n          \"csr\": \"Exchange variant (no CSR)\",\n          \"family_cost\": \"Family\",\n          \"network_tier\": \"Combined In-Out of Network\",\n          \"type\": \"Maximum Out of Pocket for Medical and Drug EHB Benefits (Total)\",\n          \"individual\": true,\n          \"family\": false,\n          \"display_string\": \"string\"\n        }\n      ],\n      \"premium\": 3920.375168733654,\n      \"premium_w_credit\": 2008.6367159551232,\n      \"ehb_premium\": 4219.035995540623,\n      \"pediatric_ehb_premium\": 8358.350754752353,\n      \"aptc_eligible_premium\": 3506.140405386724,\n      \"guaranteed_rate\": true,\n      \"simple_choice\": true,\n      \"product_division\": \"Dental\",\n      \"specialist_referral_required\": true,\n      \"state\": \"string\",\n      \"type\": \"PPO\",\n      \"benefits_url\": \"string\",\n      \"brochure_url\": \"string\",\n      \"formulary_url\": \"string\",\n      \"network_url\": \"string\",\n      \"hsa_eligible\": false,\n      \"oopc\": 4246.790802925445,\n      \"suppression_state\": \"Available\",\n      \"tobacco_lookback\": 7114,\n      \"certification\": \"Decertified\",\n      \"network_adequacy\": {\n        \"scope\": \"string\",\n        \"networks\": {}\n      },\n      \"sbcs\": {\n        \"baby\": {\n          \"deductible\": 4812.355540097888,\n          \"copay\": 7758.02256321662,\n          \"coinsurance\": 6688.24889358726,\n          \"limit\": 2182.5849412232988\n        },\n        \"diabetes\": {\n          \"deductible\": 5276.074906414976,\n          \"copay\": 7625.345505034964,\n          \"coinsurance\": 3293.0801767370776,\n          \"limit\": 1746.331879982883\n        },\n        \"fracture\": {\n          \"deductible\": 4916.250513676019,\n          \"copay\": 3164.041513528396,\n          \"coinsurance\": 4168.5180909502205,\n          \"limit\": 8908.318562240802\n        }\n      },\n      \"rx_3mo_mail_order\": true,\n      \"is_ineligible\": true,\n      \"covers_nonhyde_abortion\": false,\n      \"service_area_id\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"benefits\": [\n        {\n          \"name\": \"string\",\n          \"covered\": false,\n          \"cost_sharings\": [\n            {\n              \"coinsurance_options\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"coinsurance_rate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"copay_amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"copay_options\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"network_tier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"csr\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display_string\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"coinsurance_options\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"coinsurance_rate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"copay_amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"copay_options\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"network_tier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"csr\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display_string\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"explanation\": \"string\",\n          \"exclusions\": \"string\",\n          \"has_limits\": true,\n          \"limit_unit\": \"string\",\n          \"limit_quantity\": 6540.171375735719\n        },\n        {\n          \"name\": \"string\",\n          \"covered\": false,\n          \"cost_sharings\": [\n            {\n              \"coinsurance_options\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"coinsurance_rate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"copay_amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"copay_options\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"network_tier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"csr\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display_string\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"coinsurance_options\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"coinsurance_rate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"copay_amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"copay_options\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"network_tier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"csr\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display_string\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"explanation\": \"string\",\n          \"exclusions\": \"string\",\n          \"has_limits\": false,\n          \"limit_unit\": \"string\",\n          \"limit_quantity\": 3999.3859850648896\n        }\n      ],\n      \"deductibles\": [\n        {\n          \"amount\": 1329.1388342647958,\n          \"csr\": \"87% AV Level Silver Plan CSR\",\n          \"family_cost\": \"Family Per Person\",\n          \"network_tier\": \"Out-of-Network\",\n          \"type\": \"Medical EHB Deductible\",\n          \"individual\": true,\n          \"family\": true,\n          \"display_string\": \"string\"\n        },\n        {\n          \"amount\": 8352.410762085106,\n          \"csr\": \"Exchange variant (no CSR)\",\n          \"family_cost\": \"Individual\",\n          \"network_tier\": \"Out-of-Network\",\n          \"type\": \"Combined Medical and Drug EHB Deductible\",\n          \"individual\": false,\n          \"family\": false,\n          \"display_string\": \"string\"\n        }\n      ],\n      \"disease_mgmt_programs\": [\n        \"Depression\",\n        \"Diabetes\"\n      ],\n      \"has_national_network\": false,\n      \"quality_rating\": {\n        \"available\": true,\n        \"year\": 2485,\n        \"global_rating\": 2,\n        \"global_not_rated_reason\": \"string\",\n        \"clinical_quality_management_rating\": 4,\n        \"clinical_quality_management_not_rated_reason\": \"string\",\n        \"enrollee_experience_rating\": 1,\n        \"enrollee_experience_not_rated_reason\": \"string\",\n        \"plan_efficiency_rating\": 1,\n        \"plan_efficiency_not_rated_reason\": \"string\"\n      },\n      \"insurance_market\": \"MSP\",\n      \"issuer\": {\n        \"id\": \"string\",\n        \"individual_url\": \"string\",\n        \"name\": \"string\",\n        \"shop_url\": \"string\",\n        \"state\": \"string\",\n        \"toll_free\": \"string\",\n        \"tty\": \"string\"\n      },\n      \"market\": \"Any\",\n      \"max_age_child\": 472.74394343166273,\n      \"metal_level\": \"Silver\",\n      \"moops\": [\n        {\n          \"amount\": 1099.9702330479076,\n          \"csr\": \"Exchange variant (no CSR)\",\n          \"family_cost\": \"Family\",\n          \"network_tier\": \"In-Network\",\n          \"type\": \"Maximum Out of Pocket for Medical and Drug EHB Benefits (Total)\",\n          \"individual\": true,\n          \"family\": false,\n          \"display_string\": \"string\"\n        },\n        {\n          \"amount\": 3113.040318006596,\n          \"csr\": \"Zero Cost Sharing Plan Variation\",\n          \"family_cost\": \"Family Per Person\",\n          \"network_tier\": \"Combined In-Out of Network\",\n          \"type\": \"Maximum Out of Pocket for Drug EHB Benefits\",\n          \"individual\": false,\n          \"family\": true,\n          \"display_string\": \"string\"\n        }\n      ],\n      \"premium\": 716.3970092994865,\n      \"premium_w_credit\": 5304.836524784567,\n      \"ehb_premium\": 2626.060785657517,\n      \"pediatric_ehb_premium\": 5342.8766756249715,\n      \"aptc_eligible_premium\": 3157.5573648543555,\n      \"guaranteed_rate\": false,\n      \"simple_choice\": true,\n      \"product_division\": \"HealthCare\",\n      \"specialist_referral_required\": false,\n      \"state\": \"string\",\n      \"type\": \"PPO\",\n      \"benefits_url\": \"string\",\n      \"brochure_url\": \"string\",\n      \"formulary_url\": \"string\",\n      \"network_url\": \"string\",\n      \"hsa_eligible\": true,\n      \"oopc\": 1885.7154685663224,\n      \"suppression_state\": \"Available\",\n      \"tobacco_lookback\": 5326,\n      \"certification\": \"Certified Off-Exchange SADP\",\n      \"network_adequacy\": {\n        \"scope\": \"string\",\n        \"networks\": {}\n      },\n      \"sbcs\": {\n        \"baby\": {\n          \"deductible\": 815.666725536679,\n          \"copay\": 6420.864458848655,\n          \"coinsurance\": 8250.081001861046,\n          \"limit\": 6903.631731210527\n        },\n        \"diabetes\": {\n          \"deductible\": 1085.4087816561464,\n          \"copay\": 2377.739261903644,\n          \"coinsurance\": 6712.848623855654,\n          \"limit\": 5248.977207808925\n        },\n        \"fracture\": {\n          \"deductible\": 9388.083867977659,\n          \"copay\": 4303.969988851309,\n          \"coinsurance\": 5815.494259461292,\n          \"limit\": 4091.417522929396\n        }\n      },\n      \"rx_3mo_mail_order\": false,\n      \"is_ineligible\": true,\n      \"covers_nonhyde_abortion\": true,\n      \"service_area_id\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9d4dae8d-9fd2-443c-bf4f-98acc1f80bdd",
+          "name": "Search for insurance plans",
+          "request": {
+            "name": "Search for insurance plans",
+            "description": {
+              "content": "#### Note\nUse this JSON example in the **POST** Body in the request pane to view results:\n  ```\n{\n      \"household\": {\n        \"income\": 42000,\n        \"people\": [\n          {\n            \"aptc_eligible\": true,\n            \"dob\": \"1992-01-01\",\n            \"has_mec\": false,\n            \"is_pregnant\": false,\n            \"is_parent\": false,\n            \"uses_tobacco\": false,\n            \"gender\": \"Male\",\n            \"utilization_level\": \"Low\"\n          }\n        ],\n        \"has_married_couple\": false\n      },\n      \"market\": \"Individual\",\n      \"place\": {\n        \"countyfips\": \"17031\",\n        \"state\": \"IL\",\n        \"zipcode\": \"60647\"\n      },\n      \"limit\": 10,\n      \"offset\": 0,\n      \"order\": \"asc\",\n      \"year\": 2020\n}\n  ```\nSearch insurance plans. Each plan object has only the “top” expanded\nBenefit objects in benefits array (ER visit, generic RX, specialist\nvisit, primary care visit, dental coverage) - to get other benefits, call the Plan Details API endpoint; for moops and deductibles, only the in-network and\ncombined in-out of network tiers are available, other tiers are not\ncurrently supported.\n\nThis API is paged. Ten results are returned for each query, and\nthe total amount of results that match your query is available as the\n`total` attribute on the result. Use the `offset` parameter to get\nresults beyond the first page.\nIncluding the `current_enrollment` property implies a CIC type enrollment is being performed. The `current_enrollment` object is used to provide their current plan id and the tobacco rating they had originally upon enrollment of that plan. This will be used as their tobacco status for the purposes of calculating the premium for their enrolled plan. All other plans will use the persons top level tobacco usage as a basis of rate calculations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "plans",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "apikey",
+                  "value": "<string>",
+                  "description": "(Required) API key used for authentication"
+                },
+                {
+                  "disabled": false,
+                  "key": "year",
+                  "value": "<integer>",
+                  "description": "4 digit market year (Defaults to the current year when not specified)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"place\": {\n    \"countyfips\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipcode\": \"<string>\"\n  },\n  \"market\": \"Individual\",\n  \"filter\": {\n    \"disease_mgmt_programs\": [\n      \"Asthma\",\n      \"Asthma\"\n    ],\n    \"division\": \"<string>\",\n    \"issuer\": \"<string>\",\n    \"issuers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"metal_levels\": [\n      \"Catastrophic\",\n      \"Gold\"\n    ],\n    \"metal_level\": \"Gold\",\n    \"metal_design_types\": [\n      {\n        \"metal_level\": \"Gold\",\n        \"design_types\": [\n          \"DESIGN5\",\n          \"DESIGN3\"\n        ]\n      },\n      {\n        \"metal_level\": \"Bronze\",\n        \"design_types\": [\n          \"DESIGN5\",\n          \"DESIGN5\"\n        ]\n      }\n    ],\n    \"design_types\": [\n      \"DESIGN3\",\n      \"DESIGN4\"\n    ],\n    \"premium\": \"<number>\",\n    \"type\": \"<string>\",\n    \"types\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"deductible\": \"<number>\",\n    \"hsa\": \"<boolean>\",\n    \"oopc\": \"<number>\",\n    \"child_dental_coverage\": \"<boolean>\",\n    \"adult_dental_coverage\": \"<boolean>\",\n    \"drugs\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"providers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"quality_rating\": \"<number>\",\n    \"simple_choice\": \"<boolean>\",\n    \"premium_range\": {\n      \"min\": \"<float>\",\n      \"max\": \"<float>\"\n    },\n    \"deductible_range\": {\n      \"min\": \"<float>\",\n      \"max\": \"<float>\"\n    }\n  },\n  \"household\": {\n    \"income\": \"<float>\",\n    \"unemployment_received\": \"<string>\",\n    \"people\": [\n      {\n        \"age\": \"<integer>\",\n        \"dob\": \"<string>\",\n        \"has_mec\": \"<boolean>\",\n        \"is_parent\": \"<boolean>\",\n        \"is_pregnant\": \"<boolean>\",\n        \"pregnant_with\": \"<number>\",\n        \"uses_tobacco\": \"<boolean>\",\n        \"last_tobacco_use_date\": \"<string>\",\n        \"gender\": \"<string>\",\n        \"utilization_level\": \"<string>\",\n        \"relationship\": {},\n        \"does_not_cohabitate\": \"<boolean>\",\n        \"aptc_eligible\": \"<boolean>\",\n        \"current_enrollment\": {\n          \"plan_id\": \"74416JJ4541561\",\n          \"effective_date\": \"<string>\",\n          \"uses_tobacco\": \"<boolean>\"\n        }\n      },\n      {\n        \"age\": \"<integer>\",\n        \"dob\": \"<string>\",\n        \"has_mec\": \"<boolean>\",\n        \"is_parent\": \"<boolean>\",\n        \"is_pregnant\": \"<boolean>\",\n        \"pregnant_with\": \"<number>\",\n        \"uses_tobacco\": \"<boolean>\",\n        \"last_tobacco_use_date\": \"<string>\",\n        \"gender\": \"<string>\",\n        \"utilization_level\": \"<string>\",\n        \"relationship\": {},\n        \"does_not_cohabitate\": \"<boolean>\",\n        \"aptc_eligible\": \"<boolean>\",\n        \"current_enrollment\": {\n          \"plan_id\": \"03501PA7523106\",\n          \"effective_date\": \"<string>\",\n          \"uses_tobacco\": \"<boolean>\"\n        }\n      }\n    ],\n    \"has_married_couple\": \"<boolean>\",\n    \"effective_date\": \"<string>\"\n  },\n  \"offset\": \"<number>\",\n  \"order\": \"<string>\",\n  \"sort\": \"<string>\",\n  \"year\": \"<number>\",\n  \"aptc_override\": \"<number>\",\n  \"csr_override\": \"<string>\",\n  \"catastrophic_override\": \"<boolean>\",\n  \"suppressed_plan_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "29ad30a0-f0bf-4bb6-9c51-773147abb41d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plans",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apikey",
+                      "value": "d687412e7b53146b2631dc01974ad0a4"
+                    },
+                    {
+                      "key": "year",
+                      "value": "2019"
+                    },
+                    {
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"place\": {\n    \"countyfips\": \"51107\",\n    \"state\": \"VA\",\n    \"zipcode\": \"20103\"\n  },\n  \"market\": \"Individual\",\n  \"filter\": {\n    \"disease_mgmt_programs\": [\n      \"Low Back Pain\",\n      \"High Blood Pressure and High Cholesterol\"\n    ],\n    \"division\": \"<string>\",\n    \"issuer\": \"<string>\",\n    \"issuers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"metal_levels\": [\n      \"Bronze\",\n      \"Gold\"\n    ],\n    \"metal_level\": \"Gold\",\n    \"metal_design_types\": [\n      {\n        \"metal_level\": \"Silver\",\n        \"design_types\": [\n          \"NOT_APPLICABLE\",\n          \"DESIGN2\"\n        ]\n      },\n      {\n        \"metal_level\": \"Platinum\",\n        \"design_types\": [\n          \"DESIGN3\",\n          \"DESIGN4\"\n        ]\n      }\n    ],\n    \"design_types\": [\n      \"NOT_APPLICABLE\",\n      \"DESIGN3\"\n    ],\n    \"premium\": \"<number>\",\n    \"type\": \"<string>\",\n    \"types\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"deductible\": \"<number>\",\n    \"hsa\": \"<boolean>\",\n    \"oopc\": \"<number>\",\n    \"child_dental_coverage\": \"<boolean>\",\n    \"adult_dental_coverage\": \"<boolean>\",\n    \"drugs\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"providers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"quality_rating\": \"<number>\",\n    \"simple_choice\": \"<boolean>\",\n    \"premium_range\": {\n      \"min\": \"<float>\",\n      \"max\": \"<float>\"\n    },\n    \"deductible_range\": {\n      \"min\": \"<float>\",\n      \"max\": \"<float>\"\n    }\n  },\n  \"household\": {\n    \"income\": \"<float>\",\n    \"unemployment_received\": \"<string>\",\n    \"people\": [\n      {\n        \"age\": \"<integer>\",\n        \"dob\": \"<string>\",\n        \"has_mec\": \"<boolean>\",\n        \"is_parent\": \"<boolean>\",\n        \"is_pregnant\": \"<boolean>\",\n        \"pregnant_with\": \"<number>\",\n        \"uses_tobacco\": \"<boolean>\",\n        \"last_tobacco_use_date\": \"<string>\",\n        \"gender\": \"<string>\",\n        \"utilization_level\": \"<string>\",\n        \"relationship\": {},\n        \"does_not_cohabitate\": \"<boolean>\",\n        \"aptc_eligible\": \"<boolean>\",\n        \"current_enrollment\": {\n          \"plan_id\": \"49785EQ6242943\",\n          \"effective_date\": \"<string>\",\n          \"uses_tobacco\": \"<boolean>\"\n        }\n      },\n      {\n        \"age\": \"<integer>\",\n        \"dob\": \"<string>\",\n        \"has_mec\": \"<boolean>\",\n        \"is_parent\": \"<boolean>\",\n        \"is_pregnant\": \"<boolean>\",\n        \"pregnant_with\": \"<number>\",\n        \"uses_tobacco\": \"<boolean>\",\n        \"last_tobacco_use_date\": \"<string>\",\n        \"gender\": \"<string>\",\n        \"utilization_level\": \"<string>\",\n        \"relationship\": {},\n        \"does_not_cohabitate\": \"<boolean>\",\n        \"aptc_eligible\": \"<boolean>\",\n        \"current_enrollment\": {\n          \"plan_id\": \"19810KY5010669\",\n          \"effective_date\": \"<string>\",\n          \"uses_tobacco\": \"<boolean>\"\n        }\n      }\n    ],\n    \"has_married_couple\": \"<boolean>\",\n    \"effective_date\": \"<string>\"\n  },\n  \"offset\": \"<number>\",\n  \"order\": \"<string>\",\n  \"sort\": \"<string>\",\n  \"year\": \"<number>\",\n  \"aptc_override\": \"<number>\",\n  \"csr_override\": \"<string>\",\n  \"catastrophic_override\": \"<boolean>\",\n  \"suppressed_plan_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"plans\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"benefits\": [\n        {\n          \"name\": \"string\",\n          \"covered\": false,\n          \"cost_sharings\": [\n            {\n              \"coinsurance_options\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"coinsurance_rate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"copay_amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"copay_options\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"network_tier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"csr\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display_string\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"coinsurance_options\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"coinsurance_rate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"copay_amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"copay_options\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"network_tier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"csr\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display_string\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"explanation\": \"string\",\n          \"exclusions\": \"string\",\n          \"has_limits\": true,\n          \"limit_unit\": \"string\",\n          \"limit_quantity\": 3814.3780947040427\n        },\n        {\n          \"name\": \"string\",\n          \"covered\": true,\n          \"cost_sharings\": [\n            {\n              \"coinsurance_options\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"coinsurance_rate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"copay_amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"copay_options\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"network_tier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"csr\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display_string\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"coinsurance_options\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"coinsurance_rate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"copay_amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"copay_options\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"network_tier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"csr\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display_string\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"explanation\": \"string\",\n          \"exclusions\": \"string\",\n          \"has_limits\": false,\n          \"limit_unit\": \"string\",\n          \"limit_quantity\": 7634.909084826933\n        }\n      ],\n      \"deductibles\": [\n        {\n          \"amount\": 2931.1542339515663,\n          \"csr\": \"Zero Cost Sharing Plan Variation\",\n          \"family_cost\": \"Family\",\n          \"network_tier\": \"Combined In-Out of Network\",\n          \"type\": \"Drug EHB Deductible\",\n          \"individual\": false,\n          \"family\": false,\n          \"display_string\": \"string\"\n        },\n        {\n          \"amount\": 6161.820505539928,\n          \"csr\": \"Zero Cost Sharing Plan Variation\",\n          \"family_cost\": \"Individual\",\n          \"network_tier\": \"Combined In-Out of Network\",\n          \"type\": \"Combined Medical and Drug EHB Deductible\",\n          \"individual\": true,\n          \"family\": false,\n          \"display_string\": \"string\"\n        }\n      ],\n      \"disease_mgmt_programs\": [\n        \"Pain Management\",\n        \"Low Back Pain\"\n      ],\n      \"has_national_network\": false,\n      \"quality_rating\": {\n        \"available\": true,\n        \"year\": 3805,\n        \"global_rating\": 0,\n        \"global_not_rated_reason\": \"string\",\n        \"clinical_quality_management_rating\": 4,\n        \"clinical_quality_management_not_rated_reason\": \"string\",\n        \"enrollee_experience_rating\": 1,\n        \"enrollee_experience_not_rated_reason\": \"string\",\n        \"plan_efficiency_rating\": 1,\n        \"plan_efficiency_not_rated_reason\": \"string\"\n      },\n      \"insurance_market\": \"MSP\",\n      \"issuer\": {\n        \"id\": \"string\",\n        \"individual_url\": \"string\",\n        \"name\": \"string\",\n        \"shop_url\": \"string\",\n        \"state\": \"string\",\n        \"toll_free\": \"string\",\n        \"tty\": \"string\"\n      },\n      \"market\": \"SHOP\",\n      \"max_age_child\": 2301.7056064885287,\n      \"metal_level\": \"Catastrophic\",\n      \"moops\": [\n        {\n          \"amount\": 3625.3342716773727,\n          \"csr\": \"Non-Exchange variant\",\n          \"family_cost\": \"Family Per Person\",\n          \"network_tier\": \"Out-of-Network\",\n          \"type\": \"Maximum Out of Pocket for Medical and Drug EHB Benefits (Total)\",\n          \"individual\": true,\n          \"family\": false,\n          \"display_string\": \"string\"\n        },\n        {\n          \"amount\": 8260.217665727718,\n          \"csr\": \"87% AV Level Silver Plan CSR\",\n          \"family_cost\": \"Individual\",\n          \"network_tier\": \"Combined In-Out of Network\",\n          \"type\": \"Maximum Out of Pocket for Drug EHB Benefits\",\n          \"individual\": false,\n          \"family\": true,\n          \"display_string\": \"string\"\n        }\n      ],\n      \"premium\": 4230.600220879589,\n      \"premium_w_credit\": 8097.40750435138,\n      \"ehb_premium\": 1999.0099869503174,\n      \"pediatric_ehb_premium\": 3869.982177491842,\n      \"aptc_eligible_premium\": 2481.5293575742435,\n      \"guaranteed_rate\": true,\n      \"simple_choice\": false,\n      \"product_division\": \"<string>\",\n      \"specialist_referral_required\": true,\n      \"state\": \"string\",\n      \"type\": \"<string>\",\n      \"benefits_url\": \"string\",\n      \"brochure_url\": \"string\",\n      \"formulary_url\": \"string\",\n      \"network_url\": \"string\",\n      \"hsa_eligible\": true,\n      \"oopc\": 4894.414760906994,\n      \"suppression_state\": \"Available\",\n      \"tobacco_lookback\": 7035,\n      \"certification\": \"Decertified\",\n      \"network_adequacy\": {\n        \"scope\": \"string\",\n        \"networks\": {}\n      },\n      \"sbcs\": {\n        \"baby\": {\n          \"deductible\": 6140.095234244557,\n          \"copay\": 1171.1447098378892,\n          \"coinsurance\": 82.51823814889647,\n          \"limit\": 597.4852922943419\n        },\n        \"diabetes\": {\n          \"deductible\": 7516.452419053428,\n          \"copay\": 950.7152964681143,\n          \"coinsurance\": 199.4706315136907,\n          \"limit\": 3696.8003701774965\n        },\n        \"fracture\": {\n          \"deductible\": 7818.738096519171,\n          \"copay\": 8527.78910842035,\n          \"coinsurance\": 3170.2654680144847,\n          \"limit\": 3755.218511238251\n        }\n      },\n      \"rx_3mo_mail_order\": false,\n      \"is_ineligible\": false,\n      \"covers_nonhyde_abortion\": true,\n      \"service_area_id\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"benefits\": [\n        {\n          \"name\": \"string\",\n          \"covered\": true,\n          \"cost_sharings\": [\n            {\n              \"coinsurance_options\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"coinsurance_rate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"copay_amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"copay_options\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"network_tier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"csr\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display_string\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"coinsurance_options\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"coinsurance_rate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"copay_amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"copay_options\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"network_tier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"csr\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display_string\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"explanation\": \"string\",\n          \"exclusions\": \"string\",\n          \"has_limits\": true,\n          \"limit_unit\": \"string\",\n          \"limit_quantity\": 9043.513865704905\n        },\n        {\n          \"name\": \"string\",\n          \"covered\": false,\n          \"cost_sharings\": [\n            {\n              \"coinsurance_options\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"coinsurance_rate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"copay_amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"copay_options\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"network_tier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"csr\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display_string\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"coinsurance_options\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"coinsurance_rate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"copay_amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"copay_options\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"network_tier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"csr\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display_string\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"explanation\": \"string\",\n          \"exclusions\": \"string\",\n          \"has_limits\": true,\n          \"limit_unit\": \"string\",\n          \"limit_quantity\": 149.3540992464004\n        }\n      ],\n      \"deductibles\": [\n        {\n          \"amount\": 1440.010803006785,\n          \"csr\": \"Limited Cost Sharing Plan Variation\",\n          \"family_cost\": \"Individual\",\n          \"network_tier\": \"In-Network\",\n          \"type\": \"Medical EHB Deductible\",\n          \"individual\": false,\n          \"family\": true,\n          \"display_string\": \"string\"\n        },\n        {\n          \"amount\": 7077.993220852186,\n          \"csr\": \"Unknown CSR\",\n          \"family_cost\": \"Individual\",\n          \"network_tier\": \"In-Network Tier 2\",\n          \"type\": \"Medical EHB Deductible\",\n          \"individual\": false,\n          \"family\": true,\n          \"display_string\": \"string\"\n        }\n      ],\n      \"disease_mgmt_programs\": [\n        \"Pregnancy\",\n        \"Weight Loss Programs\"\n      ],\n      \"has_national_network\": true,\n      \"quality_rating\": {\n        \"available\": false,\n        \"year\": 4135,\n        \"global_rating\": 0,\n        \"global_not_rated_reason\": \"string\",\n        \"clinical_quality_management_rating\": 4,\n        \"clinical_quality_management_not_rated_reason\": \"string\",\n        \"enrollee_experience_rating\": 3,\n        \"enrollee_experience_not_rated_reason\": \"string\",\n        \"plan_efficiency_rating\": 1,\n        \"plan_efficiency_not_rated_reason\": \"string\"\n      },\n      \"insurance_market\": \"QHP\",\n      \"issuer\": {\n        \"id\": \"string\",\n        \"individual_url\": \"string\",\n        \"name\": \"string\",\n        \"shop_url\": \"string\",\n        \"state\": \"string\",\n        \"toll_free\": \"string\",\n        \"tty\": \"string\"\n      },\n      \"market\": \"Any\",\n      \"max_age_child\": 7789.148321452357,\n      \"metal_level\": \"Gold\",\n      \"moops\": [\n        {\n          \"amount\": 5214.431001684152,\n          \"csr\": \"73% AV Level Silver Plan CSR\",\n          \"family_cost\": \"Individual\",\n          \"network_tier\": \"Out-of-Network\",\n          \"type\": \"Maximum Out of Pocket for Drug EHB Benefits\",\n          \"individual\": true,\n          \"family\": false,\n          \"display_string\": \"string\"\n        },\n        {\n          \"amount\": 7150.273828789242,\n          \"csr\": \"Limited Cost Sharing Plan Variation\",\n          \"family_cost\": \"Individual\",\n          \"network_tier\": \"In-Network\",\n          \"type\": \"Maximum Out of Pocket for Medical and Drug EHB Benefits (Total)\",\n          \"individual\": true,\n          \"family\": false,\n          \"display_string\": \"string\"\n        }\n      ],\n      \"premium\": 3233.2014248663277,\n      \"premium_w_credit\": 8172.934664890757,\n      \"ehb_premium\": 1386.028517913338,\n      \"pediatric_ehb_premium\": 4291.090344527683,\n      \"aptc_eligible_premium\": 8380.669031953345,\n      \"guaranteed_rate\": false,\n      \"simple_choice\": true,\n      \"product_division\": \"<string>\",\n      \"specialist_referral_required\": true,\n      \"state\": \"string\",\n      \"type\": \"<string>\",\n      \"benefits_url\": \"string\",\n      \"brochure_url\": \"string\",\n      \"formulary_url\": \"string\",\n      \"network_url\": \"string\",\n      \"hsa_eligible\": true,\n      \"oopc\": 5365.085170663176,\n      \"suppression_state\": \"Closed\",\n      \"tobacco_lookback\": 6689,\n      \"certification\": \"Decertified\",\n      \"network_adequacy\": {\n        \"scope\": \"string\",\n        \"networks\": {}\n      },\n      \"sbcs\": {\n        \"baby\": {\n          \"deductible\": 9029.063445252326,\n          \"copay\": 3004.676766054899,\n          \"coinsurance\": 4218.840766705053,\n          \"limit\": 9559.201315683937\n        },\n        \"diabetes\": {\n          \"deductible\": 1726.7301941619828,\n          \"copay\": 2027.8342057276543,\n          \"coinsurance\": 203.49153331051474,\n          \"limit\": 1217.206269334533\n        },\n        \"fracture\": {\n          \"deductible\": 3869.271001145691,\n          \"copay\": 2884.3994769877936,\n          \"coinsurance\": 6331.403169981853,\n          \"limit\": 4906.114076918877\n        }\n      },\n      \"rx_3mo_mail_order\": false,\n      \"is_ineligible\": false,\n      \"covers_nonhyde_abortion\": true,\n      \"service_area_id\": \"string\"\n    }\n  ],\n  \"total\": 4001.6451185684086,\n  \"facet_groups\": [\n    {\n      \"name\": \"string\",\n      \"facets\": [\n        {\n          \"value\": \"string\",\n          \"count\": 4722.638015492714\n        },\n        {\n          \"value\": \"string\",\n          \"count\": 8454.091857807543\n        }\n      ]\n    },\n    {\n      \"name\": \"string\",\n      \"facets\": [\n        {\n          \"value\": \"string\",\n          \"count\": 9069.359745749643\n        },\n        {\n          \"value\": \"string\",\n          \"count\": 6275.550657555932\n        }\n      ]\n    }\n  ],\n  \"rate_area\": {\n    \"state\": \"LA\",\n    \"area\": 7\n  },\n  \"ranges\": {\n    \"premiums\": {\n      \"min\": \"<float>\",\n      \"max\": \"<float>\"\n    },\n    \"deductibles\": {\n      \"min\": \"<float>\",\n      \"max\": \"<float>\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "21c67262-c05d-4b99-8d25-14665a6e264b",
+          "name": "Retrieve stats on groups of insurance plans",
+          "request": {
+            "name": "Retrieve stats on groups of insurance plans",
+            "description": {
+              "content": "#### Note\nUse this JSON example in the **POST** Body in the request pane to view results:\n  ```\n  {\n      \"household\": {\n      \"income\": 52000,\n      \"people\": [\n        {\n            \"dob\": \"1992-01-01\",\n            \"aptc_eligible\": true,\n         \"gender\": \"Female\",\n          \"uses_tobacco\": false\n         }\n       ]\n      },\n      \"market\": \"Individual\",\n      \"place\": {\n         \"countyfips\": \"37057\",\n         \"state\": \"NC\",\n          \"zipcode\": \"27360\"\n      },\n      \"year\": 2019\n  }\n  ```\nRetrieve stats (avg premium, oopc, etc) on a group of insurance plans. The input is identical to /plans/search, but the return value does not contain any actual plan data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "plans",
+                "search",
+                "stats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "apikey",
+                  "value": "<string>",
+                  "description": "(Required) API key used for authentication"
+                },
+                {
+                  "disabled": false,
+                  "key": "year",
+                  "value": "<integer>",
+                  "description": "4 digit market year (Defaults to the current year when not specified)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"place\": {\n    \"countyfips\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipcode\": \"<string>\"\n  },\n  \"market\": \"SHOP\",\n  \"filter\": {\n    \"disease_mgmt_programs\": [\n      \"Pregnancy\",\n      \"High Blood Pressure and High Cholesterol\"\n    ],\n    \"division\": \"<string>\",\n    \"issuer\": \"<string>\",\n    \"issuers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"metal_levels\": [\n      \"Silver\",\n      \"Platinum\"\n    ],\n    \"metal_level\": \"Silver\",\n    \"metal_design_types\": [\n      {\n        \"metal_level\": \"Bronze\",\n        \"design_types\": [\n          \"DESIGN3\",\n          \"NOT_APPLICABLE\"\n        ]\n      },\n      {\n        \"metal_level\": \"Catastrophic\",\n        \"design_types\": [\n          \"NOT_APPLICABLE\",\n          \"DESIGN3\"\n        ]\n      }\n    ],\n    \"design_types\": [\n      \"DESIGN4\",\n      \"DESIGN4\"\n    ],\n    \"premium\": \"<number>\",\n    \"type\": \"<string>\",\n    \"types\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"deductible\": \"<number>\",\n    \"hsa\": \"<boolean>\",\n    \"oopc\": \"<number>\",\n    \"child_dental_coverage\": \"<boolean>\",\n    \"adult_dental_coverage\": \"<boolean>\",\n    \"drugs\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"providers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"quality_rating\": \"<number>\",\n    \"simple_choice\": \"<boolean>\",\n    \"premium_range\": {\n      \"min\": \"<float>\",\n      \"max\": \"<float>\"\n    },\n    \"deductible_range\": {\n      \"min\": \"<float>\",\n      \"max\": \"<float>\"\n    }\n  },\n  \"household\": {\n    \"income\": \"<float>\",\n    \"unemployment_received\": \"<string>\",\n    \"people\": [\n      {\n        \"age\": \"<integer>\",\n        \"dob\": \"<string>\",\n        \"has_mec\": \"<boolean>\",\n        \"is_parent\": \"<boolean>\",\n        \"is_pregnant\": \"<boolean>\",\n        \"pregnant_with\": \"<number>\",\n        \"uses_tobacco\": \"<boolean>\",\n        \"last_tobacco_use_date\": \"<string>\",\n        \"gender\": \"<string>\",\n        \"utilization_level\": \"<string>\",\n        \"relationship\": {},\n        \"does_not_cohabitate\": \"<boolean>\",\n        \"aptc_eligible\": \"<boolean>\",\n        \"current_enrollment\": {\n          \"plan_id\": \"96389KN6854041\",\n          \"effective_date\": \"<string>\",\n          \"uses_tobacco\": \"<boolean>\"\n        }\n      },\n      {\n        \"age\": \"<integer>\",\n        \"dob\": \"<string>\",\n        \"has_mec\": \"<boolean>\",\n        \"is_parent\": \"<boolean>\",\n        \"is_pregnant\": \"<boolean>\",\n        \"pregnant_with\": \"<number>\",\n        \"uses_tobacco\": \"<boolean>\",\n        \"last_tobacco_use_date\": \"<string>\",\n        \"gender\": \"<string>\",\n        \"utilization_level\": \"<string>\",\n        \"relationship\": {},\n        \"does_not_cohabitate\": \"<boolean>\",\n        \"aptc_eligible\": \"<boolean>\",\n        \"current_enrollment\": {\n          \"plan_id\": \"74671WH1907090\",\n          \"effective_date\": \"<string>\",\n          \"uses_tobacco\": \"<boolean>\"\n        }\n      }\n    ],\n    \"has_married_couple\": \"<boolean>\",\n    \"effective_date\": \"<string>\"\n  },\n  \"offset\": \"<number>\",\n  \"order\": \"<string>\",\n  \"sort\": \"<string>\",\n  \"year\": \"<number>\",\n  \"aptc_override\": \"<number>\",\n  \"csr_override\": \"<string>\",\n  \"catastrophic_override\": \"<boolean>\",\n  \"suppressed_plan_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6e21b68e-8711-40c3-a047-870ccd59f2ad",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plans",
+                    "search",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apikey",
+                      "value": "d687412e7b53146b2631dc01974ad0a4"
+                    },
+                    {
+                      "key": "year",
+                      "value": "2019"
+                    },
+                    {
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"place\": {\n    \"countyfips\": \"51107\",\n    \"state\": \"VA\",\n    \"zipcode\": \"20103\"\n  },\n  \"market\": \"Individual\",\n  \"filter\": {\n    \"disease_mgmt_programs\": [\n      \"Low Back Pain\",\n      \"High Blood Pressure and High Cholesterol\"\n    ],\n    \"division\": \"<string>\",\n    \"issuer\": \"<string>\",\n    \"issuers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"metal_levels\": [\n      \"Bronze\",\n      \"Gold\"\n    ],\n    \"metal_level\": \"Gold\",\n    \"metal_design_types\": [\n      {\n        \"metal_level\": \"Silver\",\n        \"design_types\": [\n          \"NOT_APPLICABLE\",\n          \"DESIGN2\"\n        ]\n      },\n      {\n        \"metal_level\": \"Platinum\",\n        \"design_types\": [\n          \"DESIGN3\",\n          \"DESIGN4\"\n        ]\n      }\n    ],\n    \"design_types\": [\n      \"NOT_APPLICABLE\",\n      \"DESIGN3\"\n    ],\n    \"premium\": \"<number>\",\n    \"type\": \"<string>\",\n    \"types\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"deductible\": \"<number>\",\n    \"hsa\": \"<boolean>\",\n    \"oopc\": \"<number>\",\n    \"child_dental_coverage\": \"<boolean>\",\n    \"adult_dental_coverage\": \"<boolean>\",\n    \"drugs\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"providers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"quality_rating\": \"<number>\",\n    \"simple_choice\": \"<boolean>\",\n    \"premium_range\": {\n      \"min\": \"<float>\",\n      \"max\": \"<float>\"\n    },\n    \"deductible_range\": {\n      \"min\": \"<float>\",\n      \"max\": \"<float>\"\n    }\n  },\n  \"household\": {\n    \"income\": \"<float>\",\n    \"unemployment_received\": \"<string>\",\n    \"people\": [\n      {\n        \"age\": \"<integer>\",\n        \"dob\": \"<string>\",\n        \"has_mec\": \"<boolean>\",\n        \"is_parent\": \"<boolean>\",\n        \"is_pregnant\": \"<boolean>\",\n        \"pregnant_with\": \"<number>\",\n        \"uses_tobacco\": \"<boolean>\",\n        \"last_tobacco_use_date\": \"<string>\",\n        \"gender\": \"<string>\",\n        \"utilization_level\": \"<string>\",\n        \"relationship\": {},\n        \"does_not_cohabitate\": \"<boolean>\",\n        \"aptc_eligible\": \"<boolean>\",\n        \"current_enrollment\": {\n          \"plan_id\": \"49785EQ6242943\",\n          \"effective_date\": \"<string>\",\n          \"uses_tobacco\": \"<boolean>\"\n        }\n      },\n      {\n        \"age\": \"<integer>\",\n        \"dob\": \"<string>\",\n        \"has_mec\": \"<boolean>\",\n        \"is_parent\": \"<boolean>\",\n        \"is_pregnant\": \"<boolean>\",\n        \"pregnant_with\": \"<number>\",\n        \"uses_tobacco\": \"<boolean>\",\n        \"last_tobacco_use_date\": \"<string>\",\n        \"gender\": \"<string>\",\n        \"utilization_level\": \"<string>\",\n        \"relationship\": {},\n        \"does_not_cohabitate\": \"<boolean>\",\n        \"aptc_eligible\": \"<boolean>\",\n        \"current_enrollment\": {\n          \"plan_id\": \"19810KY5010669\",\n          \"effective_date\": \"<string>\",\n          \"uses_tobacco\": \"<boolean>\"\n        }\n      }\n    ],\n    \"has_married_couple\": \"<boolean>\",\n    \"effective_date\": \"<string>\"\n  },\n  \"offset\": \"<number>\",\n  \"order\": \"<string>\",\n  \"sort\": \"<string>\",\n  \"year\": \"<number>\",\n  \"aptc_override\": \"<number>\",\n  \"csr_override\": \"<string>\",\n  \"catastrophic_override\": \"<boolean>\",\n  \"suppressed_plan_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"metal_level\": \"Bronze\",\n    \"total\": 5292.613888431771,\n    \"simple_choice\": 2742.794431499791,\n    \"premiums\": {\n      \"min\": 5730.098298400446,\n      \"max\": 8222.057419441158,\n      \"mean\": 9094.79848056506\n    },\n    \"oopc\": {\n      \"min\": 1361.574140600711,\n      \"max\": 2327.72429883618,\n      \"mean\": 2544.605791262482\n    },\n    \"quality_ratings\": {\n      \"five_star_rating\": 7521.07142642345,\n      \"four_star_rating\": 574.3362056677281,\n      \"three_star_rating\": 7796.702134702612,\n      \"two_star_rating\": 9422.580235982567,\n      \"one_star_rating\": 7696.367727337707\n    }\n  },\n  {\n    \"metal_level\": \"Silver\",\n    \"total\": 952.1438365032542,\n    \"simple_choice\": 7987.715500734032,\n    \"premiums\": {\n      \"min\": 9204.348175775744,\n      \"max\": 8537.994137842665,\n      \"mean\": 8155.88858718125\n    },\n    \"oopc\": {\n      \"min\": 9766.493523640716,\n      \"max\": 6171.840728846641,\n      \"mean\": 2684.795323558176\n    },\n    \"quality_ratings\": {\n      \"five_star_rating\": 424.5131321658746,\n      \"four_star_rating\": 5837.825634357217,\n      \"three_star_rating\": 6799.466046101102,\n      \"two_star_rating\": 577.7885797966442,\n      \"one_star_rating\": 8523.494793775957\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "edaabd8a-a1d9-4960-8a0d-bf18b067c966",
+          "name": "Get a plan",
+          "request": {
+            "name": "Get a plan",
+            "description": {
+              "content": "Get a plan's basic details, no premium or APTC calculated.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "plans",
+                ":plan_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "apikey",
+                  "value": "<string>",
+                  "description": "(Required) API key used for authentication"
+                },
+                {
+                  "disabled": false,
+                  "key": "year",
+                  "value": "<integer>",
+                  "description": "4 digit market year (Defaults to the current year when not specified)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "plan_id",
+                  "description": "(Required) 14-character HIOS plan ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "581dc164-dee4-46b5-880e-2a04a7296fca",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plans",
+                    ":plan_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apikey",
+                      "value": "d687412e7b53146b2631dc01974ad0a4"
+                    },
+                    {
+                      "key": "year",
+                      "value": "2019"
+                    },
+                    {
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "plan_id",
+                      "description": "(Required) 14-character HIOS plan ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"plan\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"benefits\": [\n      {\n        \"name\": \"string\",\n        \"covered\": true,\n        \"cost_sharings\": [\n          {\n            \"coinsurance_options\": \"string\",\n            \"coinsurance_rate\": 4743.009209646856,\n            \"copay_amount\": 6071.625358076904,\n            \"copay_options\": \"string\",\n            \"network_tier\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"csr\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"display_string\": \"string\"\n          },\n          {\n            \"coinsurance_options\": \"string\",\n            \"coinsurance_rate\": 1093.4895717957172,\n            \"copay_amount\": 6515.230421122059,\n            \"copay_options\": \"string\",\n            \"network_tier\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"csr\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"display_string\": \"string\"\n          }\n        ],\n        \"explanation\": \"string\",\n        \"exclusions\": \"string\",\n        \"has_limits\": true,\n        \"limit_unit\": \"string\",\n        \"limit_quantity\": 1261.424551015009\n      },\n      {\n        \"name\": \"string\",\n        \"covered\": false,\n        \"cost_sharings\": [\n          {\n            \"coinsurance_options\": \"string\",\n            \"coinsurance_rate\": 3296.1178672325286,\n            \"copay_amount\": 9080.145009414819,\n            \"copay_options\": \"string\",\n            \"network_tier\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"csr\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"display_string\": \"string\"\n          },\n          {\n            \"coinsurance_options\": \"string\",\n            \"coinsurance_rate\": 7408.925362689463,\n            \"copay_amount\": 3351.412996101234,\n            \"copay_options\": \"string\",\n            \"network_tier\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"csr\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"display_string\": \"string\"\n          }\n        ],\n        \"explanation\": \"string\",\n        \"exclusions\": \"string\",\n        \"has_limits\": false,\n        \"limit_unit\": \"string\",\n        \"limit_quantity\": 9473.014641336502\n      }\n    ],\n    \"deductibles\": [\n      {\n        \"amount\": 7035.352576916469,\n        \"csr\": \"73% AV Level Silver Plan CSR\",\n        \"family_cost\": \"Family\",\n        \"network_tier\": \"Out-of-Network\",\n        \"type\": \"Combined Medical and Drug EHB Deductible\",\n        \"individual\": true,\n        \"family\": true,\n        \"display_string\": \"string\"\n      },\n      {\n        \"amount\": 4580.5737264039935,\n        \"csr\": \"73% AV Level Silver Plan CSR\",\n        \"family_cost\": \"Individual\",\n        \"network_tier\": \"Out-of-Network\",\n        \"type\": \"Drug EHB Deductible\",\n        \"individual\": true,\n        \"family\": true,\n        \"display_string\": \"string\"\n      }\n    ],\n    \"disease_mgmt_programs\": [\n      \"Asthma\",\n      \"Asthma\"\n    ],\n    \"has_national_network\": false,\n    \"quality_rating\": {\n      \"available\": true,\n      \"year\": 689,\n      \"global_rating\": 3,\n      \"global_not_rated_reason\": \"string\",\n      \"clinical_quality_management_rating\": 3,\n      \"clinical_quality_management_not_rated_reason\": \"string\",\n      \"enrollee_experience_rating\": 3,\n      \"enrollee_experience_not_rated_reason\": \"string\",\n      \"plan_efficiency_rating\": 2,\n      \"plan_efficiency_not_rated_reason\": \"string\"\n    },\n    \"insurance_market\": \"QHP\",\n    \"issuer\": {\n      \"id\": \"string\",\n      \"individual_url\": \"string\",\n      \"name\": \"string\",\n      \"shop_url\": \"string\",\n      \"state\": \"string\",\n      \"toll_free\": \"string\",\n      \"tty\": \"string\"\n    },\n    \"market\": \"Any\",\n    \"max_age_child\": 6321.099801692012,\n    \"metal_level\": \"Catastrophic\",\n    \"moops\": [\n      {\n        \"amount\": 235.6229840558566,\n        \"csr\": \"Unknown CSR\",\n        \"family_cost\": \"Family\",\n        \"network_tier\": \"Out-of-Network\",\n        \"type\": \"Maximum Out of Pocket for Medical EHB Benefits\",\n        \"individual\": true,\n        \"family\": false,\n        \"display_string\": \"string\"\n      },\n      {\n        \"amount\": 985.1110700322674,\n        \"csr\": \"Unknown CSR\",\n        \"family_cost\": \"Individual\",\n        \"network_tier\": \"Combined In-Out of Network\",\n        \"type\": \"Maximum Out of Pocket for Medical EHB Benefits\",\n        \"individual\": true,\n        \"family\": true,\n        \"display_string\": \"string\"\n      }\n    ],\n    \"premium\": 6987.28657392442,\n    \"premium_w_credit\": 2764.0672914682796,\n    \"ehb_premium\": 4136.660580327064,\n    \"pediatric_ehb_premium\": 6473.624992423289,\n    \"aptc_eligible_premium\": 3676.726246799732,\n    \"guaranteed_rate\": false,\n    \"simple_choice\": true,\n    \"product_division\": \"<string>\",\n    \"specialist_referral_required\": false,\n    \"state\": \"string\",\n    \"type\": \"<string>\",\n    \"benefits_url\": \"string\",\n    \"brochure_url\": \"string\",\n    \"formulary_url\": \"string\",\n    \"network_url\": \"string\",\n    \"hsa_eligible\": false,\n    \"oopc\": 3756.0479631410926,\n    \"suppression_state\": \"Suspended\",\n    \"tobacco_lookback\": 8061,\n    \"certification\": \"Decertified\",\n    \"network_adequacy\": {\n      \"scope\": \"string\",\n      \"networks\": {}\n    },\n    \"sbcs\": {\n      \"baby\": {\n        \"deductible\": 7442.558713331446,\n        \"copay\": 7172.486282454625,\n        \"coinsurance\": 6830.842425605722,\n        \"limit\": 593.1108196884949\n      },\n      \"diabetes\": {\n        \"deductible\": 2401.4647522189234,\n        \"copay\": 7200.633669806257,\n        \"coinsurance\": 6760.722343961375,\n        \"limit\": 4419.121570197992\n      },\n      \"fracture\": {\n        \"deductible\": 1755.9626653998905,\n        \"copay\": 8303.11478245642,\n        \"coinsurance\": 4812.08222373161,\n        \"limit\": 751.6052447249655\n      }\n    },\n    \"rx_3mo_mail_order\": true,\n    \"is_ineligible\": true,\n    \"covers_nonhyde_abortion\": true,\n    \"service_area_id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "709488cc-18b0-4499-b1c9-2260d642a65c",
+          "name": "Quality ratings for a plan. If a rating value is missing or is 0, then the rating is considered 'Not Rated' and the corresponding reason value will indicate the reason for the non-rating.",
+          "request": {
+            "name": "Quality ratings for a plan. If a rating value is missing or is 0, then the rating is considered 'Not Rated' and the corresponding reason value will indicate the reason for the non-rating.",
+            "description": {
+              "content": "Quality ratings for a plan. If a rating value is missing or is 0, then the rating is considered 'Not Rated' and the corresponding reason value will indicate the reason for the non-rating.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "plans",
+                ":plan_id",
+                "quality-ratings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "apikey",
+                  "value": "<string>",
+                  "description": "(Required) API key used for authentication"
+                },
+                {
+                  "disabled": false,
+                  "key": "year",
+                  "value": "<integer>",
+                  "description": "(Required) 4 digit market year."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "plan_id",
+                  "description": "(Required) Plan ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "af726098-19eb-40b8-b447-733a5050fecd",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plans",
+                    ":plan_id",
+                    "quality-ratings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apikey",
+                      "value": "d687412e7b53146b2631dc01974ad0a4"
+                    },
+                    {
+                      "key": "year",
+                      "value": "2019"
+                    },
+                    {
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "plan_id",
+                      "description": "(Required) Plan ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"quality_rating\": {\n    \"available\": true,\n    \"year\": 1049,\n    \"global_rating\": 0,\n    \"global_not_rated_reason\": \"string\",\n    \"clinical_quality_management_rating\": 2,\n    \"clinical_quality_management_not_rated_reason\": \"string\",\n    \"enrollee_experience_rating\": 0,\n    \"enrollee_experience_not_rated_reason\": \"string\",\n    \"plan_efficiency_rating\": 0,\n    \"plan_efficiency_not_rated_reason\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.api.healthcare.gov/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3f8a7491-0592-4c8c-9873-964554172f69",
+    "name": "Marketplace API Reference Insurance Plans API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "# About\n\nThe Marketplace API delivers data that helps users find and evaluate health care insurance plans, providers, and coverage information on the marketplace. It’s used by [HealthCare.gov](https://healthcare.gov) and other third party services. Request an API token [here](https://developer.cms.gov/marketplace-api/key-request.html), or learn more from [the developer site](https://developer.cms.gov/marketplace-api/).\n\n## Retention\n\nMarketplace API data includes at minimum the last three years of data.\n\n## Limitations\n\nAPI keys are rate limited. This rate limit is passed along in the Header information provided. If you have concerns with the rate limit, please reach out to the [Marketplace API team](mailto:marketplace-api@cms-provider-directory.uservoice.com).\n\n# Quickstart\n\nThis section will cover a short workflow for a common scenario — looking up insurance plans for a person's household with premiums and estimated tax credits, obtaining details about a particular plan, and looking up the drug coverage for a specific plan. Other endpoints,   like looking up doctors and providers, or getting recent state medicaid information,  are covered in the docs.\n\n## Search for health insurance plans\n\nWe begin by searching for the health insurance plans for a 27 year-old woman living in North Carolina by posting a single person household to the plan search endpoint\n\n```\napikey=\"d687412e7b53146b2631dc01974ad0a4\" # rate limited test key\ncurl --request POST \\\\\n  --url \"https://marketplace.api.healthcare.gov/api/v1/plans/search?apikey=${apikey}\" \\\\\n  --header 'content-type: application/json' \\\\\n  --data '{\n    \"household\": {\n      \"income\": 52000,\n      \"people\": [\n        {\n          \"age\": 27,\n          \"aptc_eligible\": true,\n          \"gender\": \"Female\",\n          \"uses_tobacco\": false\n        }\n      ]\n    },\n    \"market\": \"Individual\",\n    \"place\": {\n      \"countyfips\": \"37057\",\n      \"state\": \"NC\",\n      \"zipcode\": \"27360\"\n    },\n    \"year\": 2019\n}'\n```\n\nThis **POST** request returns health insurance information and pricing estimates for the plans for which she can sign up. More discussion about building the household JSON object can be found later on this page. Don't know the county [FIPS](https://en.m.wikipedia.org/wiki/FIPS_county_code) code? To look it up for this person's zip code, we use the counties by zip endpoint.\n\n```\napikey=\"d687412e7b53146b2631dc01974ad0a4\"\nzipcode=\"27360\"\ncurl \"https://marketplace.api.healthcare.gov/api/v1/counties/by/zip/${zipcode}?apikey=${apikey}\"\n```\n\nThis helps gather the necessary information to build the household object to submit to the API.\n\n## Get details about a specific health insurance plan\n\nWith a plan search completed, let's look more closely at a particular plan. For example, **Blue Cross Blue Shield of North Carolina Blue Value Catastrophic** was one of the first returned from the example above. We will use it as an example to drill down\n\n```\napikey=\"d687412e7b53146b2631dc01974ad0a4\"\nplanid=\"11512NC0100031\"\nyear=\"2019\"\ncurl \"https://marketplace.api.healthcare.gov/api/v1/plans/${planid}?year=${year}&apikey=${apikey}\"\n```\n\nUsing this endpoint will provide more granular information about the particular plan for a searching user, like issuer information, cost sharing deductibles, eligible dependents, website urls, quality ratings, and more.\n\n## Standard Plans\n\nSome plans are considered **standard plans.** These can be identified in the results of a plan search or plan details endpoint.  If a plan has a **design_type** that is one of the following, it is considered a standard plan: \"DESIGN1\", \"DESIGN2\", \"DESIGN3\", \"DESIGN4\", \"DESIGN5\".  If a plan has a **design_type** of \"NOT_APPLICABLE\", then it is not considered a standard plan.\n\n## Get drug coverage information about a health insurance plan\n\nNow that we have a plan of interest, let's look up what drugs it covers. We want to know if **ibuprofen** is covered under the insurance plan. First, we can mimic a user interaction with an autocomplete for ibuprofen for a typeahead.\n\n```\napikey=\"d687412e7b53146b2631dc01974ad0a4\"\nquery=\"ibuprof\"\ncurl \"https://marketplace.api.healthcare.gov/api/v1/drugs/autocomplete?q=${query}&apikey=${apikey}\"\n```\n\nAmong other things, this provides us with an **RxCUI**, a unique identifier for a clinical drug. We can use it along with the plan id to query the API for whether or not **ibuprofen** is covered under this plan\n\n```\napikey=\"d687412e7b53146b2631dc01974ad0a4\"\ndrugs=\"1049589\"\nplanids=\"11512NC0100031\"\nyear=\"2019\"\ncurl \"https://marketplace.api.healthcare.gov/api/v1/drugs/covered?year=${year}&drugs=${drugs}&planids=${planids}&apikey=${apikey}\"\n```\n\nThe API confirms that ibuprofen is covered.\n\n# More information about households\n\nThe household in the example above was sufficient to query Marketplace API, but there are more optional fields that can provide more accurate search results and premium estimates, or can be used by application developers to specify scenarios. For example, if a household does not live together, certain plans may no longer be eligible to them.\n\nWe begin with an example, describing what some of the less intuitive fields means. Here's the JSON of a fully filled in household, using all possible features\n\n```\n{\n  \"aptc_override\": 288.61,\n  \"household\": {\n    \"effective_date\": \"2019-05-01\",\n    \"has_married_couple\": true,\n    \"income\": 52000,\n    \"unemployment_received\": Adult,\n    \"people\": [\n      {\n        \"age\": 27,\n        \"dob\": \"1992-01-01\",\n        \"aptc_eligible\": true,\n        \"does_not_cohabitate\": false,\n        \"gender\": \"Female\",\n        \"has_mec\": false,\n        \"is_parent\": false,\n        \"is_pregnant\": false,\n        \"relationship\": \"Self\",\n        \"uses_tobacco\": false,\n        \"utilization\": \"Medium\"\n      },\n      {\n        \"age\": 25,\n        \"dob\": \"1994-03-03,\n        \"aptc_eligible\": true,\n        \"does_not_cohabitate\": false,\n        \"gender\": \"Male\",\n        \"has_mec\": false,\n        \"is_parent\": false,\n        \"is_pregnant\": false,\n        \"relationship\": \"Spouse\",\n        \"uses_tobacco\": false,\n        \"utilization\": \"Medium\"\n      }\n    ]\n  },\n  \"market\": \"Individual\",\n  \"place\": {\n    \"countyfips\": \"37057\",\n    \"state\": \"NC\",\n    \"zipcode\": \"27360\"\n  },\n  \"year\": 2019\n}\n```\n\n## APTC Override\nThe `aptc_override` is an optional override to specify the Advanced Premium Tax Credit for a user, if the exact value is already known. For persons in the household, `aptc_eligible` denotes if the person is eligible for the Advanced Premium Tax Credit.\n\n## Unemployment Received\nAs part of the American Rescue Plan, if the household has received unemployment benefits during 2021 the household income must be capped to 133% of the Federal Poverty Level for the household size in APTC and CSR estimations.  If the recipient is an adult tax payer, both ATPC and CSRs will be affected.  If only a tax dependent received unemployment, the only effect will be to CSR eligibility.\nIf both an adult and dependent have received unemployment, \"Adult\" should be passed so that the maximum APTC and CSRs are received.\nThis field defaults to None if not included and only affects the 2021 market year.\n\n## Effective Date\nThis is the date a plan or coverage goes into effect and is used in premium calculations and determining eligibility. If omitted, the value defaults to the effective date of the plan, which is generally Jan 1 of the market year. The `effective_date` is required to correctly calculate the number of months since an individual has used tobacco. The number of months is the difference of the last tobacco use date until the `effective_date`. Considering the number of months since last tobacco use can impact the rate charged by a plan, this field is required to be included for a more accurate search result.\n\n## Age Calculation\nEither an `age` or `dob` value must be provided.  If `age` is provided that value is used in determining eligibility and premiums. If a `dob` is provided, a more accurate age is calculated using the combination of `dob`, the effective date, and plan specific rating-age adjustments.  If both fields are populated, `age` takes precedence and no calculation will occur.\n\nPlan rates can have age adjustments affecting what premiums get returned.  Additionally, effective date in relation to age affects premium calculation and eligibility.  Therefore, determining the correct age is important for accurate results.\n\n## Cohabitation\n`does_not_cohabitate` indicates whether the person is living with the household.\n\n## Minimal Essential Coverage (MEC)\n`has_mec` indicates whether a person has Medicaid/CHIP and may possibly not be included in the household for premium determination and insurance eligibility.\n\n## Relationship\n`relationship` — which is not required to issue a request — is the relationship of a household member to the person applying for health insurance. For the main enrollee, the `Self` relationship is used.\n\nEach plan on the marketplace defines a set of dependent relationships within a household as eligible to enroll in that plan.\n\nIf it is known by the caller what relationships exist within a household when making a request to Marketplace API, the API can more accurately determine household eligibility for plans.  If the relationship field is used in a request, it must be a valid relationship for the provided market year (see list below).\nWhen a household request is sent without relationships present in the household, Marketplace API will make as accurate an eligibility determinaton as possible without the relationship values.\n\nThe total set of dependent relationships that plans may use to restrict eligibility may change over the years. For 2020 and 2021, the possible relationship types that plans may utilize are as follows\n\n2020                              | 2021\n--------------------------------- | ---------------------------\n`Self`                            | `Self`\n`Brother or Sister`               | `Brother or Sister`\n`Child`                           | `Child`\n`Collateral Dependent`            | `Collateral Dependent`\n`Ex-Spouse`                       | `Ex-Spouse`\n`Foster Child`                    | `Foster Child`\n`Grandson or Granddaughter`       | `Grandson or Granddaughter`\n`Life Partner`                    | `Life Partner`\n`Nephew or Niece`                 | `Nephew or Niece`\n`Other Relationship`              | `Other Relationship`\n`Other Relative`                  | `Other Relative`\n`Sponsored Dependent`             | `Sponsored Dependent`\n`Spouse`                          | `Spouse`\n`Stepson or Stepdaughter`         | `Stepson or Stepdaughter`\n`Ward`                            | `Ward`\n`Adopted Child`                   |\n`Annultant`                       |\n`Brother-in-Law or Sister-in-Law` |\n`Court Appointed Guardian`        |\n`Dependent of a Minor Dependent`  |\n`Guardian`                        |\n`Son-in-Law or Daughter-in-Law`   |\n`Stepparent`                      |\n\nAs can be seen from this list, the list of potential relationships has been simplified between 2020 and 2021. When a relationship is not one of the obvious choices in this list, the fallback values of `Other Relative` and `Other Relationship` may be used.\n\n## Utilization\nFinally, `utilization` is one of `{\"Low\", \"Medium\", \"High\"}` and is a description of how much a person intends to use their health insurance.\n\n## Bulk Data\nMarketplace API offers various endpoints that offer *bulk data*.  These endpoints will pass large JSON data sets through that are stored in s3.  Currently these are only supported for the current and previous market years.\n\n# Understanding Errors\nThe Marketplace API returns standard HTTP status codes which indicate whether a specific HTTP request has successfully completed. For some errors, additional information is provided in the response body, including an application error code and a brief message.\n\n## HTTP Response Status Codes\nResponses are grouped in five classes:\n  - Successful responses (200–299)\n  - Client errors (400–499)\n  - Server errors (500–599)\n\n## Marketplace API Error Codes\nThe various codes are listed below:\n\n1000 - errInternalServerError |\n-----\nThe Internal Server Error response code indicates that the server encountered an unexpected condition that prevented it from fulfilling the request.\n  ```\n    Request:  GET /api/v1/drugs/search?q=...\n    Response: {\n                \"code\": \"1000\",\n                \"status\": \"500\",\n                \"message\": \"Internal server error\",\n                \"error\": \"sql: Scan called without calling Next\"\n              }\n```\n1001 - errCountyNotFound |\n-----\nThis error code is returned by the [County Lookup by FIPS](#reference/geography/county-lookup-by-fips/get) endpoint when no county is found using the  FIPS provided in the request. For example:\n  ```\n    Request:   GET /api/v1/counties/35094\n    Response:  {\n                  \"code\": \"1001\",\n                  \"status\": \"404\",\n                  \"message\": \"county not found\"\n                  \"error\": \"sql: No records found\"\n                }\n```\n1002 - errStateNotFound |\n-----\nThis error code is returned by the [Lookup State](#reference/geography/lookup-state/get) endpoint when no state is found using the state provided in the request. For example:\n  ```\n    Request:   GET /api/v1/states/NP\n    Response:  {\n                  \"code\": \"1002\",\n                  \"status\": \"404\",\n                  \"message\": \"state not found\"\n                  \"error\": \"sql: No records found\"\n                }\n```\n1003 - errInvalidInput  |\n-----\nThis error code is returned by various endpoints when the required input is invalid. The message provided in the response will assist in resolving the problem before re-sending the request. For example:\n  ```\n    Request:   GET /api/v1/issuers/1019\n    Response:  {\n                    \"code\": \"1003\",\n                    \"status\": \"400\",\n                    \"message\": \"invalid issuers request\"\n                    \"error\": \"invalid issuer ID format\"\n                }\n```\n1004 - errIssuerNotFound  |\n-----\nThis error code is returned by the [Get Issuer](#reference/insurance-issuers/get-issuer/get-issuer) endpoint when no issuer is found using the issuer id provided in the request. For example:\n  ```\n    Request:   GET /api/v1/issuers/01922\n    Response:  {\n                  \"code\": \"1004\",\n                  \"status\": \"404\",\n                  \"message\": \"issuer not found\"\n                  \"error\": \"sql: No records found\"\n                }\n```\n1005 - errCrosswalkNotFound  |\n-----\nThis error code is returned by the [Crosswalk a previous year plan](#reference/insurance-plans/plan-crosswalk/crosswalk-a-previous-year-plan) endpoint when no crosswalk is found using the parameters provided in the request. For example:\n  ```\n    Request:   GET /api/v1/crosswalk&year=2018&plan_id=53882IL0040002&state=IN\n               &zipcode=60647&fips=17031\n    Response:  {\n                  \"code\": \"1005\",\n                  \"status\": \"404\",\n                  \"message\": \"No crosswalk found for those parameters\"\n                  \"error\": \"sql: No records found\"\n                }\n```\n1006 - errPlanNotFound  |\n-----\nThis error code is returned by various endpoints when no plan is found using the parameters provided in the request. For example:\n  ```\n    Request:   GET /api/v1/plans/11512NC0100035\n    Response:  {\n                  \"code\": \"1006\",\n                  \"status\": \"404\",\n                  \"message\": \"Plan not found\"\n                  \"error\": \"sql: No records found\"\n                }\n```\n1007 - errTimeout  |\n-----\nThis error code is returned by various endpoints when the request timed out. For example:\n  ```\n    Request:   various endpoints\n    Response:  {\n                  \"code\": \"1007\",\n                  \"status\": \"500\",\n                  \"message\": \"request timed-out, try again\"\n                  \"error\": \"db query timed-out\"\n                }\n```\n1008 - errStateMedicaidNotFound  |\n-----\nThis error code is returned by the [State Medicaid Data](#reference/geography/state-medicaid-data/get) endpoint when no medicaid is found using the parameters provided in the request. For example:\n  ```\n    Request:   GET /api/v1/states/NV/medicaid\n    Response:  {\n                  \"code\": \"1008\",\n                  \"status\": \"404\",\n                  \"message\": \"state medicaid not found\"\n                  \"error\": \"year out of range\"\n                }\n```\n1009 - errPovertyGuidelineNotFound  |\n-----\nThis error code is returned by the [State Poverty Guidelines](#reference/geography/state-poverty-guidelines/get) endpoint when no U.S. federal poverty guidelines is found using the parameters provided in the request. For example:\n  ```\n    Request:   GET /api/v1/states/XX/poverty-guidelines\n    Response:  {\n                  \"code\": \"1009\",\n                  \"status\": \"400\",\n                  \"message\": \"poverty guideline not found\"\n                  \"error\": \"sql: No records found\"\n                }\n```\n1010 - errPercentageFPLNotFound  |\n-----\nThis error code is returned by the [Poverty Level Percentage](#reference/households-&-eligibility/poverty-level-percentage/get) endpoint when no percentage of federal poverty level is found using the parameters provided in the request. For example:\n  ```\n    Request:   GET /api/v1/households/pcfpl&year=2021&state=NV&size=2&income=14000\n    Response:  {\n                  \"code\": \"1010\",\n                  \"status\": \"404\",\n                  \"message\": \"percentage of federal poverty level not found\"\n                  \"error\": \"guideline not found for state: NV, year: 2021\"\n                }\n```\n1011 - errQualityRatingNotFound  |\n-----\nThis error code is returned by the [Quality Ratings](#reference/insurance-plans/quality-ratings/get) endpoint when there are no quality ratings for a plan. For example:\n  ```\n    Request:   GET /api/v1/plans/XXXXXXXXXXX/quality-ratings&year=2021\n    Response:  {\n                  \"code\": \"1011\",\n                  \"status\": \"404\",\n                  \"message\": No quality rating found for those parameters\"\n                  \"error\": \"sql: No records found\"\n                }\n```\n1012 - errCoverageUnavailable  |\n-----\nThis error code is returned by various endpoints when the coverage data is temporarily unavailable. For example:\n  ```\n    Request:   various endpoints\n    Response:  {\n                  \"code\": \"1012\",\n                  \"status\": \"503\",\n                  \"message\": \"coverage data temporarily unavailable\"\n                  \"error\": \"coverage database unavailable\"\n                }\n```\n1013 - errProviderNotFound  |\n-----\nThis error code is returned by various Provider related endpoints when the provider is not found. For example:\n  ```\n    Request:   various endpoints\n    Response:  {\n                  \"code\": \"1013\",\n                  \"status\": \"404\",\n                  \"message\": \"provider not found\"\n                  \"error\": \"sql: No records found\"\n                }\n```\n1014 - errDrugNotFound  |\n-----\nThis error code is returned by various Drug related endpoints when the drug is not found. For example:\n  ```\n    Request:   various endpoints\n    Response:  {\n                  \"code\": \"1014\",\n                  \"status\": \"404\",\n                  \"message\": \"drug not found\"\n                  \"error\": \"sql: No records found\"\n                }\n```\n1015 - errMissingMedicaidCHIPEligibility  |\n-----\nThis error code is returned when no Medicaid CHIP Eligibility plans are found using the parameters provided in the request.\n  ```\n    Request:   POST /api/v1/households/eligibility/estimates\n    Response:  {\n                  \"code\": \"1015\",\n                  \"status\": \"404\",\n                  \"message\": \"missing medicaid eligibility data\"\n                  \"error\": \"missing eligibility for fiscal year: YYYY, quarter: Q, state: SS\"\n                }\n```\n1016 - errTooFewPlans  |\n-----\nThis error code is returned when there are not enough plans in a given service area to compute a second lowest cost silver plan for an example, the errTooFewPlans code may be returned.\n  ```\n    Request:   POST /api/v1/households/eligibility/estimates\n    Response:  {\n                  \"code\": \"1016\",\n                  \"status\": \"404\",\n                  \"message\": \"not enough plans to calculate SLCSP/LCBP\"\n                  \"error\": \"not enough plans to calculate SLCSP/LCBP\"\n                }\n```\n1017 - errRateAreaNotFound  |\n-----\nThis error code is returned by various Drug related endpoints when the rate area is not found. For example:\n  ```\n    Request:   GET /api/v1/rate-areas?state=IN&zipcode=60647&fips=17031\n    Response:  {\n                  \"code\": \"1017\",\n                  \"status\": \"404\",\n                  \"message\": \"rate area not found\"\n                  \"error\": \"No rate area could be determined\"\n                }\n```\n\n## Marketplace API Common Error Codes\n```\n400 Bad Request - Client supplied invalid or incorrect values to the requested end-point\n404 Not Found - End-point could not find the requested object(s)\n````\n\n## Marketplace API Uncommon Error Codes\n```\n500 Internal Server Error - An unexpected error occurred\n503 Service Unavailable - The requested service is temporarily unavailable, try again later.\n````\n",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CMS Blue Button 2.0 Capability Patient API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://api.bluebutton.cms.gov/v2/o/authorize/",
+      "accessTokenUrl": "https://api.bluebutton.cms.gov/v2/o/token/",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Patient",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search Patient",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bluebutton.cms.gov/v2/fhir/Patient"
+          },
+          "docs": "Returns the authenticated Medicare beneficiary as a FHIR Patient resource."
+        },
+        {
+          "info": {
+            "name": "Read Patient",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bluebutton.cms.gov/v2/fhir/Patient/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "FHIR Patient resource ID."
+              }
+            ]
+          },
+          "docs": "Returns a single Patient resource by ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

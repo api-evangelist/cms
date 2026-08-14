@@ -1,0 +1,253 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Marketplace API Reference Geography API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Geography",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET /counties/by/zip/{zipcode}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/counties/by/zip/:zipcode",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "4 digit market year (Defaults to the current year when not specified)."
+              },
+              {
+                "name": "zipcode",
+                "value": "",
+                "type": "path",
+                "description": "5 digit ZIP Code or 1-4 digit prefix of a ZIP Code"
+              }
+            ]
+          },
+          "docs": "Find counties matching ZIP Code (5 digits or prefix thereof).\nThis method is suitable for use in typeahead UI completions."
+        },
+        {
+          "info": {
+            "name": "GET /counties/{fips}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/counties/:fips",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "4 digit market year (Defaults to the current year when not specified)."
+              },
+              {
+                "name": "fips",
+                "value": "",
+                "type": "path",
+                "description": "5-digit county FIPS code"
+              }
+            ]
+          },
+          "docs": "Get information about a county by its FIPS code."
+        },
+        {
+          "info": {
+            "name": "GET /states",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/states",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "4 digit market year (Defaults to the current year when not specified)."
+              }
+            ]
+          },
+          "docs": "List all U.S. states."
+        },
+        {
+          "info": {
+            "name": "GET /states/{abbrev}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/states/:abbrev",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              },
+              {
+                "name": "abbrev",
+                "value": "",
+                "type": "path",
+                "description": "2-letter USPS state abbreviation, uppercased."
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "4 digit market year (Defaults to the current year when not specified)."
+              }
+            ]
+          },
+          "docs": "Get a U.S. state from its 2-letter USPS abbreviation."
+        },
+        {
+          "info": {
+            "name": "GET /states/{abbrev}/medicaid",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/states/:abbrev/medicaid",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              },
+              {
+                "name": "abbrev",
+                "value": "",
+                "type": "path",
+                "description": "2-letter USPS state abbreviation, uppercased."
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "4 digit market year (Defaults to the current year when not specified)."
+              },
+              {
+                "name": "quarter",
+                "value": "",
+                "type": "query",
+                "description": "1-4 A specific fiscal quarter. When not specified it defaults to the most current data for the specified year"
+              }
+            ]
+          },
+          "docs": "Get Medicaid data for a U.S. state for a specific fiscal year."
+        },
+        {
+          "info": {
+            "name": "GET /states/{abbrev}/poverty-guidelines",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/states/:abbrev/poverty-guidelines",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              },
+              {
+                "name": "abbrev",
+                "value": "",
+                "type": "path",
+                "description": "2-letter USPS state abbreviation, uppercased."
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "4 digit market year."
+              }
+            ]
+          },
+          "docs": "Get U.S. federal poverty guidelines for the provided state."
+        },
+        {
+          "info": {
+            "name": "GET /rate-areas",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rate-areas",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "2-letter USPS state abbreviation"
+              },
+              {
+                "name": "fips",
+                "value": "",
+                "type": "query",
+                "description": "5-digit county FIPS code"
+              },
+              {
+                "name": "zipcode",
+                "value": "",
+                "type": "query",
+                "description": "5-digit ZIP Code"
+              },
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Insurance market"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "4 digit market year."
+              }
+            ]
+          },
+          "docs": "Get market year rate area for a given zip/fips/state."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

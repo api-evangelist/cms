@@ -1,0 +1,74 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CMS Blue Button 2.0 Capability ExplanationOfBenefit API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://api.bluebutton.cms.gov/v2/o/authorize/",
+      "accessTokenUrl": "https://api.bluebutton.cms.gov/v2/o/token/",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ExplanationOfBenefit",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search ExplanationOfBenefit",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bluebutton.cms.gov/v2/fhir/ExplanationOfBenefit",
+            "params": [
+              {
+                "name": "patient",
+                "value": "",
+                "type": "query",
+                "description": "Patient resource reference."
+              },
+              {
+                "name": "_lastUpdated",
+                "value": "",
+                "type": "query",
+                "description": "Filter by last-updated timestamp."
+              }
+            ]
+          },
+          "docs": "Returns ExplanationOfBenefit (claims) records for the authenticated beneficiary."
+        },
+        {
+          "info": {
+            "name": "Read ExplanationOfBenefit",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bluebutton.cms.gov/v2/fhir/ExplanationOfBenefit/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "FHIR ExplanationOfBenefit resource ID."
+              }
+            ]
+          },
+          "docs": "Returns a single ExplanationOfBenefit resource by ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,90 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Marketplace API Reference Insurance Issuers API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Insurance Issuers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List issuers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/issuers",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "4 digit market year (Defaults to the current year when not specified)."
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "2-letter USPS state abbreviation"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List issuers\n\nThis API is paged. Ten results are returned for each query, and\nthe total amount of results that match your query is available as the\n`total` attribute on the result. Use the `offset` parameter to get\nresults beyond the first page."
+        },
+        {
+          "info": {
+            "name": "Get issuer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/issuers/:issuer_id",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "4 digit market year (Defaults to the current year when not specified)."
+              },
+              {
+                "name": "issuer_id",
+                "value": "",
+                "type": "path",
+                "description": "5-digit HIOS issuer ID"
+              }
+            ]
+          },
+          "docs": "Get issuer"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

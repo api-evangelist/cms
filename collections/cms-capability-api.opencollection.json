@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CMS Blue Button 2.0 Capability API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://api.bluebutton.cms.gov/v2/o/authorize/",
+      "accessTokenUrl": "https://api.bluebutton.cms.gov/v2/o/token/",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Capability",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Capability Statement",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bluebutton.cms.gov/v2/fhir/metadata"
+          },
+          "docs": "Returns the FHIR CapabilityStatement describing supported resources and operations."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

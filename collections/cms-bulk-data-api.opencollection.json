@@ -1,0 +1,168 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Marketplace API Reference Bulk Data API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bulk Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET /data/apt",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/data/apt",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "4 digit market year."
+              }
+            ]
+          },
+          "docs": "Bulk data containing our Applicable Percentage Tables"
+        },
+        {
+          "info": {
+            "name": "GET /data/decile-mapping",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/data/decile-mapping",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "4 digit market year."
+              }
+            ]
+          },
+          "docs": "Bulk data containing our OOPC Utilization Decile Mapping"
+        },
+        {
+          "info": {
+            "name": "GET /data/state-medicaid",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/data/state-medicaid",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "4 digit market year."
+              }
+            ]
+          },
+          "docs": "Bulk data containing our State Medicaid data"
+        },
+        {
+          "info": {
+            "name": "GET /data/rate-areas",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/data/rate-areas",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "4 digit market year."
+              }
+            ]
+          },
+          "docs": "Bulk data containing our rate area information"
+        },
+        {
+          "info": {
+            "name": "GET /data/county-zips",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/data/county-zips",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "4 digit market year."
+              }
+            ]
+          },
+          "docs": "Bulk data containing our county zip information"
+        },
+        {
+          "info": {
+            "name": "GET /data/crosswalk",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/data/crosswalk",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "4 digit market year."
+              }
+            ]
+          },
+          "docs": "Bulk data containing our Crosswalk data"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,186 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Marketplace API Reference Households & Eligibility API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Households & Eligibility",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "POST /households/eligibility/estimates",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/households/eligibility/estimates",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "4 digit market year (Defaults to the current year when not specified)."
+              }
+            ]
+          },
+          "docs": "#### Note\nUse this JSON example in the **POST** Body in the request pane to view results:\n  ```\n  {\n      \"household\": {\n      \"income\": 52000,\n      \"people\": [\n        {\n            \"dob\": \"1992-01-01\",\n            \"aptc_eligible\": true,\n         \"gender\": \"Female\",\n          \"uses_tobacco\": false\n         }\n       ]\n      },\n      \"market\": \"Individual\",\n      \"place\": {\n         \"countyfips\": \"37057\",\n         \"state\": \"NC\",\n          \"zipcode\": \"27360\"\n      },\n      \"year\": 2019\n  }\n  ```\n"
+        },
+        {
+          "info": {
+            "name": "Get affordability and premium of the lowest cost silver plan",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/households/ichra",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "4 digit market year (Defaults to the current year when not specified)."
+              }
+            ]
+          },
+          "docs": "#### Note\nUse this JSON example in the **POST** Body in the request pane to view results:\n  ```\n  {\n      \"household\": {\n        \"income\": 52000,\n        \"people\": [\n        {\n            \"dob\": \"1992-01-01\",\n            \"aptc_eligible\": true,\n            \"gender\": \"Female\",\n            \"uses_tobacco\": false\n         }\n       ]\n      },\n      \"market\": \"Individual\",\n      \"place\": {\n         \"countyfips\": \"37057\",\n         \"state\": \"NC\",\n         \"zipcode\": \"27360\"\n      },\n      \"hra\": 500,\n   "
+        },
+        {
+          "info": {
+            "name": "Get lowest cost bronze plan for a household",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/households/lcbp",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "4 digit market year (Defaults to the current year when not specified)."
+              }
+            ]
+          },
+          "docs": "#### Note\nUse this JSON example in the **POST** Body in the request pane to view results:\n  ```\n  {\n      \"household\": {\n        \"income\": 52000,\n        \"people\": [\n        {\n            \"dob\": \"1992-01-01\",\n            \"aptc_eligible\": true,\n            \"gender\": \"Female\",\n            \"uses_tobacco\": false\n         }\n       ]\n      },\n      \"market\": \"Individual\",\n      \"place\": {\n         \"countyfips\": \"37057\",\n         \"state\": \"NC\",\n         \"zipcode\": \"27360\"\n      },\n      \"year\": 2020\n  "
+        },
+        {
+          "info": {
+            "name": "Get second lowest cost silver plan",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/households/slcsp",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "4 digit market year (Defaults to the current year when not specified)."
+              }
+            ]
+          },
+          "docs": "#### Note\nUse this JSON example in the **POST** Body in the request pane to view results:\n  ```\n  {\n      \"household\": {\n        \"income\": 52000,\n        \"people\": [\n        {\n            \"dob\": \"1992-01-01\",\n            \"aptc_eligible\": true,\n            \"gender\": \"Female\",\n            \"uses_tobacco\": false\n         }\n       ]\n      },\n      \"market\": \"Individual\",\n      \"place\": {\n         \"countyfips\": \"37057\",\n         \"state\": \"NC\",\n         \"zipcode\": \"27360\"\n      },\n      \"year\": 2020\n  "
+        },
+        {
+          "info": {
+            "name": "Get lowest cost silver plan",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/households/lcsp",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "4 digit market year (Defaults to the current year when not specified)."
+              }
+            ]
+          },
+          "docs": "#### Note\nUse this JSON example in the **POST** Body in the request pane to view results:\n  ```\n  {\n      \"household\": {\n        \"income\": 52000,\n        \"people\": [\n        {\n            \"dob\": \"1992-01-01\",\n            \"aptc_eligible\": true,\n            \"gender\": \"Female\",\n            \"uses_tobacco\": false\n         }\n       ]\n      },\n      \"market\": \"Individual\",\n      \"place\": {\n         \"countyfips\": \"37057\",\n         \"state\": \"NC\",\n         \"zipcode\": \"27360\"\n      },\n      \"year\": 2020\n  "
+        },
+        {
+          "info": {
+            "name": "GET /households/pcfpl",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/households/pcfpl",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "4 digit market year."
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "2-letter USPS state abbreviation, uppercased."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Total size of household"
+              },
+              {
+                "name": "income",
+                "value": "",
+                "type": "query",
+                "description": "Household Income"
+              }
+            ]
+          },
+          "docs": "Household income as a percentage of the federal poverty level"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

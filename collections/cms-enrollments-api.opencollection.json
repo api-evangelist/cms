@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Marketplace API Reference Enrollments API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Enrollments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "POST /enrollment/validate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/enrollment/validate",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              }
+            ]
+          },
+          "docs": "Verify extended enrollment groups. The endpoint assumes an effective date of Jan 1 on enrollees ages unless effective_age is provided on the enrollees.\n\nIf `is_custom` is true, the endpoint will validate that each group has available plans for enrollment, otherwise it will only verify that there are no address, hardship, or CSR conflicts.\n### Note\nUse this JSON example in the **POST** Body in the request pane to view results\n  ```\n  {\n      \"maxAPTC\": 0,\n      \"year\": 2019,\n      \"is_custom\": fa"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

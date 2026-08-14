@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Marketplace API Reference Cost Search API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Cost Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Cost data for a given code",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/costs/:code",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "path",
+                "description": "The code to find cost values for."
+              }
+            ]
+          },
+          "docs": "Returns cost data for the given code."
+        },
+        {
+          "info": {
+            "name": "Gets a set of cost data for given limit",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/costs",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limit the number of records returned by the search."
+              }
+            ]
+          },
+          "docs": "Returns cost data for all codes. Limits the number of returned cost items to given Limit. If no Limit parameter is given, returns cost data for ALL codes."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

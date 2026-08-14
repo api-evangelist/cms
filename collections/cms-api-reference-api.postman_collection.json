@@ -1,0 +1,221 @@
+{
+  "item": [
+    {
+      "id": "162a077b-4045-44e1-a8e4-f6f7905e0c42",
+      "name": "API Reference",
+      "description": {
+        "content": "Information about the state of Marketplace API.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "32eaa31c-75f5-4ea2-a642-ba67aab09920",
+          "name": "Get the last updated date for various data sets",
+          "request": {
+            "name": "Get the last updated date for various data sets",
+            "description": {
+              "content": "Get the last updated date for various data sets",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "versions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "apikey",
+                  "value": "<string>",
+                  "description": "(Required) API key used for authentication"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2e3c04e5-0ef1-4e66-8d6e-73cd76b385be",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apikey",
+                      "value": "d687412e7b53146b2631dc01974ad0a4"
+                    },
+                    {
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"updated\": \"string\"\n  },\n  {\n    \"name\": \"string\",\n    \"updated\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0f713dfa-d733-4e4a-ab82-5f326b6294f1",
+          "name": "Get the current and supported market years",
+          "request": {
+            "name": "Get the current and supported market years",
+            "description": {
+              "content": "Get the current and supported market years",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "market-years"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "apikey",
+                  "value": "<string>",
+                  "description": "(Required) API key used for authentication"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fb22110e-c5a7-4ac5-9d2f-2b6f9c62f881",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "market-years"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apikey",
+                      "value": "d687412e7b53146b2631dc01974ad0a4"
+                    },
+                    {
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"current\": 6752.568520229065,\n  \"supported\": [\n    4372.823972973035,\n    3432.4365733290474\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://marketplace.api.healthcare.gov/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "9e4888f1-6360-4d73-85ab-38d00bb7adc5",
+    "name": "Marketplace API Reference API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "# About\n\nThe Marketplace API delivers data that helps users find and evaluate health care insurance plans, providers, and coverage information on the marketplace. It’s used by [HealthCare.gov](https://healthcare.gov) and other third party services. Request an API token [here](https://developer.cms.gov/marketplace-api/key-request.html), or learn more from [the developer site](https://developer.cms.gov/marketplace-api/).\n\n## Retention\n\nMarketplace API data includes at minimum the last three years of data.\n\n## Limitations\n\nAPI keys are rate limited. This rate limit is passed along in the Header information provided. If you have concerns with the rate limit, please reach out to the [Marketplace API team](mailto:marketplace-api@cms-provider-directory.uservoice.com).\n\n# Quickstart\n\nThis section will cover a short workflow for a common scenario — looking up insurance plans for a person's household with premiums and estimated tax credits, obtaining details about a particular plan, and looking up the drug coverage for a specific plan. Other endpoints,   like looking up doctors and providers, or getting recent state medicaid information,  are covered in the docs.\n\n## Search for health insurance plans\n\nWe begin by searching for the health insurance plans for a 27 year-old woman living in North Carolina by posting a single person household to the plan search endpoint\n\n```\napikey=\"d687412e7b53146b2631dc01974ad0a4\" # rate limited test key\ncurl --request POST \\\\\n  --url \"https://marketplace.api.healthcare.gov/api/v1/plans/search?apikey=${apikey}\" \\\\\n  --header 'content-type: application/json' \\\\\n  --data '{\n    \"household\": {\n      \"income\": 52000,\n      \"people\": [\n        {\n          \"age\": 27,\n          \"aptc_eligible\": true,\n          \"gender\": \"Female\",\n          \"uses_tobacco\": false\n        }\n      ]\n    },\n    \"market\": \"Individual\",\n    \"place\": {\n      \"countyfips\": \"37057\",\n      \"state\": \"NC\",\n      \"zipcode\": \"27360\"\n    },\n    \"year\": 2019\n}'\n```\n\nThis **POST** request returns health insurance information and pricing estimates for the plans for which she can sign up. More discussion about building the household JSON object can be found later on this page. Don't know the county [FIPS](https://en.m.wikipedia.org/wiki/FIPS_county_code) code? To look it up for this person's zip code, we use the counties by zip endpoint.\n\n```\napikey=\"d687412e7b53146b2631dc01974ad0a4\"\nzipcode=\"27360\"\ncurl \"https://marketplace.api.healthcare.gov/api/v1/counties/by/zip/${zipcode}?apikey=${apikey}\"\n```\n\nThis helps gather the necessary information to build the household object to submit to the API.\n\n## Get details about a specific health insurance plan\n\nWith a plan search completed, let's look more closely at a particular plan. For example, **Blue Cross Blue Shield of North Carolina Blue Value Catastrophic** was one of the first returned from the example above. We will use it as an example to drill down\n\n```\napikey=\"d687412e7b53146b2631dc01974ad0a4\"\nplanid=\"11512NC0100031\"\nyear=\"2019\"\ncurl \"https://marketplace.api.healthcare.gov/api/v1/plans/${planid}?year=${year}&apikey=${apikey}\"\n```\n\nUsing this endpoint will provide more granular information about the particular plan for a searching user, like issuer information, cost sharing deductibles, eligible dependents, website urls, quality ratings, and more.\n\n## Standard Plans\n\nSome plans are considered **standard plans.** These can be identified in the results of a plan search or plan details endpoint.  If a plan has a **design_type** that is one of the following, it is considered a standard plan: \"DESIGN1\", \"DESIGN2\", \"DESIGN3\", \"DESIGN4\", \"DESIGN5\".  If a plan has a **design_type** of \"NOT_APPLICABLE\", then it is not considered a standard plan.\n\n## Get drug coverage information about a health insurance plan\n\nNow that we have a plan of interest, let's look up what drugs it covers. We want to know if **ibuprofen** is covered under the insurance plan. First, we can mimic a user interaction with an autocomplete for ibuprofen for a typeahead.\n\n```\napikey=\"d687412e7b53146b2631dc01974ad0a4\"\nquery=\"ibuprof\"\ncurl \"https://marketplace.api.healthcare.gov/api/v1/drugs/autocomplete?q=${query}&apikey=${apikey}\"\n```\n\nAmong other things, this provides us with an **RxCUI**, a unique identifier for a clinical drug. We can use it along with the plan id to query the API for whether or not **ibuprofen** is covered under this plan\n\n```\napikey=\"d687412e7b53146b2631dc01974ad0a4\"\ndrugs=\"1049589\"\nplanids=\"11512NC0100031\"\nyear=\"2019\"\ncurl \"https://marketplace.api.healthcare.gov/api/v1/drugs/covered?year=${year}&drugs=${drugs}&planids=${planids}&apikey=${apikey}\"\n```\n\nThe API confirms that ibuprofen is covered.\n\n# More information about households\n\nThe household in the example above was sufficient to query Marketplace API, but there are more optional fields that can provide more accurate search results and premium estimates, or can be used by application developers to specify scenarios. For example, if a household does not live together, certain plans may no longer be eligible to them.\n\nWe begin with an example, describing what some of the less intuitive fields means. Here's the JSON of a fully filled in household, using all possible features\n\n```\n{\n  \"aptc_override\": 288.61,\n  \"household\": {\n    \"effective_date\": \"2019-05-01\",\n    \"has_married_couple\": true,\n    \"income\": 52000,\n    \"unemployment_received\": Adult,\n    \"people\": [\n      {\n        \"age\": 27,\n        \"dob\": \"1992-01-01\",\n        \"aptc_eligible\": true,\n        \"does_not_cohabitate\": false,\n        \"gender\": \"Female\",\n        \"has_mec\": false,\n        \"is_parent\": false,\n        \"is_pregnant\": false,\n        \"relationship\": \"Self\",\n        \"uses_tobacco\": false,\n        \"utilization\": \"Medium\"\n      },\n      {\n        \"age\": 25,\n        \"dob\": \"1994-03-03,\n        \"aptc_eligible\": true,\n        \"does_not_cohabitate\": false,\n        \"gender\": \"Male\",\n        \"has_mec\": false,\n        \"is_parent\": false,\n        \"is_pregnant\": false,\n        \"relationship\": \"Spouse\",\n        \"uses_tobacco\": false,\n        \"utilization\": \"Medium\"\n      }\n    ]\n  },\n  \"market\": \"Individual\",\n  \"place\": {\n    \"countyfips\": \"37057\",\n    \"state\": \"NC\",\n    \"zipcode\": \"27360\"\n  },\n  \"year\": 2019\n}\n```\n\n## APTC Override\nThe `aptc_override` is an optional override to specify the Advanced Premium Tax Credit for a user, if the exact value is already known. For persons in the household, `aptc_eligible` denotes if the person is eligible for the Advanced Premium Tax Credit.\n\n## Unemployment Received\nAs part of the American Rescue Plan, if the household has received unemployment benefits during 2021 the household income must be capped to 133% of the Federal Poverty Level for the household size in APTC and CSR estimations.  If the recipient is an adult tax payer, both ATPC and CSRs will be affected.  If only a tax dependent received unemployment, the only effect will be to CSR eligibility.\nIf both an adult and dependent have received unemployment, \"Adult\" should be passed so that the maximum APTC and CSRs are received.\nThis field defaults to None if not included and only affects the 2021 market year.\n\n## Effective Date\nThis is the date a plan or coverage goes into effect and is used in premium calculations and determining eligibility. If omitted, the value defaults to the effective date of the plan, which is generally Jan 1 of the market year. The `effective_date` is required to correctly calculate the number of months since an individual has used tobacco. The number of months is the difference of the last tobacco use date until the `effective_date`. Considering the number of months since last tobacco use can impact the rate charged by a plan, this field is required to be included for a more accurate search result.\n\n## Age Calculation\nEither an `age` or `dob` value must be provided.  If `age` is provided that value is used in determining eligibility and premiums. If a `dob` is provided, a more accurate age is calculated using the combination of `dob`, the effective date, and plan specific rating-age adjustments.  If both fields are populated, `age` takes precedence and no calculation will occur.\n\nPlan rates can have age adjustments affecting what premiums get returned.  Additionally, effective date in relation to age affects premium calculation and eligibility.  Therefore, determining the correct age is important for accurate results.\n\n## Cohabitation\n`does_not_cohabitate` indicates whether the person is living with the household.\n\n## Minimal Essential Coverage (MEC)\n`has_mec` indicates whether a person has Medicaid/CHIP and may possibly not be included in the household for premium determination and insurance eligibility.\n\n## Relationship\n`relationship` — which is not required to issue a request — is the relationship of a household member to the person applying for health insurance. For the main enrollee, the `Self` relationship is used.\n\nEach plan on the marketplace defines a set of dependent relationships within a household as eligible to enroll in that plan.\n\nIf it is known by the caller what relationships exist within a household when making a request to Marketplace API, the API can more accurately determine household eligibility for plans.  If the relationship field is used in a request, it must be a valid relationship for the provided market year (see list below).\nWhen a household request is sent without relationships present in the household, Marketplace API will make as accurate an eligibility determinaton as possible without the relationship values.\n\nThe total set of dependent relationships that plans may use to restrict eligibility may change over the years. For 2020 and 2021, the possible relationship types that plans may utilize are as follows\n\n2020                              | 2021\n--------------------------------- | ---------------------------\n`Self`                            | `Self`\n`Brother or Sister`               | `Brother or Sister`\n`Child`                           | `Child`\n`Collateral Dependent`            | `Collateral Dependent`\n`Ex-Spouse`                       | `Ex-Spouse`\n`Foster Child`                    | `Foster Child`\n`Grandson or Granddaughter`       | `Grandson or Granddaughter`\n`Life Partner`                    | `Life Partner`\n`Nephew or Niece`                 | `Nephew or Niece`\n`Other Relationship`              | `Other Relationship`\n`Other Relative`                  | `Other Relative`\n`Sponsored Dependent`             | `Sponsored Dependent`\n`Spouse`                          | `Spouse`\n`Stepson or Stepdaughter`         | `Stepson or Stepdaughter`\n`Ward`                            | `Ward`\n`Adopted Child`                   |\n`Annultant`                       |\n`Brother-in-Law or Sister-in-Law` |\n`Court Appointed Guardian`        |\n`Dependent of a Minor Dependent`  |\n`Guardian`                        |\n`Son-in-Law or Daughter-in-Law`   |\n`Stepparent`                      |\n\nAs can be seen from this list, the list of potential relationships has been simplified between 2020 and 2021. When a relationship is not one of the obvious choices in this list, the fallback values of `Other Relative` and `Other Relationship` may be used.\n\n## Utilization\nFinally, `utilization` is one of `{\"Low\", \"Medium\", \"High\"}` and is a description of how much a person intends to use their health insurance.\n\n## Bulk Data\nMarketplace API offers various endpoints that offer *bulk data*.  These endpoints will pass large JSON data sets through that are stored in s3.  Currently these are only supported for the current and previous market years.\n\n# Understanding Errors\nThe Marketplace API returns standard HTTP status codes which indicate whether a specific HTTP request has successfully completed. For some errors, additional information is provided in the response body, including an application error code and a brief message.\n\n## HTTP Response Status Codes\nResponses are grouped in five classes:\n  - Successful responses (200–299)\n  - Client errors (400–499)\n  - Server errors (500–599)\n\n## Marketplace API Error Codes\nThe various codes are listed below:\n\n1000 - errInternalServerError |\n-----\nThe Internal Server Error response code indicates that the server encountered an unexpected condition that prevented it from fulfilling the request.\n  ```\n    Request:  GET /api/v1/drugs/search?q=...\n    Response: {\n                \"code\": \"1000\",\n                \"status\": \"500\",\n                \"message\": \"Internal server error\",\n                \"error\": \"sql: Scan called without calling Next\"\n              }\n```\n1001 - errCountyNotFound |\n-----\nThis error code is returned by the [County Lookup by FIPS](#reference/geography/county-lookup-by-fips/get) endpoint when no county is found using the  FIPS provided in the request. For example:\n  ```\n    Request:   GET /api/v1/counties/35094\n    Response:  {\n                  \"code\": \"1001\",\n                  \"status\": \"404\",\n                  \"message\": \"county not found\"\n                  \"error\": \"sql: No records found\"\n                }\n```\n1002 - errStateNotFound |\n-----\nThis error code is returned by the [Lookup State](#reference/geography/lookup-state/get) endpoint when no state is found using the state provided in the request. For example:\n  ```\n    Request:   GET /api/v1/states/NP\n    Response:  {\n                  \"code\": \"1002\",\n                  \"status\": \"404\",\n                  \"message\": \"state not found\"\n                  \"error\": \"sql: No records found\"\n                }\n```\n1003 - errInvalidInput  |\n-----\nThis error code is returned by various endpoints when the required input is invalid. The message provided in the response will assist in resolving the problem before re-sending the request. For example:\n  ```\n    Request:   GET /api/v1/issuers/1019\n    Response:  {\n                    \"code\": \"1003\",\n                    \"status\": \"400\",\n                    \"message\": \"invalid issuers request\"\n                    \"error\": \"invalid issuer ID format\"\n                }\n```\n1004 - errIssuerNotFound  |\n-----\nThis error code is returned by the [Get Issuer](#reference/insurance-issuers/get-issuer/get-issuer) endpoint when no issuer is found using the issuer id provided in the request. For example:\n  ```\n    Request:   GET /api/v1/issuers/01922\n    Response:  {\n                  \"code\": \"1004\",\n                  \"status\": \"404\",\n                  \"message\": \"issuer not found\"\n                  \"error\": \"sql: No records found\"\n                }\n```\n1005 - errCrosswalkNotFound  |\n-----\nThis error code is returned by the [Crosswalk a previous year plan](#reference/insurance-plans/plan-crosswalk/crosswalk-a-previous-year-plan) endpoint when no crosswalk is found using the parameters provided in the request. For example:\n  ```\n    Request:   GET /api/v1/crosswalk&year=2018&plan_id=53882IL0040002&state=IN\n               &zipcode=60647&fips=17031\n    Response:  {\n                  \"code\": \"1005\",\n                  \"status\": \"404\",\n                  \"message\": \"No crosswalk found for those parameters\"\n                  \"error\": \"sql: No records found\"\n                }\n```\n1006 - errPlanNotFound  |\n-----\nThis error code is returned by various endpoints when no plan is found using the parameters provided in the request. For example:\n  ```\n    Request:   GET /api/v1/plans/11512NC0100035\n    Response:  {\n                  \"code\": \"1006\",\n                  \"status\": \"404\",\n                  \"message\": \"Plan not found\"\n                  \"error\": \"sql: No records found\"\n                }\n```\n1007 - errTimeout  |\n-----\nThis error code is returned by various endpoints when the request timed out. For example:\n  ```\n    Request:   various endpoints\n    Response:  {\n                  \"code\": \"1007\",\n                  \"status\": \"500\",\n                  \"message\": \"request timed-out, try again\"\n                  \"error\": \"db query timed-out\"\n                }\n```\n1008 - errStateMedicaidNotFound  |\n-----\nThis error code is returned by the [State Medicaid Data](#reference/geography/state-medicaid-data/get) endpoint when no medicaid is found using the parameters provided in the request. For example:\n  ```\n    Request:   GET /api/v1/states/NV/medicaid\n    Response:  {\n                  \"code\": \"1008\",\n                  \"status\": \"404\",\n                  \"message\": \"state medicaid not found\"\n                  \"error\": \"year out of range\"\n                }\n```\n1009 - errPovertyGuidelineNotFound  |\n-----\nThis error code is returned by the [State Poverty Guidelines](#reference/geography/state-poverty-guidelines/get) endpoint when no U.S. federal poverty guidelines is found using the parameters provided in the request. For example:\n  ```\n    Request:   GET /api/v1/states/XX/poverty-guidelines\n    Response:  {\n                  \"code\": \"1009\",\n                  \"status\": \"400\",\n                  \"message\": \"poverty guideline not found\"\n                  \"error\": \"sql: No records found\"\n                }\n```\n1010 - errPercentageFPLNotFound  |\n-----\nThis error code is returned by the [Poverty Level Percentage](#reference/households-&-eligibility/poverty-level-percentage/get) endpoint when no percentage of federal poverty level is found using the parameters provided in the request. For example:\n  ```\n    Request:   GET /api/v1/households/pcfpl&year=2021&state=NV&size=2&income=14000\n    Response:  {\n                  \"code\": \"1010\",\n                  \"status\": \"404\",\n                  \"message\": \"percentage of federal poverty level not found\"\n                  \"error\": \"guideline not found for state: NV, year: 2021\"\n                }\n```\n1011 - errQualityRatingNotFound  |\n-----\nThis error code is returned by the [Quality Ratings](#reference/insurance-plans/quality-ratings/get) endpoint when there are no quality ratings for a plan. For example:\n  ```\n    Request:   GET /api/v1/plans/XXXXXXXXXXX/quality-ratings&year=2021\n    Response:  {\n                  \"code\": \"1011\",\n                  \"status\": \"404\",\n                  \"message\": No quality rating found for those parameters\"\n                  \"error\": \"sql: No records found\"\n                }\n```\n1012 - errCoverageUnavailable  |\n-----\nThis error code is returned by various endpoints when the coverage data is temporarily unavailable. For example:\n  ```\n    Request:   various endpoints\n    Response:  {\n                  \"code\": \"1012\",\n                  \"status\": \"503\",\n                  \"message\": \"coverage data temporarily unavailable\"\n                  \"error\": \"coverage database unavailable\"\n                }\n```\n1013 - errProviderNotFound  |\n-----\nThis error code is returned by various Provider related endpoints when the provider is not found. For example:\n  ```\n    Request:   various endpoints\n    Response:  {\n                  \"code\": \"1013\",\n                  \"status\": \"404\",\n                  \"message\": \"provider not found\"\n                  \"error\": \"sql: No records found\"\n                }\n```\n1014 - errDrugNotFound  |\n-----\nThis error code is returned by various Drug related endpoints when the drug is not found. For example:\n  ```\n    Request:   various endpoints\n    Response:  {\n                  \"code\": \"1014\",\n                  \"status\": \"404\",\n                  \"message\": \"drug not found\"\n                  \"error\": \"sql: No records found\"\n                }\n```\n1015 - errMissingMedicaidCHIPEligibility  |\n-----\nThis error code is returned when no Medicaid CHIP Eligibility plans are found using the parameters provided in the request.\n  ```\n    Request:   POST /api/v1/households/eligibility/estimates\n    Response:  {\n                  \"code\": \"1015\",\n                  \"status\": \"404\",\n                  \"message\": \"missing medicaid eligibility data\"\n                  \"error\": \"missing eligibility for fiscal year: YYYY, quarter: Q, state: SS\"\n                }\n```\n1016 - errTooFewPlans  |\n-----\nThis error code is returned when there are not enough plans in a given service area to compute a second lowest cost silver plan for an example, the errTooFewPlans code may be returned.\n  ```\n    Request:   POST /api/v1/households/eligibility/estimates\n    Response:  {\n                  \"code\": \"1016\",\n                  \"status\": \"404\",\n                  \"message\": \"not enough plans to calculate SLCSP/LCBP\"\n                  \"error\": \"not enough plans to calculate SLCSP/LCBP\"\n                }\n```\n1017 - errRateAreaNotFound  |\n-----\nThis error code is returned by various Drug related endpoints when the rate area is not found. For example:\n  ```\n    Request:   GET /api/v1/rate-areas?state=IN&zipcode=60647&fips=17031\n    Response:  {\n                  \"code\": \"1017\",\n                  \"status\": \"404\",\n                  \"message\": \"rate area not found\"\n                  \"error\": \"No rate area could be determined\"\n                }\n```\n\n## Marketplace API Common Error Codes\n```\n400 Bad Request - Client supplied invalid or incorrect values to the requested end-point\n404 Not Found - End-point could not find the requested object(s)\n````\n\n## Marketplace API Uncommon Error Codes\n```\n500 Internal Server Error - An unexpected error occurred\n503 Service Unavailable - The requested service is temporarily unavailable, try again later.\n````\n",
+      "type": "text/plain"
+    }
+  }
+}

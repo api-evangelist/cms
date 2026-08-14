@@ -1,0 +1,177 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CMS Blue Button 2.0 API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://api.bluebutton.cms.gov/v2/o/authorize/",
+      "accessTokenUrl": "https://api.bluebutton.cms.gov/v2/o/token/",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Capability",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Capability Statement",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bluebutton.cms.gov/v2/fhir/metadata"
+          },
+          "docs": "Returns the FHIR CapabilityStatement describing supported resources and operations."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Patient",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search Patient",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bluebutton.cms.gov/v2/fhir/Patient"
+          },
+          "docs": "Returns the authenticated Medicare beneficiary as a FHIR Patient resource."
+        },
+        {
+          "info": {
+            "name": "Read Patient",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bluebutton.cms.gov/v2/fhir/Patient/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "FHIR Patient resource ID."
+              }
+            ]
+          },
+          "docs": "Returns a single Patient resource by ID."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Coverage",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search Coverage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bluebutton.cms.gov/v2/fhir/Coverage",
+            "params": [
+              {
+                "name": "beneficiary",
+                "value": "",
+                "type": "query",
+                "description": "Beneficiary patient reference."
+              }
+            ]
+          },
+          "docs": "Returns Medicare coverage records for the authenticated beneficiary."
+        },
+        {
+          "info": {
+            "name": "Read Coverage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bluebutton.cms.gov/v2/fhir/Coverage/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "FHIR Coverage resource ID."
+              }
+            ]
+          },
+          "docs": "Returns a single Coverage resource by ID."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "ExplanationOfBenefit",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search ExplanationOfBenefit",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bluebutton.cms.gov/v2/fhir/ExplanationOfBenefit",
+            "params": [
+              {
+                "name": "patient",
+                "value": "",
+                "type": "query",
+                "description": "Patient resource reference."
+              },
+              {
+                "name": "_lastUpdated",
+                "value": "",
+                "type": "query",
+                "description": "Filter by last-updated timestamp."
+              }
+            ]
+          },
+          "docs": "Returns ExplanationOfBenefit (claims) records for the authenticated beneficiary."
+        },
+        {
+          "info": {
+            "name": "Read ExplanationOfBenefit",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bluebutton.cms.gov/v2/fhir/ExplanationOfBenefit/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "FHIR ExplanationOfBenefit resource ID."
+              }
+            ]
+          },
+          "docs": "Returns a single ExplanationOfBenefit resource by ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

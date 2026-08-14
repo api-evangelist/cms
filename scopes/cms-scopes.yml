@@ -1,0 +1,31 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/centers-for-medicare-and-medicaid-services-cms-blue-button-2-openapi.yml
+schemes:
+- name: oauth2
+  source: openapi/centers-for-medicare-and-medicaid-services-cms-blue-button-2-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://api.bluebutton.cms.gov/v2/o/authorize/
+    tokenUrl: https://api.bluebutton.cms.gov/v2/o/token/
+  description: OAuth 2.0 authorization code flow used by Medicare beneficiaries to grant access
+    to a third-party application.
+scopes:
+- scope: patient/Coverage.read
+  description: Read beneficiary Coverage resources.
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/centers-for-medicare-and-medicaid-services-cms-blue-button-2-openapi.yml
+- scope: patient/ExplanationOfBenefit.read
+  description: Read beneficiary claims.
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/centers-for-medicare-and-medicaid-services-cms-blue-button-2-openapi.yml
+- scope: patient/Patient.read
+  description: Read beneficiary Patient resource.
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/centers-for-medicare-and-medicaid-services-cms-blue-button-2-openapi.yml

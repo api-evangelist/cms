@@ -1,0 +1,289 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Marketplace API Reference Provider & Drug Coverage API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Provider & Drug Coverage",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Autocomplete drugs by name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/drugs/autocomplete",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "4 digit market year (Defaults to the current year when not specified)."
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "name of drug to search for (minimum 3 chars)"
+              }
+            ]
+          },
+          "docs": "Search prescription drugs"
+        },
+        {
+          "info": {
+            "name": "Search prescription drugs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/drugs/search",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "4 digit market year (Defaults to the current year when not specified)."
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "name of drug to search for"
+              }
+            ]
+          },
+          "docs": "Search prescription drugs"
+        },
+        {
+          "info": {
+            "name": "Get a list of whether drugs are covered by plans",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/drugs/covered",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "4 digit market year (Defaults to the current year when not specified)."
+              },
+              {
+                "name": "drugs",
+                "value": "",
+                "type": "query",
+                "description": "array of drug RxCUIs"
+              },
+              {
+                "name": "planids",
+                "value": "",
+                "type": "query",
+                "description": "array of plan IDs"
+              }
+            ]
+          },
+          "docs": "Get a list of whether drugs are covered by plans"
+        },
+        {
+          "info": {
+            "name": "Coverage statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/coverage/stats",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              }
+            ]
+          },
+          "docs": "Return statistics related to the number of coverage (drugs and providers) records."
+        },
+        {
+          "info": {
+            "name": "Search providers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/coverage/search",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "search query"
+              },
+              {
+                "name": "zipcode",
+                "value": "",
+                "type": "query",
+                "description": "User's ZIP Code for searching nearby"
+              }
+            ]
+          },
+          "docs": "Search providers"
+        },
+        {
+          "info": {
+            "name": "Autocomplete nearby providers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/providers/autocomplete",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "search query (minimum 3 characters)"
+              },
+              {
+                "name": "zipcode",
+                "value": "",
+                "type": "query",
+                "description": "5-digit US zipcode"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Provider type, comma separated to specify multiple"
+              }
+            ]
+          },
+          "docs": "Autocomplete nearby providers"
+        },
+        {
+          "info": {
+            "name": "Search providers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/providers/search",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "4 digit market year (Defaults to the current year when not specified)."
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "search query"
+              },
+              {
+                "name": "zipcode",
+                "value": "",
+                "type": "query",
+                "description": "User's ZIP Code for searching nearby"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Provider type, comma separated to specify multiple"
+              },
+              {
+                "name": "specialty",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Search providers"
+        },
+        {
+          "info": {
+            "name": "Get a list of whether a set of providers are covered by given plans",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/providers/covered",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              },
+              {
+                "name": "providerids",
+                "value": "",
+                "type": "query",
+                "description": "array of provider NPIs"
+              },
+              {
+                "name": "planids",
+                "value": "",
+                "type": "query",
+                "description": "array of plan IDs"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "4 digit market year (Defaults to the current year when not specified)."
+              }
+            ]
+          },
+          "docs": "Get a list of whether a set of providers are covered by given plans"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,131 @@
+{
+  "item": [
+    {
+      "id": "2d755c6a-3c30-4bec-bbea-bcc8fd5d84c0",
+      "name": "Capability",
+      "description": {
+        "content": "FHIR server capability statements and metadata.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "dd84e77d-f898-4eb3-8e79-70a434f8dfca",
+          "name": "Get Capability Statement",
+          "request": {
+            "name": "Get Capability Statement",
+            "description": {
+              "content": "Returns the FHIR CapabilityStatement describing supported resources and operations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "metadata"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/fhir+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "480de804-a21c-488f-af15-55253df62c63",
+              "name": "Server capability statement.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metadata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/fhir+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/fhir+json"
+                }
+              ],
+              "body": "{\n  \"resourceType\": \"string\",\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.bluebutton.cms.gov/v2/fhir",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "patient/Patient.read patient/Coverage.read patient/ExplanationOfBenefit.read"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://api.bluebutton.cms.gov/v2/o/token/"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://api.bluebutton.cms.gov/v2/o/authorize/"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "908bf87d-293d-4a0a-9bc1-2a659d87a718",
+    "name": "CMS Blue Button 2.0 Capability API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Blue Button 2.0 is a standards-based HL7 FHIR R4 API that delivers Medicare Part A, B, and D claims data for over 60 million beneficiaries to registered third-party applications. Beneficiaries authorize sharing via OAuth 2.0. Blue Button 2.0 anchors CMS's Patient Access API program under the 21st Century Cures Act.\n\nContact Support:\n Name: CMS Blue Button Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

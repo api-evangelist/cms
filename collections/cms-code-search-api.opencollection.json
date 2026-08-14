@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Marketplace API Reference Code Search API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Code Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get information for a given code.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/codes/:code",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "path",
+                "description": "The code to find information for."
+              }
+            ]
+          },
+          "docs": "Returns code data (code description and type of code) for a given code."
+        },
+        {
+          "info": {
+            "name": "Gets a set of codes for given search criteria",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/codes",
+            "params": [
+              {
+                "name": "term",
+                "value": "",
+                "type": "query",
+                "description": "Filter codes by the given term. The term is case-insensitive and can include the code."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limit the number of records returned by the search."
+              }
+            ]
+          },
+          "docs": "Returns codes for the given search term. When no term parameter is given, returns data for ALL codes."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

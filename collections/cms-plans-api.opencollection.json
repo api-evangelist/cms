@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Marketplace API Reference Plans API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Plans",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get plan details with premiums for a household",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/plans/:plan_id",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              },
+              {
+                "name": "plan_id",
+                "value": "",
+                "type": "path",
+                "description": "14-character HIOS plan ID"
+              }
+            ]
+          },
+          "docs": "#### Note\nUse this JSON example in the **POST** Body in the request pane to view results:\n  ```\n  {\n      \"household\": {\n      \"income\": 52000,\n      \"people\": [\n        {\n            \"age\": 27,\n            \"aptc_eligible\": true,\n         \"gender\": \"Female\",\n          \"uses_tobacco\": false\n         }\n       ]\n      },\n      \"market\": \"Individual\",\n      \"place\": {\n         \"countyfips\": \"37057\",\n         \"state\": \"NC\",\n          \"zipcode\": \"27360\"\n      },\n      \"year\": 2019\n  }\n  ```\nGet a plan"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

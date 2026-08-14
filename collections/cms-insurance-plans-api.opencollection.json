@@ -1,0 +1,204 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Marketplace API Reference Insurance Plans API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Insurance Plans",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Crosswalk a previous year plan",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/crosswalk",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "Previous year"
+              },
+              {
+                "name": "plan_id",
+                "value": "",
+                "type": "query",
+                "description": "Previous year plan ID"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "State abbreviation"
+              },
+              {
+                "name": "zipcode",
+                "value": "",
+                "type": "query",
+                "description": "ZIP Code"
+              },
+              {
+                "name": "fips",
+                "value": "",
+                "type": "query",
+                "description": "FIPS code"
+              }
+            ]
+          },
+          "docs": "Crosswalk a previous year plan to the next year's plan"
+        },
+        {
+          "info": {
+            "name": "Get multiple plans",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/plans",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "4 digit market year (Defaults to the current year when not specified)."
+              }
+            ]
+          },
+          "docs": "#### Note\nUse this JSON example in the **POST** Body in the request pane to view results\n  ```\n{\n  \"household\": {\n      \"income\": 20000,\n      \"people\": [\n      {\n          \"age\": 34,\n          \"is_pregnant\": false,\n          \"is_parent\": false,\n          \"uses_tobacco\": false,\n          \"gender\": \"Male\"\n      }\n      ],\n      \"has_married_couple\": false\n  },\n  \"place\": {\n      \"countyfips\": \"51107\",\n      \"state\": \"VA\",\n      \"zipcode\": \"20103\"\n  },\n  \"market\": \"Individual\",\n  \"plan_ids\": [\n   "
+        },
+        {
+          "info": {
+            "name": "Search for insurance plans",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/plans/search",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "4 digit market year (Defaults to the current year when not specified)."
+              }
+            ]
+          },
+          "docs": "#### Note\nUse this JSON example in the **POST** Body in the request pane to view results:\n  ```\n{\n      \"household\": {\n        \"income\": 42000,\n        \"people\": [\n          {\n            \"aptc_eligible\": true,\n            \"dob\": \"1992-01-01\",\n            \"has_mec\": false,\n            \"is_pregnant\": false,\n            \"is_parent\": false,\n            \"uses_tobacco\": false,\n            \"gender\": \"Male\",\n            \"utilization_level\": \"Low\"\n          }\n        ],\n        \"has_married_couple\": fal"
+        },
+        {
+          "info": {
+            "name": "Retrieve stats on groups of insurance plans",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/plans/search/stats",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "4 digit market year (Defaults to the current year when not specified)."
+              }
+            ]
+          },
+          "docs": "#### Note\nUse this JSON example in the **POST** Body in the request pane to view results:\n  ```\n  {\n      \"household\": {\n      \"income\": 52000,\n      \"people\": [\n        {\n            \"dob\": \"1992-01-01\",\n            \"aptc_eligible\": true,\n         \"gender\": \"Female\",\n          \"uses_tobacco\": false\n         }\n       ]\n      },\n      \"market\": \"Individual\",\n      \"place\": {\n         \"countyfips\": \"37057\",\n         \"state\": \"NC\",\n          \"zipcode\": \"27360\"\n      },\n      \"year\": 2019\n  }\n  ```\n"
+        },
+        {
+          "info": {
+            "name": "Get a plan",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/plans/:plan_id",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "4 digit market year (Defaults to the current year when not specified)."
+              },
+              {
+                "name": "plan_id",
+                "value": "",
+                "type": "path",
+                "description": "14-character HIOS plan ID"
+              }
+            ]
+          },
+          "docs": "Get a plan's basic details, no premium or APTC calculated."
+        },
+        {
+          "info": {
+            "name": "GET /plans/{plan_id}/quality-ratings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/plans/:plan_id/quality-ratings",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "4 digit market year."
+              },
+              {
+                "name": "plan_id",
+                "value": "",
+                "type": "path",
+                "description": "Plan ID"
+              }
+            ]
+          },
+          "docs": "Quality ratings for a plan. If a rating value is missing or is 0, then the rating is considered 'Not Rated' and the corresponding reason value will indicate the reason for the non-rating."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

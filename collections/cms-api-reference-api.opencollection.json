@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Marketplace API Reference API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "API Reference",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET /versions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/versions",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              }
+            ]
+          },
+          "docs": "Get the last updated date for various data sets"
+        },
+        {
+          "info": {
+            "name": "GET /market-years",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/market-years",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "query",
+                "description": "API key used for authentication"
+              }
+            ]
+          },
+          "docs": "Get the current and supported market years"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
