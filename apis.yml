@@ -21,7 +21,7 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/cms.png
 url: https://raw.githubusercontent.com/api-evangelist/cms/refs/heads/main/apis.yml
 created: '2026-06-13'
-modified: '2026-06-13'
+modified: '2026-08-15'
 specificationVersion: '0.19'
 tags:
 - Medicare
@@ -52,8 +52,20 @@ apis:
   - Part B
   - Part D
   properties:
+  - type: OpenAPI
+    url: openapi/cms-bcda-openapi.yml
+  - type: Overlay
+    url: overlays/cms-bcda-overlay.yaml
+  - type: AgentSkill
+    url: skills/cms-export-aco-claims-bcda.md
   - type: Documentation
     url: https://bcda.cms.gov/api-documentation.html
+  - type: ChangeLog
+    url: https://bcda.cms.gov/announcements.html
+  - type: Deprecation
+    url: https://bcda.cms.gov/v3/welcome-v3
+  - type: Sandbox
+    url: https://sandbox.bcda.cms.gov
   - type: GitHubRepository
     url: https://github.com/CMSgov/bcda-app
   contact:
@@ -74,8 +86,24 @@ apis:
   - Bulk Data
   - Prescription Drug Plans
   properties:
+  - type: OpenAPI
+    url: openapi/cms-ab2d-openapi.yml
+  - type: Overlay
+    url: overlays/cms-ab2d-overlay.yaml
+  - type: AgentSkill
+    url: skills/cms-export-partd-claims-ab2d.md
   - type: Documentation
     url: https://ab2d.cms.gov/api-documentation
+  - type: APIReference
+    url: https://sandbox.ab2d.cms.gov/swagger-ui/index.html
+  - type: StatusPage
+    url: https://ab2d.cms.gov/status
+  - type: Sandbox
+    url: https://sandbox.ab2d.cms.gov
+  - type: GitHubRepository
+    url: https://github.com/CMSgov/ab2d
+  - type: Support
+    url: https://groups.google.com/u/0/g/cms-ab2d-api
   - type: AdvancedGuide
     url: https://ab2d.cms.gov/advanced-user-guide.html
 - name: CMS Data at the Point of Care (DPC) API
@@ -93,8 +121,12 @@ apis:
   - Claims Data
   - Care Coordination
   properties:
+  - type: CapabilityStatement
+    url: conformance/cms-dpc-capabilitystatement.json
   - type: Documentation
     url: https://dpc.cms.gov/docsV1
+  - type: Sandbox
+    url: https://sandbox.dpc.cms.gov
   - type: GitHubRepository
     url: https://github.com/CMSgov/dpc-app
   contact:
@@ -124,7 +156,7 @@ apis:
     Model (APM) data submissions for Medicare quality reporting.
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://cmsgov.github.io/qpp-submissions-docs/
-  baseURL: https://qpp.cms.gov/api
+  baseURL: https://qpp.cms.gov/api/submissions
   tags:
   - Quality Payment Program
   - QPP
@@ -457,6 +489,8 @@ apis:
   humanURL: https://www.healthcare.gov/developers/
   baseURL: https://marketplace.api.healthcare.gov/api/v1/
   properties:
+  - url: skills/cms-search-marketplace-plans.md
+    type: AgentSkill
   - url: https://www.healthcare.gov/developers/
     type: Developer
   - url: https://github.com/CMSgov/marketplace-api-examples
@@ -468,6 +502,7 @@ apis:
     Marketplace states, enabling third-party plan comparison and enrollment experiences.
 - aid: cms:qpp-measures-api
   name: CMS Quality Payment Program (QPP) Measures API
+  baseURL: https://qpp.cms.gov/api/measures
   tags:
   - MIPS
   - Measures
@@ -512,6 +547,14 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/cms-capability-api-openapi.yml
+  - type: AgentSkill
+    url: skills/cms-authorize-beneficiary-bluebutton.md
+  - type: CapabilityStatement
+    url: conformance/cms-bluebutton-capabilitystatement.json
+  - type: OpenIDConnect
+    url: https://api.bluebutton.cms.gov/.well-known/openid-configuration
+  - type: SDKs
+    url: packages/cms-packages.yml
   - type: Website
     url: https://bluebutton.cms.gov/
   - type: Developer
@@ -614,12 +657,6 @@ common:
   url: https://www.cms.gov/priorities/burden-reduction/overview/interoperability/implementation-guides-standards/application-programming-interfaces-apis-relevant-standards-implementation-guides-igs
 - type: PublicDatasets
   url: https://www.cms.gov/data-research/cms-data/data-available-everyone
-- type: AgenticAccess
-  url: agentic-access/cms-agentic-access.yml
-- type: DomainSecurity
-  url: security/cms-domain-security.yml
-- type: Authentication
-  url: authentication/cms-authentication.yml
 - type: OAuthScopes
   url: scopes/cms-scopes.yml
 - type: Website
@@ -648,14 +685,107 @@ common:
   url: https://www.cms.gov/privacy
 - type: Integrations
   url: https://www.cms.gov/marketplace/in-person-assisters/information-partners
-- type: AgenticAccess
-  url: agentic-access/cms-agentic-access.yml
-- type: DomainSecurity
-  url: security/cms-domain-security.yml
-- type: Authentication
-  url: authentication/cms-authentication.yml
-- type: OAuthScopes
-  url: scopes/cms-scopes.yml
+- type: WellKnown
+  url: well-known/cms-well-known.yml
+- type: OpenIDConnect
+  url: https://api.bluebutton.cms.gov/.well-known/openid-configuration
+- type: Packages
+  url: packages/cms-packages.yml
+- type: SDKs
+  url: packages/cms-packages.yml
+- type: MCPServer
+  url: mcp/cms-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/cms-tool-crosswalk.yml
+- type: LLMsTxt
+  url: llms/cms-llms.txt
+- type: Conformance
+  url: conformance/cms-conformance.yml
+- type: Compliance
+  url: https://security.cms.gov/
+- type: TrustCenter
+  url: https://security.cms.gov/
+- type: ErrorCatalog
+  url: errors/cms-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/cms-lifecycle.yml
+- type: StatusPage
+  url: https://ab2d.cms.gov/status
+- type: Deprecation
+  url: https://bcda.cms.gov/v3/welcome-v3
+- type: Versioning
+  url: https://bcda.cms.gov/bcda-data/difference-between-v1-v2.html
+- type: ChangeLog
+  url: changelog/cms-changelog.yml
+- type: Security
+  url: https://www.cms.gov/vulnerability-disclosure-policy
+- type: VulnerabilityDisclosure
+  url: security/cms-vulnerability-disclosure.yml
+- type: Conventions
+  url: conventions/cms-conventions.yml
+- type: Sandbox
+  url: sandbox/cms-sandbox.yml
+- type: CLI
+  url: cli/cms-cli.yml
+- type: Components
+  url: components/cms-components.yml
+- type: DataModel
+  url: data-model/cms-data-model.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Plans
+  url: plans/cms-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/cms-rate-limits.yml
+- type: FinOps
+  url: finops/cms-finops.yml
+- type: SpectralRules
+  url: rules/cms-jsonschema-spectral-rules.yml
+- type: JSONLDContext
+  url: json-ld/cms-context.jsonld
+- type: Examples
+  url: examples/marketplace-plan-example.json
+- type: Examples
+  url: examples/marketplace-household-example.json
+- type: Examples
+  url: examples/marketplace-provider-example.json
+- type: JSONSchema
+  url: json-schema/marketplace-plan.json
+- type: JSONSchema
+  url: json-schema/marketplace-household.json
+- type: JSONSchema
+  url: json-schema/marketplace-eligibility.json
+- type: JSONSchema
+  url: json-schema/marketplace-provider.json
+- type: JSONSchema
+  url: json-schema/marketplace-drug.json
+- type: PostmanCollection
+  url: collections/cms-cms-blue-button-2.postman_collection.json
+- type: Overlay
+  url: overlays/cms-bcda-overlay.yaml
+- type: Overlay
+  url: overlays/cms-ab2d-overlay.yaml
+- type: DeveloperPortal
+  url: https://developer.cms.gov/
+- type: Documentation
+  url: https://bcda.cms.gov/api-documentation.html
+- type: APIReference
+  url: https://bluebutton.cms.gov/api-documentation/
+- type: GettingStarted
+  url: https://bcda.cms.gov/api-documentation/get-a-bearer-token.html
+- type: Support
+  url: https://bcda.cms.gov/support.html
+- type: SignUp
+  url: https://sandbox.bluebutton.cms.gov/v1/accounts/login
+- type: TermsOfService
+  url: https://bluebutton.cms.gov/terms/
+- type: Vocabulary
+  url: vocabulary/cms-vocabulary.json
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-08-15'
+  status: enriched
+  artifacts_added: 44
+  pass: local-v1
