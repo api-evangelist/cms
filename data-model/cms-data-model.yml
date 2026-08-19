@@ -1,0 +1,224 @@
+generated: '2026-08-15'
+method: derived
+source: >-
+  openapi/cms-patient-api-openapi.yml, openapi/cms-coverage-api-openapi.yml,
+  openapi/cms-explanationofbenefit-api-openapi.yml, openapi/cms-bcda-openapi.yml,
+  openapi/cms-ab2d-openapi.yml, conformance/cms-bluebutton-capabilitystatement.json,
+  conformance/cms-dpc-capabilitystatement.json, json-schema/marketplace-*.json
+summary: >-
+  Two disjoint entity graphs. The claims graph is HL7 FHIR and its shape is defined by the FHIR
+  specification rather than by CMS — Patient is the root, Coverage and ExplanationOfBenefit reference
+  it, and the bulk APIs wrap the whole set in a Job. The Marketplace graph is CMS's own and is rooted
+  in Household: a household of Person entries resolves to a Place, which resolves to a rate area and a
+  set of Plans, which carry Benefits, Provider networks and Drug formularies. The two graphs share no
+  identifier.
+domains:
+  - domain: claims-fhir
+    spec: HL7 FHIR (R4 4.0.1 on Blue Button v2 / BCDA v2 / AB2D v2+v3; STU3 3.0.2 on DPC and the v1 surfaces)
+    apis:
+      - CMS Blue Button 2.0 API
+      - CMS Beneficiary Claims Data API (BCDA)
+      - CMS AB2D API (Claims Data to Part D Sponsors)
+      - CMS Data at the Point of Care (DPC) API
+  - domain: marketplace
+    spec: CMS Healthcare.gov Marketplace API
+    apis:
+      - Healthcare.gov Marketplace API
+entities:
+  - name: Patient
+    domain: claims-fhir
+    description: A Medicare enrollee. Root of the claims graph.
+    id_shape: >-
+      FHIR resource id. In Blue Button synthetic data the id is a NEGATIVE integer, which is how test
+      data is distinguished from production data.
+    apis:
+      - CMS Blue Button 2.0 API
+      - CMS Beneficiary Claims Data API (BCDA)
+      - CMS Data at the Point of Care (DPC) API
+    source: openapi/cms-patient-api-openapi.yml
+  - name: Coverage
+    domain: claims-fhir
+    description: A Medicare or supplemental coverage record for an enrollee.
+    source: openapi/cms-coverage-api-openapi.yml
+  - name: ExplanationOfBenefit
+    domain: claims-fhir
+    description: >-
+      An adjudicated Medicare claim. The central payload of every CMS claims API. Synthetic ids take
+      the form [claimtype]--[number], e.g. carrier--10114937820.
+    source: openapi/cms-explanationofbenefit-api-openapi.yml
+  - name: Claim
+    domain: claims-fhir
+    description: Partially adjudicated claim, BCDA v2 and later only.
+    source: https://bcda.cms.gov/bcda-data/partially-adjudicated-claims-data.html
+  - name: ClaimResponse
+    domain: claims-fhir
+    description: Response side of a partially adjudicated claim, BCDA v2 and later only.
+  - name: Group
+    domain: claims-fhir
+    description: >-
+      The set of enrollees attributed to a model entity or contract. BCDA exposes /Group/all and
+      /Group/runout; AB2D scopes a Group by contract number.
+    source: openapi/cms-bcda-openapi.yml
+  - name: Organization
+    domain: claims-fhir
+    description: The provider organization calling the API (DPC).
+    source: conformance/cms-dpc-capabilitystatement.json
+  - name: Practitioner
+    domain: claims-fhir
+    description: An individual clinician (DPC).
+    source: conformance/cms-dpc-capabilitystatement.json
+  - name: Endpoint
+    domain: claims-fhir
+    description: FHIR service endpoint descriptor (DPC).
+    source: conformance/cms-dpc-capabilitystatement.json
+  - name: Job
+    domain: claims-fhir
+    description: >-
+      A bulk export unit of work. Not a FHIR resource in the data model sense — BCDA returns jobs as
+      FHIR Task resources — but it is the entity a caller actually holds: a job UUID, a status, and a
+      manifest of NDJSON files that expires after 24 hours.
+    id_shape: UUID, returned in the Content-Location header of the 202 kickoff response
+    source: openapi/cms-bcda-openapi.yml
+  - name: Household
+    domain: marketplace
+    description: The eligibility and cost-estimation unit; root of the Marketplace graph.
+    source: json-schema/marketplace-household.json
+  - name: Person
+    domain: marketplace
+    description: A household member, carrying age, gender, tobacco use and relationship.
+    source: json-schema/marketplace-person.json
+  - name: Place
+    domain: marketplace
+    description: Address / county / zip resolving a household to a rating geography.
+    source: json-schema/marketplace-place.json
+  - name: Plan
+    domain: marketplace
+    description: A qualified health or dental plan, with metal level, premiums, deductibles and benefits.
+    source: json-schema/marketplace-plan.json
+  - name: Issuer
+    domain: marketplace
+    description: The insurance carrier offering plans on the Marketplace.
+    source: json-schema/marketplace-issuer.json
+  - name: Benefit
+    domain: marketplace
+    description: A covered service on a plan, with cost sharing.
+    source: json-schema/marketplace-benefit.json
+  - name: Provider
+    domain: marketplace
+    description: A clinician or facility, identified by NPI, in a plan's network.
+    id_shape: NPI (National Provider Identifier) — the join key to the NPPES NPI Registry API
+    source: json-schema/marketplace-provider.json
+  - name: Drug
+    domain: marketplace
+    description: A formulary drug, identified by RxCUI.
+    id_shape: RxCUI (RxNorm concept unique identifier)
+    source: json-schema/marketplace-drug.json
+  - name: Eligibility
+    domain: marketplace
+    description: Computed APTC / CSR / Medicaid eligibility result for a household.
+    source: json-schema/marketplace-eligibility.json
+  - name: EnrollmentGroup
+    domain: marketplace
+    description: An enrollment grouping of enrollees against a plan, validated by the Enrollments API.
+    source: json-schema/marketplace-enrollmentgroup.json
+  - name: RateArea
+    domain: marketplace
+    description: Geographic rating area a plan's premiums are keyed to.
+    source: json-schema/marketplace-ratearea.json
+  - name: County
+    domain: marketplace
+    source: json-schema/marketplace-county.json
+  - name: State
+    domain: marketplace
+    source: json-schema/marketplace-state.json
+relationships:
+  - from: Coverage
+    to: Patient
+    kind: belongs_to
+    via: Coverage.beneficiary
+    evidence: 'openapi/cms-coverage-api-openapi.yml — GET /Coverage?beneficiary={patientId}'
+  - from: ExplanationOfBenefit
+    to: Patient
+    kind: belongs_to
+    via: ExplanationOfBenefit.patient
+    evidence: 'openapi/cms-explanationofbenefit-api-openapi.yml — GET /ExplanationOfBenefit?patient={patientId}'
+  - from: Patient
+    to: Coverage
+    kind: has_many
+    via: reverse of Coverage.beneficiary
+  - from: Patient
+    to: ExplanationOfBenefit
+    kind: has_many
+    via: reverse of ExplanationOfBenefit.patient
+  - from: Group
+    to: Patient
+    kind: has_many
+    via: attribution (model entity or contract number)
+  - from: Job
+    to: Group
+    kind: belongs_to
+    via: '$export kickoff target'
+  - from: ClaimResponse
+    to: Claim
+    kind: belongs_to
+    via: ClaimResponse.request
+  - from: Household
+    to: Person
+    kind: has_many
+    via: household.people[]
+  - from: Household
+    to: Place
+    kind: has_one
+    via: household.place
+  - from: Place
+    to: County
+    kind: belongs_to
+    via: place.countyfips
+  - from: County
+    to: State
+    kind: belongs_to
+    via: county.state
+  - from: County
+    to: RateArea
+    kind: belongs_to
+    via: rate-area lookup by county fips
+  - from: Plan
+    to: Issuer
+    kind: belongs_to
+    via: plan.issuer.id
+  - from: Plan
+    to: Benefit
+    kind: has_many
+    via: plan.benefits[]
+  - from: Plan
+    to: Provider
+    kind: has_many
+    via: provider-network coverage lookup (/providers/covered)
+  - from: Plan
+    to: Drug
+    kind: has_many
+    via: formulary coverage lookup (/drugs/covered)
+  - from: Eligibility
+    to: Household
+    kind: belongs_to
+    via: eligibility estimate request payload
+  - from: EnrollmentGroup
+    to: Plan
+    kind: belongs_to
+    via: enrollment.plan_id
+cross_domain_joins:
+  - via: NPI
+    from: Marketplace Provider
+    to: NPPES NPI Registry API (https://npiregistry.cms.hhs.gov/api/)
+    note: >-
+      The National Provider Identifier is the one identifier that spans CMS surfaces — it joins
+      Marketplace provider networks, the Provider Data Catalog quality measures, and the NPPES registry.
+  - via: RxCUI
+    from: Marketplace Drug
+    to: RxNorm (NLM)
+    note: External vocabulary, not a CMS API.
+  - via: CPT/HCPCS code
+    from: Procedure Price Lookup code and cost search
+    to: AMA CPT (licensed)
+render: null
+render_note: No subway/ diagram exists in this repo yet; this file is the machine-readable graph.

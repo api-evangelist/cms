@@ -1,0 +1,264 @@
+generated: '2026-08-15'
+method: derived
+source: mcp/cms-mcp.yml + openapi/*.yml
+surfaces:
+  openapi:
+    files: 17
+    note: >-
+      Seventeen refined OpenAPI documents across five CMS API families: Blue Button 2.0 (FHIR R4),
+      BCDA (Bulk FHIR), AB2D (Bulk FHIR), the Healthcare.gov Marketplace API, and the Procedure Price
+      Lookup / code + cost search surface.
+  graphql:
+    endpoint: null
+    note: CMS publishes no GraphQL surface on any probed host.
+  mcp:
+    url: null
+    gated: null
+    note: >-
+      No MCP server exists. The tools mapped below come from mcp/cms-mcp.yml, which is a DERIVED
+      candidate list, so every binding is a proposal — none of it has been observed against a live
+      tools/list.
+crosswalk:
+  - tool: bcda_export_group_claims
+    category: bulk-export
+    rest:
+      - bulkGroupRequestV2
+      - bulkGroupRequest
+    binding: rest
+    confidence: high
+    note: v2 (FHIR R4/CARIN) is the primary binding; v1 (STU3) fans out to the same tool and is sunset 2027-07-30.
+  - tool: bcda_export_patient_claims
+    category: bulk-export
+    rest:
+      - bulkPatientRequestv2
+      - bulkPatientRequest
+    binding: rest
+    confidence: high
+  - tool: bcda_get_job_status
+    category: job-control
+    rest:
+      - jobStatusidv2
+      - jobStatus
+    binding: rest
+    confidence: high
+  - tool: bcda_list_jobs
+    category: job-control
+    rest:
+      - jobsStatusV2
+      - jobsStatus
+    binding: rest
+    confidence: high
+  - tool: bcda_cancel_job
+    category: job-control
+    rest:
+      - deleteJobv2
+      - deleteJob
+    binding: rest
+    confidence: high
+  - tool: bcda_download_export_file
+    category: data-retrieval
+    rest:
+      - serveData
+    binding: rest
+    confidence: high
+  - tool: bcda_get_attribution_status
+    category: metadata
+    rest:
+      - attributionStatusv2
+      - attributionStatus
+    binding: rest
+    confidence: high
+  - tool: bcda_get_token
+    category: auth
+    rest:
+      - GetAuthToken
+    binding: rest
+    confidence: high
+  - tool: ab2d_export_patient_claims
+    category: bulk-export
+    rest:
+      - exportAllPatients
+      - exportAllPatients_1
+      - exportAllPatients_2
+    binding: rest
+    confidence: high
+    note: >-
+      AB2D versions its FHIR surface three ways in one spec (v3/v2/v1) and the generated operationIds
+      differ only by a numeric suffix. v3 (exportAllPatients) is the current binding.
+  - tool: ab2d_export_contract_claims
+    category: bulk-export
+    rest:
+      - exportPatientsWithContract
+      - exportPatientsWithContract_1
+    binding: rest
+    confidence: high
+    note: Group/$export exists on v2 and v1 only; AB2D v3 dropped the contract-scoped Group endpoint.
+  - tool: ab2d_get_job_status
+    category: job-control
+    rest:
+      - getJobStatus
+      - getJobStatus_1
+      - getJobStatus_2
+    binding: rest
+    confidence: high
+  - tool: ab2d_cancel_job
+    category: job-control
+    rest:
+      - deleteRequest
+      - deleteRequest_1
+      - deleteRequest_2
+    binding: rest
+    confidence: high
+  - tool: ab2d_download_export_file
+    category: data-retrieval
+    rest:
+      - downloadFile
+      - downloadFile_1
+      - downloadFile_2
+    binding: rest
+    confidence: high
+  - tool: ab2d_get_health
+    category: metadata
+    rest:
+      - getHealth
+      - getMaintenanceMode
+    binding: rest
+    confidence: high
+  - tool: bluebutton_read_patient
+    category: fhir-read
+    rest:
+      - readPatient
+      - searchPatient
+    binding: rest
+    confidence: high
+  - tool: bluebutton_search_coverage
+    category: fhir-search
+    rest:
+      - searchCoverage
+      - readCoverage
+    binding: rest
+    confidence: high
+  - tool: bluebutton_search_explanation_of_benefit
+    category: fhir-search
+    rest:
+      - searchExplanationOfBenefit
+      - readExplanationOfBenefit
+    binding: rest
+    confidence: high
+  - tool: marketplace_search_plans
+    category: plan-search
+    rest:
+      - 'post:/plans/search'
+      - 'post:/plans/search/stats'
+    binding: rest
+    confidence: medium
+    note: >-
+      The Marketplace OpenAPI declares NO operationId on any operation, so the binding is by
+      method+path, not by id. Recorded medium rather than high for that reason. This is a real
+      contract-quality gap on the CMS side, not an artifact of the mapping.
+  - tool: marketplace_estimate_eligibility
+    category: eligibility
+    rest:
+      - 'post:/households/eligibility/estimates'
+    binding: rest
+    confidence: medium
+    note: No operationId in the source spec; bound by method+path.
+  - tool: marketplace_search_providers
+    category: network-search
+    rest:
+      - 'get:/providers/search'
+      - 'get:/providers/covered'
+    binding: rest
+    confidence: medium
+    note: No operationId in the source spec; bound by method+path.
+  - tool: marketplace_search_drugs
+    category: formulary-search
+    rest:
+      - 'get:/drugs/search'
+      - 'get:/drugs/covered'
+    binding: rest
+    confidence: medium
+    note: No operationId in the source spec; bound by method+path.
+mcp_only: []
+rest_only:
+  - capability: BCDA and AB2D FHIR CapabilityStatement
+    operations:
+      - metadata
+      - metadatav2
+      - capabilityStatement
+      - capabilityStatement_1
+      - capabilityStatement_2
+      - getCapabilityStatement
+    reason: Discovery metadata; an agent reads the spec instead.
+  - capability: AB2D administrative client management
+    operations:
+      - createClient
+      - udpateClient
+      - getClient
+      - enableClient
+      - disableClient
+      - createJobByContractOnBehalfOfClient
+    reason: >-
+      CMS-internal administration of PDP sponsor clients, not a sponsor-facing capability. Deliberately
+      not proposed as a tool. Note the upstream typo "udpateClient" is verbatim from the CMS spec.
+  - capability: Marketplace geography reference data
+    operations:
+      - 'get:/states'
+      - 'get:/states/{abbrev}'
+      - 'get:/states/{abbrev}/medicaid'
+      - 'get:/states/{abbrev}/poverty-guidelines'
+      - 'get:/counties/{fips}'
+      - 'get:/counties/by/zip/{zipcode}'
+      - 'get:/rate-areas'
+    reason: Lookup/reference operations; better served as resources than tools.
+  - capability: Marketplace bulk data files
+    operations:
+      - 'get:/data/apt'
+      - 'get:/data/decile-mapping'
+      - 'get:/data/state-medicaid'
+      - 'get:/data/rate-areas'
+      - 'get:/data/county-zips'
+      - 'get:/data/crosswalk'
+    reason: Whole-file downloads, not agent-sized calls.
+  - capability: Procedure Price Lookup code and cost search
+    operations:
+      - getCodeInformation
+      - getBatchCodes
+      - getCostByCode
+      - getBatchCosts
+    reason: >-
+      Requires a separately purchased AMA CPT license (amaLicense header), so it cannot be proposed as
+      an openly callable agent tool.
+  - capability: Marketplace issuers, enrollment validation, quality ratings
+    operations:
+      - 'get:/issuers'
+      - 'get:/issuers/{issuer_id}'
+      - 'post:/enrollment/validate'
+      - 'get:/plans/{plan_id}'
+      - 'get:/plans/{plan_id}/quality-ratings'
+      - 'get:/crosswalk'
+      - 'post:/plans'
+      - 'post:/plans/{plan_id}'
+      - 'post:/households/ichra'
+      - 'post:/households/lcbp'
+      - 'post:/households/slcsp'
+      - 'post:/households/lcsp'
+      - 'get:/households/pcfpl'
+    reason: Real operations with no proposed tool in the candidate list.
+  - capability: BCDA service metadata
+    operations:
+      - getAuthInfo
+      - getVersion
+      - welcome
+    reason: Service introspection, not a data capability.
+coverage:
+  tools_named: 21
+  tools_bound: 21
+  tools_bound_high_confidence: 17
+  mcp_only: 0
+  rest_ops_total: 103
+  rest_ops_with_a_tool: 41
+  note: >-
+    103 operations across the 17 refined OpenAPI documents. 41 are reachable through a proposed tool;
+    the remaining 62 are reference lookups, bulk file downloads, CMS-internal administration, or the
+    AMA-licensed price-lookup surface, all recorded in rest_only[] rather than dropped.

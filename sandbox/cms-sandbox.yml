@@ -1,0 +1,108 @@
+generated: '2026-08-15'
+method: searched
+source: >-
+  https://ab2d.cms.gov/api-documentation, https://bcda.cms.gov/api-documentation.html,
+  https://bluebutton.cms.gov/api-documentation/calling-the-api/,
+  https://bluebutton.cms.gov/api-documentation/authorization/, https://dpc.cms.gov/docsV1
+summary: >-
+  Every CMS claims API ships an openly accessible sandbox containing SYNTHETIC Medicare data, with
+  production gated behind a programme-eligibility process rather than a paid plan. This is the
+  strongest developer-experience property of the CMS surface: anyone can exercise the full bulk-FHIR
+  workflow end to end without being a Medicare ACO, PDP sponsor or provider.
+environments:
+  - api: CMS AB2D API (Claims Data to Part D Sponsors)
+    sandbox:
+      host: https://sandbox.ab2d.cms.gov
+      idp: test.idp.idm.cms.gov
+      data: synthetic claims data
+      open_to: everyone
+      credentials: AB2D provides test credentials; see https://ab2d.cms.gov/access-sandbox-data
+      explorer: https://sandbox.ab2d.cms.gov/swagger-ui/index.html
+      spec: https://sandbox.ab2d.cms.gov/v3/api-docs
+    production:
+      host: https://api.ab2d.cms.gov
+      idp: idm.cms.gov
+      data: real Medicare enrollee data
+      open_to: active stand-alone Prescription Drug Plan (PDP) sponsors only
+      preconditions:
+        - completed production-access process
+        - static source IP address registered for each calling system
+      docs: https://ab2d.cms.gov/production-access
+  - api: CMS Beneficiary Claims Data API (BCDA)
+    sandbox:
+      host: https://sandbox.bcda.cms.gov
+      data: synthetic claims data
+      open_to: everyone
+      docs: https://bcda.cms.gov/api-documentation/get-a-bearer-token.html
+    production:
+      data: real Medicare claims for enrollees attributed to the model entity
+      open_to: eligible model entities (ACOs and alternative payment model participants)
+      docs: https://bcda.cms.gov/production-access.html
+  - api: CMS Blue Button 2.0 API
+    sandbox:
+      host: https://sandbox.bluebutton.cms.gov
+      base_fhir_url: https://sandbox.bluebutton.cms.gov/v2/fhir/
+      registration: https://sandbox.bluebutton.cms.gov/v1/accounts/login
+      data: synthetic Medicare enrollee data
+      open_to: everyone via test credentials
+      oidc_discovery: https://sandbox.bluebutton.cms.gov/.well-known/openid-configuration
+    production:
+      base_fhir_url: https://api.bluebutton.cms.gov/v2/fhir/
+      data: real Medicare enrollee data, released only with the enrollee's OAuth consent
+      docs: https://bluebutton.cms.gov/production-access/
+  - api: CMS Data at the Point of Care (DPC) API
+    sandbox:
+      host: https://sandbox.dpc.cms.gov
+      base: https://sandbox.dpc.cms.gov/api/v1
+      capability_statement: https://sandbox.dpc.cms.gov/api/v1/metadata
+      data: synthetic claims data
+      open_to: everyone
+      docs: https://dpc.cms.gov/docsV1
+    production:
+      open_to: fee-for-service Medicare providers with an approved organization
+test_identifiers:
+  - surface: CMS Blue Button 2.0
+    kind: synthetic patient resource id
+    published_value_shape: negative integer (for example -20140000000001)
+    verbatim: true
+    note: >-
+      Published verbatim at https://bluebutton.cms.gov/api-documentation/authorization/ as the patient
+      id used in the /expire_authenticated_user cURL example. CMS documents that synthetic Patient
+      resource ids are NEGATIVE numbers, which is the reliable way to tell test data from production
+      data in a Blue Button response.
+  - surface: CMS Blue Button 2.0
+    kind: synthetic ExplanationOfBenefit resource id
+    published_value_shape: '[claimtype]--[number], for example carrier--10114937820'
+    verbatim: true
+    source: https://bluebutton.cms.gov/api-documentation/calling-the-api/
+  - surface: CMS Blue Button 2.0
+    kind: synthetic enrollee dataset
+    description: >-
+      CMS publishes a CSV of synthetic enrollees broken down by claim volume and claim type (carrier,
+      inpatient, and so on) so a developer can pick a test user with the data shape they need. CMS
+      notes the synthetic data works in BOTH sandbox and production.
+    source: https://bluebutton.cms.gov/api-documentation/calling-the-api/
+simulation_tooling:
+  - surface: CMS Blue Button 2.0
+    tool: POST /v2/o/expire_authenticated_user/{patientId}/
+    purpose: >-
+      Force-expire a patient's authorization grant in the sandbox so an application can test three
+      conditions without waiting: access-token expiry (otherwise 1 hour), enrollee revocation of
+      access, and expiry of the data-access grant. This is CMS's equivalent of a test clock and it is
+      the only time-simulation facility on the CMS surface.
+    parameters:
+      - client_id
+      - client_secret
+      - patient id
+    source: https://bluebutton.cms.gov/api-documentation/authorization/
+  - surface: CMS AB2D API
+    tool: GET /status and GET /health
+    purpose: Check whether the API is up, down, or in maintenance mode before starting a job.
+    source: openapi/cms-ab2d-openapi.yml
+key_prefixes:
+  documented: false
+  note: >-
+    CMS does not use distinguishable test-vs-live key prefixes. Sandbox and production are separated by
+    HOSTNAME and by identity provider (test.idp.idm.cms.gov vs idm.cms.gov for AB2D;
+    sandbox.bluebutton.cms.gov vs api.bluebutton.cms.gov for Blue Button), not by a key format a
+    caller can inspect. An agent cannot tell from a credential alone which environment it is pointed at.

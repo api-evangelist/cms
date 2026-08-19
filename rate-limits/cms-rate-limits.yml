@@ -1,142 +1,97 @@
-specification: API Commons Rate Limits
-specificationVersion: '0.1'
-schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+generated: '2026-08-15'
+method: searched
+source: >-
+  https://developer.cms.gov/finder-api/, https://finder.healthcare.gov/#services,
+  https://developer.cms.gov/marketplace-api/, https://data.cms.gov/provider-data/docs,
+  openapi/cms-bcda-openapi.yml, openapi/cms-ab2d-openapi.yml
 provider: Centers for Medicare and Medicaid Services
-providerId: centers-for-medicare-and-medicaid-services
-created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
-tags:
-  - BCDA
-  - Blue Button
-  - CMS
-  - Claims
-  - DPC
-  - FHIR
-  - Federal Government
-  - Healthcare
-  - Interoperability
-  - Marketplace
-  - Medicaid
-  - Medicare
-  - Open Data
-  - Provider Data
-  - Socrata
-  - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Centers for Medicare and Medicaid Services
-  API surface. Captures per-tier quotas, burst behavior, response signaling, and recovery semantics. Defaults
-  are scaffold values to be replaced with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
-responseCodes:
-  throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
+supersedes: >-
+  The 2026-05-04 bulk-sweep scaffold that previously occupied this file (method: generated). Replaced
+  2026-08-15 with values read from CMS's own docs and specs.
+summary: >-
+  CMS throttles two different things in two different ways, and conflating them is the main way callers
+  get this wrong. The key-authenticated surface (Finder, Marketplace, PPL) is REQUEST-RATE limited in
+  the ordinary way. The bulk-FHIR claims surface (BCDA, AB2D, DPC) is CONCURRENCY limited: one in-flight
+  export job per resource type per model entity or contract, enforced with HTTP 429. Backing off and
+  retrying does not help a concurrency 429 — the caller must wait for the running job to finish or
+  cancel it.
+limit_count: 4
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - CMS Blue Button 2.0 API
-      - CMS Beneficiary Claims Data API (BCDA)
-      - CMS Data at the Point of Care (DPC) API
-      - CMS Socrata Open Data API (data.cms.gov)
-      - CMS Provider Data Catalog API (Care Compare)
-      - NPPES NPI Registry API
-      - Healthcare.gov Marketplace API
-      - CMS Quality Payment Program (QPP) Measures API
-      - Medicare Coverage Database (MCD) API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
+  - id: finder-per-key
+    api: CMS Finder API
+    scope: per-key
     limit: 1000
-    timeFrame: month
-    applies:
-      - CMS Blue Button 2.0 API
-      - CMS Beneficiary Claims Data API (BCDA)
-      - CMS Data at the Point of Care (DPC) API
-      - CMS Socrata Open Data API (data.cms.gov)
-      - CMS Provider Data Catalog API (Care Compare)
-      - NPPES NPI Registry API
-      - Healthcare.gov Marketplace API
-      - CMS Quality Payment Program (QPP) Measures API
-      - Medicare Coverage Database (MCD) API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - CMS Blue Button 2.0 API
-      - CMS Beneficiary Claims Data API (BCDA)
-      - CMS Data at the Point of Care (DPC) API
-      - CMS Socrata Open Data API (data.cms.gov)
-      - CMS Provider Data Catalog API (Care Compare)
-      - NPPES NPI Registry API
-      - Healthcare.gov Marketplace API
-      - CMS Quality Payment Program (QPP) Measures API
-      - Medicare Coverage Database (MCD) API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - CMS Blue Button 2.0 API
-      - CMS Beneficiary Claims Data API (BCDA)
-      - CMS Data at the Point of Care (DPC) API
-      - CMS Socrata Open Data API (data.cms.gov)
-      - CMS Provider Data Catalog API (Care Compare)
-      - NPPES NPI Registry API
-      - Healthcare.gov Marketplace API
-      - CMS Quality Payment Program (QPP) Measures API
-      - Medicare Coverage Database (MCD) API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - CMS Blue Button 2.0 API
-      - CMS Beneficiary Claims Data API (BCDA)
-      - CMS Data at the Point of Care (DPC) API
-      - CMS Socrata Open Data API (data.cms.gov)
-      - CMS Provider Data Catalog API (Care Compare)
-      - NPPES NPI Registry API
-      - Healthcare.gov Marketplace API
-      - CMS Quality Payment Program (QPP) Measures API
-      - Medicare Coverage Database (MCD) API
-policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+    window: 1 minute
+    burst: null
+    status_on_exhaustion: null
+    headers: []
+    evidence: >-
+      "All Finder API keys are rate limited to 1000 requests per minute" — the Finder API developer
+      documentation at https://developer.cms.gov/finder-api/. The single hard published number in the
+      entire CMS surface.
+  - id: marketplace-per-key
+    api: Healthcare.gov Marketplace API
+    scope: per-key
+    limit: null
+    window: null
+    status_on_exhaustion: null
+    headers: []
+    evidence: >-
+      CMS documents that Marketplace API rate limits exist and are "communicated through response
+      header information" but publishes no numbers and names no header. Recorded null rather than
+      guessed. An anonymous probe cannot observe the headers because every path on
+      marketplace.api.healthcare.gov returns 401 without an apikey.
+    note: >-
+      Separately, Marketplace and PPL API keys EXPIRE every 60 days with automated renewal by email.
+      An expired key presents as 401, not 429 — a distinct failure an agent must handle.
+  - id: bcda-concurrent-export
+    api: CMS Beneficiary Claims Data API (BCDA)
+    scope: per-model-entity, per-resource-type
+    limit: 1
+    window: concurrent
+    kind: concurrency
+    status_on_exhaustion: 429
+    headers: []
+    body: FHIR OperationOutcome (application/fhir+json)
+    evidence: >-
+      openapi/cms-bcda-openapi.yml 429 response on bulkGroupRequest / bulkPatientRequest — "Too many
+      requests. A bulk export job of this resource type is already in progress for the requesting
+      entity."
+    remediation: Wait for the running job to complete, or DELETE the job, then re-submit.
+  - id: ab2d-concurrent-jobs
+    api: CMS AB2D API (Claims Data to Part D Sponsors)
+    scope: per-contract
+    limit: null
+    window: concurrent
+    kind: concurrency
+    status_on_exhaustion: 429
+    headers: []
+    body: FHIR OperationOutcome (application/fhir+json)
+    evidence: >-
+      openapi/cms-ab2d-openapi.yml 429 response on exportAllPatients — "Too many jobs are currently
+      running. Either wait for currently running jobs to finish or cancel one or more of them."
+      The exact concurrent-job ceiling is not published.
+    remediation: DELETE an in-flight job via the $status endpoint, or wait.
+no_limit:
+  - api: CMS Provider Data Catalog API (Care Compare)
+    evidence: >-
+      https://data.cms.gov/provider-data/docs states no rate limits are enforced; CMS asks high-volume
+      applications to contact the PDC support team for guidance rather than imposing a cap.
+  - api: NPPES NPI Registry API
+    evidence: No published limit; probed anonymously at 200 without a key on 2026-08-15.
+response_headers:
+  standard_headers_used: false
+  observed: []
+  note: >-
+    No CMS API returns RateLimit-*, X-RateLimit-* or Retry-After on any response observed in the
+    harvested specs or in the anonymous probes run 2026-08-15. This is the significant runtime gap: an
+    agent hitting a CMS 429 is told IN PROSE, inside a FHIR OperationOutcome, that a job is already
+    running — there is no header telling it how long to wait or how much budget remains. Adopting
+    RFC 9238 RateLimit headers, or simply returning Retry-After on the 429, would be the highest-value
+    rate-limit change CMS could make.
+progress_signalling:
+  header: X-Progress
+  scope: bulk export job polling (202 responses)
+  note: >-
+    The bulk surfaces do signal something useful in band — X-Progress on the 202 while a job runs, and
+    Content-Location on the kickoff. That is a progress channel, not a rate-limit channel.

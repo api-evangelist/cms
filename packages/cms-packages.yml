@@ -1,0 +1,148 @@
+generated: '2026-08-15'
+method: searched
+source: >-
+  npm registry (registry.npmjs.org), PyPI (pypi.org/pypi/<pkg>/json), Maven Central
+  (search.maven.org), and the CMSgov GitHub organization (github.com/CMSgov)
+note: >-
+  CMS publishes first-party client libraries only for the Blue Button 2.0 API (Node, Python, Java) plus
+  the QPP measures-data package and the QPP submissions file-upload client. The bulk-FHIR APIs (BCDA,
+  AB2D, DPC) ship SAMPLE CLIENTS in the CMSgov org rather than published packages — those are listed
+  under samples[], not packages[], because they are not distributed through any registry. The
+  @cmsgov/design-system family is a first-party UI component library, captured in
+  components/cms-components.yml rather than here.
+packages:
+  - language: javascript
+    registry: npm
+    name: cms-bluebutton-sdk
+    url: https://www.npmjs.com/package/cms-bluebutton-sdk
+    repo: https://github.com/CMSgov/cms-bb2-node-sdk
+    install: npm install cms-bluebutton-sdk
+    official: true
+    version: 1.0.11
+    published: '2026-07-28'
+    api: CMS Blue Button 2.0 API
+    note: >-
+      Official Blue Button 2.0 Node SDK. Registry maintainer list is headed by
+      cms-bluebutton-dev <bluebuttonapi@cms.hhs.gov>, alongside the CMS contractor teams (Nava PBC,
+      SemanticBits, Ellumen) that build the API. Repository CMSgov/cms-bb2-node-sdk last pushed
+      2026-08-15 — the most actively maintained CMS client library.
+  - language: python
+    registry: pypi
+    name: cms-bluebutton-sdk
+    url: https://pypi.org/project/cms-bluebutton-sdk/
+    repo: https://github.com/CMSgov/cms-bb2-python-sdk
+    install: pip install cms-bluebutton-sdk
+    official: true
+    version: 1.0.5
+    published: '2026-02-11'
+    api: CMS Blue Button 2.0 API
+    note: >-
+      Official Blue Button 2.0 Python SDK. Trails the Node SDK by five months and six patch releases;
+      repository CMSgov/cms-bb2-python-sdk last pushed 2026-02-11, matching the release date.
+  - language: javascript
+    registry: npm
+    name: qpp-measures-data
+    url: https://www.npmjs.com/package/qpp-measures-data
+    repo: https://github.com/CMSgov/qpp-measures-data
+    install: npm install qpp-measures-data
+    official: true
+    version: 11.0.0
+    published: '2026-07-21'
+    api: CMS Quality Payment Program (QPP) Measures API
+    note: >-
+      First-party machine-readable MIPS quality / promoting-interoperability / improvement-activity /
+      cost measure specifications per performance year, shipped as an npm package. This is the
+      distribution channel for the QPP Measures data described at
+      https://cmsgov.github.io/qpp-measures-data/.
+  - language: javascript
+    registry: npm
+    name: qpp-file-upload-api-client
+    url: https://www.npmjs.com/package/qpp-file-upload-api-client
+    repo: https://github.com/CMSgov/qpp-file-upload-api-client
+    install: npm install qpp-file-upload-api-client
+    official: true
+    version: null
+    published: null
+    api: CMS Quality Payment Program (QPP) Submissions API
+    note: >-
+      First-party helper client for the QPP Submissions API file-upload flow. Registry metadata was not
+      resolvable at probe time (2026-08-15), so version and published are recorded null rather than
+      guessed — checked, nothing to record.
+  - language: java
+    registry: maven
+    name: gov.hhs.cms.bluebutton:bluebutton-parent
+    url: https://search.maven.org/artifact/gov.hhs.cms.bluebutton/bluebutton-parent
+    repo: https://github.com/CMSgov/cms-bb2-java-sdk
+    official: true
+    version: 1.1.0
+    published: '2016-05-18'
+    api: CMS Blue Button
+    note: >-
+      DECAY SIGNAL. The only CMS-owned Maven Central coordinates under gov.hhs.cms.bluebutton were last
+      published in 2016 and describe the original Blue Button FHIR server, not a client SDK. The current
+      Java client, CMSgov/cms-bb2-java-sdk, is source-only — last pushed 2022-10-18, never released to
+      a registry — so a Java consumer of Blue Button 2.0 has no installable first-party artifact and
+      must build from a repo that has been untouched for nearly four years while the Node SDK shipped
+      eleven releases.
+samples:
+  - name: CMSgov/bluebutton-sample-client-nodejs
+    url: https://github.com/CMSgov/bluebutton-sample-client-nodejs
+    api: CMS Blue Button 2.0 API
+    distribution: source-only
+  - name: CMSgov/bluebutton-sample-client-python-react
+    url: https://github.com/CMSgov/bluebutton-sample-client-python-react
+    api: CMS Blue Button 2.0 API
+    distribution: source-only
+  - name: CMSgov/bluebutton-sample-client-django
+    url: https://github.com/CMSgov/bluebutton-sample-client-django
+    api: CMS Blue Button 2.0 API
+    distribution: source-only
+  - name: CMSgov/bluebutton-sample-client-spring-boot
+    url: https://github.com/CMSgov/bluebutton-sample-client-spring-boot
+    api: CMS Blue Button 2.0 API
+    distribution: source-only
+  - name: CMSgov/bluebutton-sample-client-rails
+    url: https://github.com/CMSgov/bluebutton-sample-client-rails
+    api: CMS Blue Button 2.0 API
+    distribution: source-only
+  - name: CMSgov/bluebutton-sample-client-angular
+    url: https://github.com/CMSgov/bluebutton-sample-client-angular
+    api: CMS Blue Button 2.0 API
+    distribution: source-only
+  - name: CMSgov/bluebutton-sample-client-android
+    url: https://github.com/CMSgov/bluebutton-sample-client-android
+    api: CMS Blue Button 2.0 API
+    distribution: source-only
+  - name: CMSgov/ab2d-sample-client-python
+    url: https://github.com/CMSgov/ab2d-sample-client-python
+    api: CMS AB2D API
+    distribution: source-only
+  - name: CMSgov/ab2d-sample-client-bash
+    url: https://github.com/CMSgov/ab2d-sample-client-bash
+    api: CMS AB2D API
+    distribution: source-only
+  - name: CMSgov/ab2d-sample-client-powershell
+    url: https://github.com/CMSgov/ab2d-sample-client-powershell
+    api: CMS AB2D API
+    distribution: source-only
+  - name: CMSgov/marketplace-api-examples
+    url: https://github.com/CMSgov/marketplace-api-examples
+    api: Healthcare.gov Marketplace API
+    distribution: source-only
+registries_checked:
+  - registry: npm
+    result: hit
+  - registry: pypi
+    result: hit
+  - registry: maven
+    result: hit (legacy 2016 coordinates only)
+  - registry: nuget
+    result: none
+  - registry: rubygems
+    result: none
+  - registry: packagist
+    result: none
+  - registry: crates.io
+    result: none
+  - registry: pkg.go.dev
+    result: none

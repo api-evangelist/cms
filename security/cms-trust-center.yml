@@ -1,0 +1,67 @@
+generated: '2026-08-15'
+method: searched
+source: https://security.cms.gov/
+trust_center:
+  published: true
+  name: CMS Information Security and Privacy Program
+  url: https://security.cms.gov/
+  http_status: 200
+  fetched: '2026-08-15'
+  note: >-
+    security.cms.gov is CMS's public information security and privacy program site. It is a federal
+    authorization portal rather than a commercial trust centre — it documents the authorization
+    lifecycle every CMS system (including these APIs) must pass, not a set of purchased attestations.
+    Read it as the CMS equivalent of a trust page, and do not expect SOC 2 or ISO 27001: US federal
+    agencies operate FISMA/FedRAMP authorization instead.
+frameworks:
+  - id: fisma
+    name: Federal Information Security Modernization Act
+    kind: statutory-regime
+    evidence: Listed under Federal Policies & Guidance at https://security.cms.gov/
+  - id: fedramp
+    name: Federal Risk and Authorization Management Program
+    kind: authorization-program
+    evidence: Listed under Federal Policies & Guidance at https://security.cms.gov/
+  - id: nist-rmf
+    name: NIST Risk Management Framework
+    kind: framework
+    evidence: CMS Risk Management Framework section at https://security.cms.gov/
+  - id: cms-ato
+    name: Authorization to Operate (ATO) / Ongoing Authorization (OA)
+    kind: authorization
+    evidence: System Authorization section at https://security.cms.gov/
+  - id: cms-ars
+    name: CMS Acceptable Risk Safeguards (ARS)
+    kind: control-baseline
+    evidence: CMS Policies & Guidance section at https://security.cms.gov/
+  - id: cms-is2p2
+    name: CMS Information Systems Security and Privacy Policy (IS2P2)
+    kind: policy
+    evidence: CMS Policies & Guidance section at https://security.cms.gov/
+  - id: zero-trust
+    name: Federal Zero Trust strategy
+    kind: strategy
+    evidence: Listed under Federal Policies & Guidance at https://security.cms.gov/
+  - id: hipaa
+    name: HIPAA Privacy and Security Rules
+    kind: statutory-regime
+    evidence: >-
+      CMS is a HIPAA covered entity and the claims APIs release protected health information under it;
+      the CMS Privacy Program Plan and Privacy Impact Assessment requirements are published at
+      https://security.cms.gov/.
+assurance_artifacts:
+  - name: Privacy Impact Assessment (PIA)
+  - name: System Security and Privacy Plan (SSPP)
+  - name: Information System Risk Assessment (ISRA)
+  - name: Security Impact Analysis (SIA)
+  - name: Plan of Action and Milestones (POA&M)
+  - name: Information System Contingency Plan (ISCP)
+  - name: Cybersecurity and Risk Assessment Program (CSRAP) / penetration testing
+  - name: Continuous Diagnostics and Mitigation (CDM)
+certifications: []
+certifications_note: >-
+  No commercial certification (SOC 2, ISO 27001, PCI DSS, HITRUST) is published or claimed, and none
+  should be expected from a federal agency. The equivalent assurance is the ATO under FISMA with the
+  NIST-derived CMS ARS control baseline.
+privacy_policy: https://www.cms.gov/privacy
+vulnerability_disclosure: security/cms-vulnerability-disclosure.yml

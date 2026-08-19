@@ -1,31 +1,112 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/centers-for-medicare-and-medicaid-services-cms-blue-button-2-openapi.yml
+generated: '2026-08-15'
+method: searched
+source: openapi/_original/cms-cms-blue-button-2-openapi.yml
+docs: https://bluebutton.cms.gov/api-documentation/authorization/
+discovery: https://api.bluebutton.cms.gov/.well-known/openid-configuration
+upgrade_note: >-
+  Upgraded 2026-08-15 from derived to searched. The 2026-07-11 derived pass captured only the three
+  `.read` scopes present in the spec; the CMS authorization documentation publishes the `.rs` (read +
+  search) aliases CMS actually uses in its own examples, the SMART launch context scope, and the
+  OpenID Connect scopes — none of which appear in any harvested spec.
+summary: >-
+  Only ONE CMS API has an OAuth scope surface: Blue Button 2.0, the beneficiary-consent API. It uses
+  HL7 FHIR (SMART on FHIR) scopes, all patient-context and all read-only — there is no write scope
+  anywhere in the CMS estate. BCDA, AB2D and DPC use bearer tokens whose authority is derived from
+  programme attribution rather than from scopes, and the Marketplace / PPL surface is API-key only.
 schemes:
-- name: oauth2
-  source: openapi/centers-for-medicare-and-medicaid-services-cms-blue-button-2-openapi.yml
-  flows:
-  - flow: authorizationCode
-    authorizationUrl: https://api.bluebutton.cms.gov/v2/o/authorize/
-    tokenUrl: https://api.bluebutton.cms.gov/v2/o/token/
-  description: OAuth 2.0 authorization code flow used by Medicare beneficiaries to grant access
-    to a third-party application.
+  - name: oauth2
+    api: CMS Blue Button 2.0 API
+    source: openapi/_original/cms-cms-blue-button-2-openapi.yml
+    flows:
+      - flow: authorizationCode
+        authorizationUrl: https://api.bluebutton.cms.gov/v2/o/authorize
+        tokenUrl: https://api.bluebutton.cms.gov/v2/o/token
+        revocationUrl: https://api.bluebutton.cms.gov/v2/o/revoke_token
+        userinfoUrl: https://api.bluebutton.cms.gov/v2/connect/userinfo
+        pkce: required (S256 only)
+        client_type: confidential only — public clients and the implicit grant are NOT supported
+    sandbox_flows:
+      - authorizationUrl: https://sandbox.bluebutton.cms.gov/v2/o/authorize
+        tokenUrl: https://sandbox.bluebutton.cms.gov/v2/o/token
+    description: >-
+      OAuth 2.0 authorization code flow with mandatory PKCE, used by Medicare enrollees to grant a
+      third-party application access to their own claims data.
 scopes:
-- scope: patient/Coverage.read
-  description: Read beneficiary Coverage resources.
-  flows:
-  - authorizationCode
-  sources:
-  - openapi/centers-for-medicare-and-medicaid-services-cms-blue-button-2-openapi.yml
-- scope: patient/ExplanationOfBenefit.read
-  description: Read beneficiary claims.
-  flows:
-  - authorizationCode
-  sources:
-  - openapi/centers-for-medicare-and-medicaid-services-cms-blue-button-2-openapi.yml
-- scope: patient/Patient.read
-  description: Read beneficiary Patient resource.
-  flows:
-  - authorizationCode
-  sources:
-  - openapi/centers-for-medicare-and-medicaid-services-cms-blue-button-2-openapi.yml
+  - scope: patient/Patient.rs
+    alias: patient/Patient.read
+    description: Read and search my general patient and demographic information.
+    resource: Patient
+    access: read+search
+    flows:
+      - authorizationCode
+    sources:
+      - https://bluebutton.cms.gov/api-documentation/authorization/
+      - openapi/_original/cms-cms-blue-button-2-openapi.yml
+  - scope: patient/Coverage.rs
+    alias: patient/Coverage.read
+    description: Read and search my Medicare and supplemental coverage information.
+    resource: Coverage
+    access: read+search
+    flows:
+      - authorizationCode
+    sources:
+      - https://bluebutton.cms.gov/api-documentation/authorization/
+      - openapi/_original/cms-cms-blue-button-2-openapi.yml
+  - scope: patient/ExplanationOfBenefit.rs
+    alias: patient/ExplanationOfBenefit.read
+    description: Read and search my Medicare claim information.
+    resource: ExplanationOfBenefit
+    access: read+search
+    flows:
+      - authorizationCode
+    sources:
+      - https://bluebutton.cms.gov/api-documentation/authorization/
+      - openapi/_original/cms-cms-blue-button-2-openapi.yml
+  - scope: launch/patient
+    description: Patient launch context (SMART App Launch).
+    access: context
+    flows:
+      - authorizationCode
+    sources:
+      - https://bluebutton.cms.gov/api-documentation/authorization/
+  - scope: openid
+    description: Retrieve information about the currently logged-in user (OpenID Connect).
+    access: identity
+    flows:
+      - authorizationCode
+    sources:
+      - https://bluebutton.cms.gov/api-documentation/authorization/
+      - https://api.bluebutton.cms.gov/.well-known/openid-configuration
+  - scope: profile
+    description: Access the /UserInfo endpoint (OpenID Connect).
+    access: identity
+    flows:
+      - authorizationCode
+    sources:
+      - https://bluebutton.cms.gov/api-documentation/authorization/
+enrollee_controls:
+  - control: personal-information block
+    description: >-
+      Two things independently block an application's access to /Patient and /UserInfo even when the
+      scope was granted: the developer declining to collect enrollee personal information at production
+      approval, and the enrollee choosing during Medicare.gov authentication not to share personal
+      data. An application must be able to operate without the Patient resource — CMS documents pulling
+      the patient id from the authorization response or from the EOB/Coverage bundles instead.
+    source: https://bluebutton.cms.gov/api-documentation/authorization/
+  - control: revocation
+    description: >-
+      An enrollee can revoke access at any time. The API then returns 404 "Data Access Grant was not
+      found". A grant expiry returns 400 invalid_grant with a message directing the enrollee to
+      re-authenticate.
+    source: https://bluebutton.cms.gov/api-documentation/authorization/
+non_oauth_apis:
+  - api: CMS Beneficiary Claims Data API (BCDA)
+    model: bearer token via SSAS client credentials; authority derives from ACO attribution, no scopes
+  - api: CMS AB2D API (Claims Data to Part D Sponsors)
+    model: OAuth 2.0 bearer token via Okta; authority derives from PDP contract, no scopes
+  - api: CMS Data at the Point of Care (DPC) API
+    model: SMART on FHIR Backend Services (JWT client assertion); no user-facing scopes
+  - api: Healthcare.gov Marketplace API
+    model: apikey query parameter; no scopes
+  - api: CMS Procedure Price Lookup (PPL) API
+    model: apiKey + amaLicense headers; no scopes

@@ -1,0 +1,38 @@
+generated: '2026-08-15'
+method: searched
+source: >-
+  https://www.npmjs.com/package/@cmsgov/hpt-validator-cli, https://github.com/CMSgov/hpt-validator-cli,
+  https://github.com/CMSgov/ab2d-sample-client-bash
+summary: >-
+  CMS ships NO command-line client for any of its data APIs — there is no `cms` or `bcda` or `bluebutton`
+  CLI. The only first-party CMS command-line tool published to a registry is the Hospital Price
+  Transparency file validator, which validates machine-readable price files hospitals publish under the
+  CMS HPT rule. It is genuinely CMS-authored and genuinely a CLI, but it is a compliance-file linter,
+  not a client for the APIs profiled in this repo. It is recorded here honestly and labelled as such
+  rather than being presented as an API CLI.
+clis:
+  - name: hpt-validator-cli
+    official: true
+    covers_apis: false
+    purpose: >-
+      Validate CMS Hospital Price Transparency machine-readable files (JSON and CSV) against the CMS
+      schema, for hospitals meeting the price-transparency rule.
+    registry: npm
+    package: '@cmsgov/hpt-validator-cli'
+    url: https://www.npmjs.com/package/@cmsgov/hpt-validator-cli
+    repo: https://github.com/CMSgov/hpt-validator-cli
+    version: 1.10.7
+    published: '2026-06-02'
+    install:
+      - npx @cmsgov/hpt-validator-cli <file>
+    library: '@cmsgov/hpt-validator (2.5.0, 2026-06-02) — the validation engine the CLI wraps'
+    web_tool: https://github.com/CMSgov/hpt-validator-tool
+api_cli:
+  exists: false
+  note: >-
+    The documented way to call BCDA, AB2D, DPC and Blue Button from a terminal is plain curl. AB2D's
+    own docs say so ("You can use a variety of tools or client software programs, like curl") and CMS
+    ships CMSgov/ab2d-sample-client-bash and CMSgov/ab2d-sample-client-powershell as example shell
+    scripts rather than an installable binary. Given the whole bulk-FHIR flow is kickoff, poll, download
+    — four curl calls with a token — a first-party CLI would be a small piece of work with an
+    outsized ergonomics payoff.

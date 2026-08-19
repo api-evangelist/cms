@@ -1,0 +1,1097 @@
+# Harvested verbatim 2026-08-15 from https://sandbox.ab2d.cms.gov/v3/api-docs
+# method: searched | AB2D API (CMS Claims Data to Part D Sponsors), servers[] sandbox.ab2d.cms.gov
+openapi: 3.1.0
+info:
+  title: AB2D API
+  description: This API Provides Part A (Hospital Insurance) & B (Medical Insurance) claim data to Part D (Prescription Drug
+    Benefit) sponsors. Consistent with CMS' Final Rule to implement Section 50354 of the Bipartisan Budget Act of 2018, CMS
+    is providing standalone Medicare Part D plan (PDP) sponsors the opportunity to request access to Medicare claims data.
+    Access to Medicare claims data for their enrollees will help plans promote the appropriate use of medications and improve
+    health outcomes, among other benefits.
+servers:
+- url: https://sandbox.ab2d.cms.gov
+  description: Generated server url
+security:
+- bearerAuth: []
+tags:
+- name: Capabilities
+  description: Provide the standard required FHIR capability statement
+- name: Status
+  description: API to determine the status of the job, the files to download once the job is complete and an endpoint to cancel
+    a job
+- name: Export
+  description: API through which an authenticated and authorized PDP sponsor may request a bulk-data export from a server.
+- name: 2. Status
+  description: API to determine the status of the job, the files to download once the job is complete and an endpoint to cancel
+    a job
+- name: 3. Download
+  description: After creating a job, the API to download the generated bulk download files
+- name: 4. Capabilities
+  description: Provide the standard required FHIR capability statement
+- name: Download
+  description: After creating a job, the API to download the generated bulk download files
+- name: 1. Export
+  description: API through which an authenticated and authorized PDP sponsor may request a bulk-data export from a server.
+paths:
+  /api/v1/admin/client:
+    put:
+      tags:
+      - admin-api
+      operationId: udpateClient
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PdpClientDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PdpClientDTO'
+    post:
+      tags:
+      - admin-api
+      operationId: createClient
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PdpClientDTO'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PdpClientDTO'
+  /api/v1/admin/client/{contractNumber}/enable:
+    put:
+      tags:
+      - admin-api
+      operationId: enableClient
+      parameters:
+      - name: contractNumber
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PdpClientDTO'
+  /api/v1/admin/client/{contractNumber}/disable:
+    put:
+      tags:
+      - admin-api
+      operationId: disableClient
+      parameters:
+      - name: contractNumber
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PdpClientDTO'
+  /api/v1/admin/job/{contractNumber}:
+    post:
+      tags:
+      - admin-api
+      operationId: createJobByContractOnBehalfOfClient
+      parameters:
+      - name: contractNumber
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      - name: _type
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ExplanationOfBenefit
+      - name: _outputFormat
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: _since
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: _until
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      responses:
+        '200':
+          description: OK
+  /status:
+    get:
+      tags:
+      - maintenance-mode-api
+      operationId: getMaintenanceMode
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MaintenanceModeResponse'
+  /health:
+    get:
+      tags:
+      - health-api
+      operationId: getHealth
+      responses:
+        '200':
+          description: OK
+  /api/v3/fhir/metadata:
+    get:
+      tags:
+      - Capabilities
+      summary: 'Request the FHIR capability statement detailing what operations this API supports '
+      operationId: capabilityStatement
+      responses:
+        '200':
+          description: A JSON FHIR capability statement matching  http://hl7.org/fhir/capabilitystatement.html
+          content:
+            application/json:
+              schema:
+                type: string
+  /api/v3/fhir/Patient/$export:
+    get:
+      tags:
+      - Export
+      summary: Initiate Part A & B bulk claim export job
+      operationId: exportAllPatients
+      parameters:
+      - name: _type
+        in: query
+        description: String of comma-delimited FHIR resource objects. Only resources of the specified resource types(s) SHALL
+          be included in the response. Currently, only ExplanationOfBenefit objects are supported
+        required: false
+        schema:
+          type: string
+          enum:
+          - ExplanationOfBenefit
+      - name: _outputFormat
+        in: query
+        description: The format for the requested bulk data files to be generated. Currently, only application/fhir+json is
+          supported.
+        required: false
+        schema:
+          type: string
+          enum:
+          - application/fhir+ndjson
+          - application/ndjson
+          - ndjson
+      - name: _since
+        in: query
+        description: If no value is provided, it will default to the last time a successful job was requested if it exists.
+          The earliest accepted date is 2026-04-01T00:00:00.000-05:00
+        required: false
+        schema:
+          type: date-time
+          description: '2026-04-01T00:00:00.000-05:00'
+      - name: _until
+        in: query
+        description: ' If no value is provided, it will default to the current date.'
+        required: false
+        schema:
+          type: date-time
+          description: '2024-01-01T00:00:00.000-05:00'
+      - name: _typeFilter
+        in: query
+        description: Provide service-date to further refine results
+        required: false
+        schema:
+          type: string
+      - name: Prefer
+        in: header
+        description: Value must be respond-async
+        required: true
+        schema:
+          type: string
+          default: respond-async
+          enum:
+          - respond-async
+      responses:
+        '202':
+          description: Export request has started
+          headers:
+            Content-Location:
+              description: Absolute URL of an endpoint for subsequent status requests (polling location)
+              style: simple
+              schema:
+                type: string
+          content:
+            application/fhir+json:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too many jobs are currently running. Either wait for currently running jobs to finish or cancel some/all
+            of those jobs.
+          headers:
+            Content-Location:
+              description: URLs of currently running jobs. To cancel one of those jobs, invoke the Status DELETE call.
+              style: simple
+              schema:
+                type: string
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcome'
+  /api/v3/fhir/Job/{jobUuid}/file/{filename}:
+    get:
+      tags:
+      - Download
+      summary: Downloads a file produced by an export job.
+      operationId: downloadFile
+      parameters:
+      - name: jobUuid
+        in: path
+        description: A job identifier
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      - name: filename
+        in: path
+        description: A file name
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      responses:
+        '200':
+          description: Returns the requested file as application/fhir+ndjson
+          headers:
+            Content-Type:
+              description: 'Header which must match the file format being delivered: application/fhir+ndjson'
+              style: simple
+          content:
+            application/fhir+ndjson: {}
+        '404':
+          description: Job or file not found. The body will contain a FHIR OperationOutcome resource in JSON format. https://www.hl7.org/fhir/operationoutcome.html
+            Please refer to the body of the response for details.
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcome'
+  /api/v3/fhir/Job/{jobUuid}/$status:
+    get:
+      tags:
+      - Status
+      summary: Returns a status of an export job.
+      operationId: getJobStatus
+      parameters:
+      - name: jobUuid
+        in: path
+        description: A job identifier
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      responses:
+        '202':
+          description: The job is still in progress.
+          headers:
+            Retry-After:
+              description: A delay time in seconds before another status request will be accepted.
+              style: simple
+              schema:
+                type: integer
+            X-Progress:
+              description: Completion percentage, such as 50%
+              style: simple
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobCompletedResponse'
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/JobCompletedResponse'
+        '200':
+          description: The job is complete.
+          headers:
+            Expires:
+              description: Indicates when (an HTTP-date timestamp) the files listed will no longer be available for access.
+              style: simple
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobCompletedResponse'
+        '404':
+          description: Job not found. The body will contain a FHIR OperationOutcome resource in JSON format. https://www.hl7.org/fhir/operationoutcome.html
+            Please refer to the body of the response for details.
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcome'
+    delete:
+      tags:
+      - Status
+      summary: Cancel a pending or in progress export job
+      operationId: deleteRequest
+      parameters:
+      - name: jobUuid
+        in: path
+        description: A job identifier
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      responses:
+        '202':
+          description: Job canceled
+          content:
+            application/json:
+              schema:
+                type: string
+            application/fhir+json:
+              schema:
+                type: string
+        '404':
+          description: Job not found. The body will contain a FHIR OperationOutcome resource in JSON format. https://www.hl7.org/fhir/operationoutcome.html
+            Please refer to the body of the response for details.
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcome'
+  /api/v2/fhir/metadata:
+    get:
+      tags:
+      - Capabilities
+      summary: 'Request the FHIR capability statement detailing what operations this API supports '
+      operationId: capabilityStatement_1
+      responses:
+        '200':
+          description: A JSON FHIR capability statement matching  http://hl7.org/fhir/capabilitystatement.html
+          content:
+            application/json:
+              schema:
+                type: string
+  /api/v2/fhir/Patient/$export:
+    get:
+      tags:
+      - Export
+      summary: Initiate Part A & B bulk claim export job
+      operationId: exportAllPatients_1
+      parameters:
+      - name: _type
+        in: query
+        description: String of comma-delimited FHIR resource objects. Only resources of the specified resource types(s) SHALL
+          be included in the response. Currently, only ExplanationOfBenefit objects are supported
+        required: false
+        schema:
+          type: string
+          enum:
+          - ExplanationOfBenefit
+      - name: _outputFormat
+        in: query
+        description: The format for the requested bulk data files to be generated. Currently, only application/fhir+json is
+          supported.
+        required: false
+        schema:
+          type: string
+          enum:
+          - application/fhir+ndjson
+          - application/ndjson
+          - ndjson
+      - name: _since
+        in: query
+        description: ' If no value is provided, it will default to the last time a successful job was requested if it exists.
+          The earliest accepted date is 2020-02-13T00:00:00.000-05:00'
+        required: false
+        schema:
+          type: date-time
+          description: '2020-02-13T00:00:00.000-05:00'
+      - name: _until
+        in: query
+        description: ' If no value is provided, it will default to the current date.'
+        required: false
+        schema:
+          type: date-time
+          description: '2024-01-01T00:00:00.000-05:00'
+      - name: Prefer
+        in: header
+        description: Value must be respond-async
+        required: true
+        schema:
+          type: string
+          default: respond-async
+          enum:
+          - respond-async
+      responses:
+        '202':
+          description: Export request has started
+          headers:
+            Content-Location:
+              description: Absolute URL of an endpoint for subsequent status requests (polling location)
+              style: simple
+              schema:
+                type: string
+          content:
+            application/fhir+json:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too many jobs are currently running. Either wait for currently running jobs to finish or cancel some/all
+            of those jobs.
+          headers:
+            Content-Location:
+              description: URLs of currently running jobs. To cancel one of those jobs, invoke the Status DELETE call.
+              style: simple
+              schema:
+                type: string
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcome'
+  /api/v2/fhir/Job/{jobUuid}/file/{filename}:
+    get:
+      tags:
+      - Download
+      summary: Downloads a file produced by an export job.
+      operationId: downloadFile_1
+      parameters:
+      - name: jobUuid
+        in: path
+        description: A job identifier
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      - name: filename
+        in: path
+        description: A file name
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      responses:
+        '200':
+          description: Returns the requested file as application/fhir+ndjson
+          headers:
+            Content-Type:
+              description: 'Header which must match the file format being delivered: application/fhir+ndjson'
+              style: simple
+          content:
+            application/fhir+ndjson: {}
+        '404':
+          description: Job or file not found. The body will contain a FHIR OperationOutcome resource in JSON format. https://www.hl7.org/fhir/operationoutcome.html
+            Please refer to the body of the response for details.
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcome'
+  /api/v2/fhir/Job/{jobUuid}/$status:
+    get:
+      tags:
+      - Status
+      summary: Returns a status of an export job.
+      operationId: getJobStatus_1
+      parameters:
+      - name: jobUuid
+        in: path
+        description: A job identifier
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      responses:
+        '202':
+          description: The job is still in progress.
+          headers:
+            Retry-After:
+              description: A delay time in seconds before another status request will be accepted.
+              style: simple
+              schema:
+                type: integer
+            X-Progress:
+              description: Completion percentage, such as 50%
+              style: simple
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobCompletedResponse'
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/JobCompletedResponse'
+        '200':
+          description: The job is complete.
+          headers:
+            Expires:
+              description: Indicates when (an HTTP-date timestamp) the files listed will no longer be available for access.
+              style: simple
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobCompletedResponse'
+        '404':
+          description: Job not found. The body will contain a FHIR OperationOutcome resource in JSON format. https://www.hl7.org/fhir/operationoutcome.html
+            Please refer to the body of the response for details.
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcome'
+    delete:
+      tags:
+      - Status
+      summary: Cancel a pending or in progress export job
+      operationId: deleteRequest_1
+      parameters:
+      - name: jobUuid
+        in: path
+        description: A job identifier
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      responses:
+        '202':
+          description: Job canceled
+          content:
+            application/json:
+              schema:
+                type: string
+            application/fhir+json:
+              schema:
+                type: string
+        '404':
+          description: Job not found. The body will contain a FHIR OperationOutcome resource in JSON format. https://www.hl7.org/fhir/operationoutcome.html
+            Please refer to the body of the response for details.
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcome'
+  /api/v2/fhir/Group/{contractNumber}/$export:
+    get:
+      tags:
+      - Export
+      summary: Initiate Part A & B bulk claim export job for a given contract number, DEPRECATED
+      operationId: exportPatientsWithContract
+      parameters:
+      - name: contractNumber
+        in: path
+        description: A contract number
+        required: true
+        schema:
+          type: string
+          minLength: 1
+        example: Z0000
+      - name: _type
+        in: query
+        description: String of comma-delimited FHIR resource objects. Only resources of the specified resource types(s) SHALL
+          be included in the response. Currently, only ExplanationOfBenefit objects are supported
+        required: false
+        schema:
+          type: string
+          enum:
+          - ExplanationOfBenefit
+      - name: _outputFormat
+        in: query
+        description: The format for the requested bulk data files to be generated. Currently, only application/fhir+json is
+          supported.
+        required: false
+        schema:
+          type: string
+          enum:
+          - application/fhir+ndjson
+          - application/ndjson
+          - ndjson
+      - name: _since
+        in: query
+        description: ' If no value is provided, it will default to the last time a successful job was requested if it exists.
+          The earliest accepted date is 2020-02-13T00:00:00.000-05:00'
+        required: false
+        schema:
+          type: date-time
+        example: '2020-02-13T00:00:00.000-05:00'
+      - name: _until
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: Prefer
+        in: header
+        description: Value must be respond-async
+        required: true
+        schema:
+          type: string
+          default: respond-async
+          enum:
+          - respond-async
+      responses:
+        '202':
+          description: Export request has started
+          headers:
+            Content-Location:
+              description: Absolute URL of an endpoint for subsequent status requests (polling location)
+              style: simple
+              schema:
+                type: string
+          content:
+            application/fhir+json:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too many jobs are currently running. Either wait for currently running jobs to finish or cancel some/all
+            of those jobs.
+          headers:
+            Content-Location:
+              description: URLs of currently running jobs. To cancel one of those jobs, invoke the Status DELETE call.
+              style: simple
+              schema:
+                type: string
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcome'
+      deprecated: true
+  /api/v1/fhir/metadata:
+    get:
+      tags:
+      - 4. Capabilities
+      summary: 'Request the FHIR capability statement detailing what operations this API supports '
+      operationId: capabilityStatement_2
+      responses:
+        '200':
+          description: A JSON FHIR capability statement matching  https://www.hl7.org/fhir/STU3/capabilitystatement.html
+          headers:
+            Content-Type:
+              description: application/json
+              style: simple
+          content:
+            application/json:
+              schema:
+                type: string
+  /api/v1/fhir/Patient/$export:
+    get:
+      tags:
+      - 1. Export
+      summary: Initiate Part A & B bulk claim export job
+      operationId: exportAllPatients_2
+      parameters:
+      - name: _type
+        in: query
+        description: String of comma-delimited FHIR resource objects. Only resources of the specified resource types(s) SHALL
+          be included in the response. Currently, only ExplanationOfBenefit objects are supported
+        required: false
+        schema:
+          type: string
+          enum:
+          - ExplanationOfBenefit
+      - name: _outputFormat
+        in: query
+        description: The format for the requested bulk data files to be generated. Currently, only application/fhir+json is
+          supported.
+        required: false
+        schema:
+          type: string
+          enum:
+          - application/fhir+ndjson
+          - application/ndjson
+          - ndjson
+      - name: _since
+        in: query
+        description: Beginning time of query. Returns all records "since" this time. At this time, it must be after 2020-02-13T00:00:00.000-05:00
+        required: false
+        schema:
+          type: date-time
+          description: '2020-02-13T00:00:00.000-05:00'
+      - name: _until
+        in: query
+        description: The _until parameter is only available with version 2 and version 3 of the API.
+        required: false
+        schema:
+          type: date-time
+          description: '2024-01-01T00:00:00.000-05:00'
+      - name: Prefer
+        in: header
+        description: Value must be respond-async
+        required: true
+        schema:
+          type: string
+          default: respond-async
+          enum:
+          - respond-async
+      responses:
+        '202':
+          description: Export request has started
+          headers:
+            Content-Location:
+              description: Absolute URL of an endpoint for subsequent status requests (polling location)
+              style: simple
+              schema:
+                type: string
+        '429':
+          description: Too many jobs are currently running. Either wait for currently running jobs to finish or cancel some/all
+            of those jobs.
+          headers:
+            Content-Location:
+              description: URLs of currently running jobs. To cancel one of those jobs, invoke the Status DELETE call.
+              style: simple
+              schema:
+                type: string
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcome'
+  /api/v1/fhir/Job/{jobUuid}/file/{filename}:
+    get:
+      tags:
+      - 3. Download
+      summary: Downloads a file produced by an export job.
+      operationId: downloadFile_2
+      parameters:
+      - name: jobUuid
+        in: path
+        description: A job identifier
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      - name: filename
+        in: path
+        description: A file name
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      responses:
+        '200':
+          description: Returns the requested file as application/fhir+ndjson
+          headers:
+            Content-Type:
+              description: 'Header which must match the file format being delivered: application/fhir+ndjson'
+              style: simple
+          content:
+            application/fhir+ndjson: {}
+        '404':
+          description: Job or file not found. The body will contain a FHIR OperationOutcome resource in JSON format. https://www.hl7.org/fhir/operationoutcome.html
+            Please refer to the body of the response for details.
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcome'
+  /api/v1/fhir/Job/{jobUuid}/$status:
+    get:
+      tags:
+      - 2. Status
+      summary: Returns a status of an export job.
+      operationId: getJobStatus_2
+      parameters:
+      - name: jobUuid
+        in: path
+        description: A job identifier
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      responses:
+        '202':
+          description: The job is still in progress.
+          headers:
+            Retry-After:
+              description: A delay time in seconds before another status request will be accepted.
+              style: simple
+              schema:
+                type: integer
+            X-Progress:
+              description: Completion percentage, such as 50%
+              style: simple
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobCompletedResponse'
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/JobCompletedResponse'
+        '200':
+          description: The job is complete.
+          headers:
+            Expires:
+              description: Indicates when (an HTTP-date timestamp) the files listed will no longer be available for access.
+              style: simple
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobCompletedResponse'
+        '404':
+          description: Job not found. The body will contain a FHIR OperationOutcome resource in JSON format. https://www.hl7.org/fhir/operationoutcome.html
+            Please refer to the body of the response for details.
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcome'
+    delete:
+      tags:
+      - 2. Status
+      summary: Cancel a pending or in progress export job
+      operationId: deleteRequest_2
+      parameters:
+      - name: jobUuid
+        in: path
+        description: A job identifier
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      responses:
+        '202':
+          description: Job canceled
+          content:
+            application/json:
+              schema:
+                type: string
+            application/fhir+json:
+              schema:
+                type: string
+        '404':
+          description: Job not found. The body will contain a FHIR OperationOutcome resource in JSON format. https://www.hl7.org/fhir/operationoutcome.html
+            Please refer to the body of the response for details.
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcome'
+  /api/v1/fhir/Group/{contractNumber}/$export:
+    get:
+      tags:
+      - 1. Export
+      summary: Initiate Part A & B bulk claim export job for a given contract number, DEPRECATED
+      operationId: exportPatientsWithContract_1
+      parameters:
+      - name: contractNumber
+        in: path
+        description: A contract number
+        required: true
+        schema:
+          type: string
+          minLength: 1
+        example: Z0000
+      - name: _type
+        in: query
+        description: String of comma-delimited FHIR resource objects. Only resources of the specified resource types(s) SHALL
+          be included in the response. Currently, only ExplanationOfBenefit objects are supported
+        required: false
+        schema:
+          type: string
+          enum:
+          - ExplanationOfBenefit
+      - name: _outputFormat
+        in: query
+        description: The format for the requested bulk data files to be generated. Currently, only application/fhir+json is
+          supported.
+        required: false
+        schema:
+          type: string
+          enum:
+          - application/fhir+ndjson
+          - application/ndjson
+          - ndjson
+      - name: _since
+        in: query
+        description: Beginning time of query. Returns all records "since" this time. At this time, it must be after 2020-02-13T00:00:00.000-05:00
+        required: false
+        schema:
+          type: date-time
+        example: '2020-02-13T00:00:00.000-05:00'
+      - name: _until
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: Prefer
+        in: header
+        description: Value must be respond-async
+        required: true
+        schema:
+          type: string
+          default: respond-async
+          enum:
+          - respond-async
+      responses:
+        '202':
+          description: Export request has started
+          headers:
+            Content-Location:
+              description: Absolute URL of an endpoint for subsequent status requests (polling location)
+              style: simple
+              schema:
+                type: string
+        '429':
+          description: Too many jobs are currently running. Either wait for currently running jobs to finish or cancel some/all
+            of those jobs.
+          headers:
+            Content-Location:
+              description: URLs of currently running jobs. To cancel one of those jobs, invoke the Status DELETE call.
+              style: simple
+              schema:
+                type: string
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcome'
+      deprecated: true
+  /api/v1/admin/client/{contractNumber}:
+    get:
+      tags:
+      - admin-api
+      operationId: getClient
+      parameters:
+      - name: contractNumber
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PdpClientDTO'
+components:
+  schemas:
+    ContractDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        contractNumber:
+          type: string
+        contractName:
+          type: string
+        attestedOn:
+          type: string
+          format: date-time
+        contractType:
+          type: string
+          enum:
+          - NORMAL
+          - CLASSIC_TEST
+          - SYNTHEA
+        totalEnrollment:
+          type: integer
+          format: int32
+        medicareEligible:
+          type: integer
+          format: int32
+      required:
+      - contractName
+      - contractNumber
+      - id
+    PdpClientDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        clientId:
+          type: string
+        organization:
+          type: string
+        enabled:
+          type: boolean
+        role:
+          type: string
+        contract:
+          $ref: '#/components/schemas/ContractDTO'
+      required:
+      - clientId
+      - enabled
+      - organization
+    MaintenanceModeResponse:
+      type: object
+      properties:
+        maintenanceMode:
+          type: string
+    FileMetadata:
+      type: object
+      properties:
+        url:
+          type: string
+        valueString:
+          type: string
+        valueDecimal:
+          type: integer
+          format: int64
+    JobCompletedResponse:
+      type: object
+      properties:
+        transactionTime:
+          type: string
+        request:
+          type: string
+        requiresAccessToken:
+          type: boolean
+        output:
+          type: array
+          items:
+            $ref: '#/components/schemas/Output'
+        error:
+          type: array
+          items:
+            $ref: '#/components/schemas/Output'
+    Output:
+      type: object
+      properties:
+        type:
+          type: string
+        url:
+          type: string
+        extension:
+          type: array
+          items:
+            $ref: '#/components/schemas/FileMetadata'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      name: bearerAuth
+      scheme: bearer
+      bearerFormat: JWT

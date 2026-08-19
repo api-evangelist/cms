@@ -1,0 +1,99 @@
+generated: '2026-08-15'
+method: searched
+source: https://bcda.cms.gov/announcements.html
+scheme: dated announcements per API programme (no single CMS-wide changelog)
+note: >-
+  CMS publishes no unified API changelog. BCDA is the only API family with a dated, structured
+  announcements feed; it is captured below. AB2D, DPC, the Marketplace API and the Provider Data
+  Catalog announce changes through Google Groups and email rather than a published page —
+  https://bluebutton.cms.gov/developers/api-changelog/ and https://dpc.cms.gov/api-changelog both
+  return 404. Recent window only; see the source URL for the full list.
+changelogs:
+  - api: CMS Beneficiary Claims Data API (BCDA)
+    url: https://bcda.cms.gov/announcements.html
+    format: html
+    feed: null
+current_version:
+  BCDA: v3
+  AB2D: v3
+  Blue Button: v2
+  DPC: v1
+entries:
+  - date: '2026-07-01'
+    api: BCDA
+    title: 'BCDA v3: Enhanced timeliness and performance for value-based care'
+    type: release
+    breaking: false
+    highlights:
+      - Core improvements to data sources and alignment for timelier, more person-centered care.
+    url: https://bcda.cms.gov/announcements.html
+  - date: '2026-06-15'
+    api: BCDA
+    title: BCDA v3 goes live July 1, 2026
+    type: announcement
+    breaking: true
+    highlights:
+      - v3 brings advances in timeliness and performance for value-based care.
+      - Starts the v1/v2 retirement clock — access to v1 and v2 is removed on 2027-07-30.
+      - Adds the _typeFilter parameter and consolidates partially adjudicated claims resources.
+    url: https://bcda.cms.gov/v3/welcome-v3
+  - date: '2026-02-12'
+    api: BCDA
+    title: End of BCDA data limitations
+    type: availability
+    breaking: false
+    highlights:
+      - Performance year 2026 data became accessible after the annual January transition.
+  - date: '2025-12-03'
+    api: BCDA
+    title: BCDA data limited in Jan 2026 for yearly updates
+    type: availability
+    breaking: false
+    highlights:
+      - Claims with 2026 service dates unavailable throughout January 2026.
+  - date: '2025-09-17'
+    api: BCDA
+    title: Open call for BCDA v3 pilot program
+    type: announcement
+    breaking: false
+  - date: '2025-08-05'
+    api: BCDA
+    title: 'Post Connectathon, there''s still time to test v3'
+    type: announcement
+    breaking: false
+    highlights:
+      - v3 demo endpoints kept open in the sandbox after the June 2025 HL7 FHIR Connectathon.
+  - date: '2025-08-04'
+    api: BCDA
+    title: What's new on BCDA.cms.gov
+    type: docs
+    breaking: false
+    highlights:
+      - New BCDA developer site launched from user research and testing.
+  - date: '2025-07-09'
+    api: BCDA
+    title: Try the API at the 2025 HL7 FHIR Connectathon
+    type: event
+    breaking: false
+  - date: '2025-02-13'
+    api: BCDA
+    title: Normal data availability resumed for 2025 claims
+    type: availability
+    breaking: false
+  - date: '2024-12-03'
+    api: BCDA
+    title: Temporary service limitation during annual end-of-year transition
+    type: availability
+    breaking: false
+  - date: '2024-12-01'
+    api: BCDA
+    title: BCDA performance improvement to speed up job requests
+    type: performance
+    breaking: false
+  - date: '2024-11-18'
+    api: BCDA
+    title: Updated guidance on managing BCDA credentials
+    type: docs
+    breaking: false
+    highlights:
+      - New guidance for managing credentials in 4i and ACO-MS.

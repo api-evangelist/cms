@@ -1,0 +1,120 @@
+generated: '2026-08-15'
+method: searched
+source: >-
+  https://bcda.cms.gov/v3/welcome-v3, https://bcda.cms.gov/bcda-data/difference-between-v1-v2.html,
+  https://bcda.cms.gov/announcements.html, https://ab2d.cms.gov/status,
+  https://ab2d.cms.gov/api-documentation, https://bluebutton.cms.gov/api-documentation/,
+  https://developer.cms.gov/marketplace-api/, openapi/*.yml
+versioning:
+  scheme: uri-path
+  note: >-
+    Every CMS claims API versions in the URL path and runs multiple versions side by side. The version
+    number tracks the FHIR release, not a CMS-internal release train: v1 is FHIR STU3, v2 is FHIR R4 on
+    the CARIN Blue Button IG, v3 is the current BCDA generation.
+  apis:
+    - api: CMS Beneficiary Claims Data API (BCDA)
+      current: v3
+      supported:
+        - v1
+        - v2
+        - v3
+      docs: https://bcda.cms.gov/bcda-data/difference-between-v1-v2.html
+    - api: CMS AB2D API (Claims Data to Part D Sponsors)
+      current: v3
+      supported:
+        - v1
+        - v2
+        - v3
+      docs: https://ab2d.cms.gov/api-documentation
+      note: >-
+        The AB2D OpenAPI at https://sandbox.ab2d.cms.gov/v3/api-docs declares all three versions in one
+        document; /api/v3/fhir, /api/v2/fhir and /api/v1/fhir are live simultaneously. v3 dropped the
+        contract-scoped /Group/{contractNumber}/$export endpoint that v2 and v1 still serve.
+    - api: CMS Blue Button 2.0 API
+      current: v2
+      supported:
+        - v1
+        - v2
+      docs: https://bluebutton.cms.gov/api-documentation/
+      note: v2 is FHIR R4 (CapabilityStatement software version 2.262.0); v1 is STU3.
+    - api: CMS Data at the Point of Care (DPC) API
+      current: v1
+      docs: https://dpc.cms.gov/docsV1
+      note: CapabilityStatement reports version 0.4.0-SNAPSHOT, FHIR STU3 3.0.2.
+    - api: Healthcare.gov Marketplace API
+      current: v1
+      docs: https://developer.cms.gov/marketplace-api/
+      note: >-
+        Version is pinned in the base path (/api/v1) and the surface additionally exposes a /versions
+        and /market-years operation for data-vintage discovery, which is a data-year axis rather than
+        an API-version axis.
+deprecation:
+  policy_url: https://bcda.cms.gov/v3/welcome-v3
+  documented: true
+  sunset_header: false
+  announced_retirements:
+    - api: CMS Beneficiary Claims Data API (BCDA)
+      versions:
+        - v1
+        - v2
+      available_from: '2026-07-01'
+      removal_date: '2027-07-30'
+      evidence: >-
+        "BCDA v3 became available July 1, 2026. Access to v1 and 2 will be removed on July 30, 2027."
+        — https://bcda.cms.gov/v3/welcome-v3, fetched 2026-08-15.
+      migration_guide: https://bcda.cms.gov/v3/welcome-v3
+      support: >-
+        CMS ran migration office hours (2026-07-09 "Planning your migration to v3", 2026-07-23
+        "Getting started with BCDA") and labels v3 announcements "BCDAv3" in the BCDA Google Group.
+  note: >-
+    CMS publishes a dated, thirteen-month retirement window with a written migration guide and live
+    office hours — a genuinely strong deprecation posture. What it does NOT do is signal any of it in
+    band: no probed response carries an RFC 8594 Sunset or Deprecation header, so an agent calling
+    BCDA v1 today gets no machine-readable warning that the endpoint disappears on 2027-07-30. That
+    gap is the single highest-value lifecycle improvement available to CMS.
+sla:
+  url: null
+  uptime_target: null
+  note: >-
+    No published SLA or uptime commitment for any CMS API. These are federal public-benefit services
+    rather than commercial products; absence here is expected and is not a defect.
+status_page:
+  url: https://ab2d.cms.gov/status
+  scope: CMS AB2D API only
+  format: html
+  machine_readable: false
+  states:
+    - The system is operating normally.
+    - The system is currently in maintenance mode. Please check back later.
+    - The system is currently unreachable. Please check back later.
+  note: >-
+    AB2D is the only CMS API family with a status page, linked from its site footer as "API Status". It
+    renders one of three states as HTML with no JSON endpoint, no incident history and no subscription
+    feed. BCDA, Blue Button, DPC, the Marketplace API and the Provider Data Catalog publish no status
+    page at all — https://status.bcda.cms.gov does not resolve and https://bcda.cms.gov/status.html
+    returns 404. AB2D additionally exposes a live /health and /status operation in its OpenAPI
+    (getHealth, getMaintenanceMode) which IS machine-readable.
+scheduled_data_outages:
+  - window: annually, January
+    scope: BCDA
+    description: >-
+      Claims with the new performance year's service dates are unavailable through January during the
+      annual end-of-year transition; normal availability resumes in February.
+    evidence: >-
+      https://bcda.cms.gov/announcements.html — "BCDA data limited in Jan 2026 for yearly updates"
+      (2025-12-03) and "End of BCDA data limitations" (2026-02-12); the same pattern is announced for
+      2024/2025.
+  - window: monthly
+    scope: BCDA
+    description: Enrollee attribution files are refreshed once per month; /attribution_status reports the timestamp.
+    evidence: https://bcda.cms.gov/api-documentation.html
+data_retention:
+  - scope: BCDA export job output
+    retention: 24 hours
+    behavior: Completed job files return HTTP 410 Gone after expiry.
+    evidence: openapi/cms-bcda-openapi.yml 410 response descriptions
+deprecated_operations: []
+deprecated_operations_note: >-
+  No operation in any harvested CMS OpenAPI carries `deprecated: true`, including the BCDA v1 and v2
+  operations that CMS has publicly announced will be removed on 2027-07-30. The retirement is real and
+  dated; the spec does not say so.

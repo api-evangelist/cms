@@ -1,0 +1,206 @@
+generated: '2026-08-15'
+method: probed
+source: live HTTPS probes of every apis.yml baseURL host, every OpenAPI servers[] host, and the CMS docs/portal hosts
+summary: >-
+  Sixteen CMS / HHS hosts were probed for the RFC 8615 discovery surface. Only the Blue Button 2.0 FHIR
+  hosts serve a real document: an OpenID Connect discovery document at
+  /.well-known/openid-configuration on both production (api.bluebutton.cms.gov) and sandbox
+  (sandbox.bluebutton.cms.gov). No CMS host serves an RFC 9116 security.txt, an api-catalog, an
+  ai-plugin.json, an OAuth authorization-server or protected-resource metadata document, an llms.txt,
+  or an A2A agent card. Three hosts (qpp.cms.gov, data.cms.gov, npiregistry.cms.hhs.gov) are
+  single-page applications whose catch-all route answers HTTP 200 with an HTML shell for every
+  /.well-known/* path — those are recorded as html-shell, NOT as documents.
+hosts:
+  - host: https://api.bluebutton.cms.gov
+    documents:
+      - path: /.well-known/openid-configuration
+        status: 200
+        content_type: application/json
+        file: cms-bluebutton-openid-configuration.json
+        note: >-
+          Real OIDC discovery document. issuer https://api.bluebutton.cms.gov; authorization_endpoint
+          /v2/o/authorize; token_endpoint /v2/o/token; revocation_endpoint /v2/o/revoke_token;
+          userinfo_endpoint /v2/connect/userinfo; grant_types_supported [refresh_token,
+          authorization_code]; carries a SMART-on-FHIR fhir_metadata_uri pointing at
+          https://api.bluebutton.cms.gov/v2/fhir/metadata.
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+      - path: /llms.txt
+        status: 404
+  - host: https://sandbox.bluebutton.cms.gov
+    documents:
+      - path: /.well-known/openid-configuration
+        status: 200
+        content_type: application/json
+        file: cms-bluebutton-sandbox-openid-configuration.json
+        note: Sandbox twin of the production discovery document; issuer https://sandbox.bluebutton.cms.gov.
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /llms.txt
+        status: 404
+  - host: https://bcda.cms.gov
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+      - path: /llms.txt
+        status: 404
+  - host: https://dpc.cms.gov
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /llms.txt
+        status: 404
+  - host: https://sandbox.dpc.cms.gov
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /llms.txt
+        status: 404
+  - host: https://ab2d.cms.gov
+    documents:
+      - path: /.well-known/security.txt
+        status: 403
+        note: Edge returns 403 for every /.well-known/* path; no document served.
+      - path: /.well-known/agent-card.json
+        status: 403
+      - path: /llms.txt
+        status: 403
+  - host: https://api.ab2d.cms.gov
+    documents:
+      - path: /.well-known/security.txt
+        status: null
+        note: >-
+          Connection timed out on every path. api.ab2d.cms.gov is the AB2D PRODUCTION host and is
+          IP-allowlisted per https://ab2d.cms.gov/api-documentation — PDP sponsors must register
+          static source IPs, so an anonymous probe cannot reach it. Not a finding about the document
+          surface.
+  - host: https://developer.cms.gov
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /llms.txt
+        status: 404
+  - host: https://www.cms.gov
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /llms.txt
+        status: 404
+  - host: https://www.healthcare.gov
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /llms.txt
+        status: 404
+  - host: https://marketplace.api.healthcare.gov
+    documents:
+      - path: /.well-known/security.txt
+        status: 401
+        note: API host requires an apikey query parameter on every path; 401 on all /.well-known/*.
+      - path: /.well-known/agent-card.json
+        status: 401
+  - host: https://finder.healthcare.gov
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /llms.txt
+        status: 404
+  - host: https://qpp.cms.gov
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        result: html-shell
+        note: >-
+          NOT a document. The QPP single-page app answers 200 with the same 13,805-byte HTML shell for
+          every /.well-known/* path and for /llms.txt, /openapi.json and /swagger.json. Treated as a
+          miss.
+      - path: /.well-known/agent-card.json
+        status: 200
+        result: html-shell
+      - path: /llms.txt
+        status: 200
+        result: html-shell
+  - host: https://data.cms.gov
+    documents:
+      - path: /.well-known/openid-configuration
+        status: 200
+        result: html-shell
+        note: Same SPA catch-all pattern; 2,974-byte HTML shell. Treated as a miss.
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /llms.txt
+        status: 404
+  - host: https://npiregistry.cms.hhs.gov
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        result: html-shell
+        note: Angular SPA base-href catch-all; 406-byte HTML shell on every path. Treated as a miss.
+      - path: /.well-known/agent-card.json
+        status: 200
+        result: html-shell
+      - path: /llms.txt
+        status: 200
+        result: html-shell
+security_txt:
+  served: false
+  note: >-
+    No CMS or HHS host in scope serves /.well-known/security.txt. CMS does publish a vulnerability
+    disclosure policy as an HTML page at https://www.cms.gov/vulnerability-disclosure-policy and links
+    it from the footer of every API developer site — captured in
+    security/cms-vulnerability-disclosure.yml — but it is not exposed as an RFC 9116 document, so no
+    SecurityTxt pointer is emitted.
+agent_card:
+  found: false
+  note: >-
+    Probed /.well-known/agent-card.json and the legacy /.well-known/agent.json on all sixteen hosts.
+    Every 200 was an SPA HTML shell, never a JSON AgentCard object. No a2a/ artifact was written and no
+    AgentCard pointer is emitted.

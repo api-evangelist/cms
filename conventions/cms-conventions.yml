@@ -1,0 +1,143 @@
+generated: '2026-08-15'
+method: searched
+source: >-
+  https://bcda.cms.gov/api-documentation.html, https://bcda.cms.gov/api-documentation/filter-claims-data.html,
+  https://ab2d.cms.gov/api-documentation, https://bluebutton.cms.gov/api-documentation/calling-the-api/,
+  https://bluebutton.cms.gov/api-documentation/authorization/, https://developer.cms.gov/marketplace-api/,
+  openapi/*.yml
+summary: >-
+  CMS runs two very different API styles under one roof. The claims surface (BCDA, AB2D, DPC, Blue
+  Button) is HL7 FHIR — bulk asynchronous job exports returning NDJSON for the population APIs, and
+  synchronous FHIR search for the beneficiary-consent API. The Marketplace / Procedure Price Lookup
+  surface is a conventional key-authenticated REST API with a bespoke JSON envelope. Cross-cutting
+  conventions below are recorded per surface, because almost nothing is shared between them.
+authentication:
+  styles:
+    - surface: BCDA
+      style: bearer token via client credentials (SSAS), Basic auth to POST /auth/token
+      lifetime: null
+      docs: https://bcda.cms.gov/api-documentation/get-a-bearer-token.html
+    - surface: AB2D
+      style: OAuth 2.0 bearer token issued by Okta (idm.cms.gov production, test.idp.idm.cms.gov sandbox)
+      lifetime: 30 minutes
+      docs: https://ab2d.cms.gov/get-a-bearer-token
+      note: >-
+        Production additionally requires static source-IP allowlisting; the anonymous probe of
+        api.ab2d.cms.gov timed out for exactly this reason.
+    - surface: CMS Blue Button 2.0
+      style: OAuth 2.0 authorization code with mandatory PKCE (S256), confidential clients only
+      lifetime: access token 1 hour; refresh token supported
+      docs: https://bluebutton.cms.gov/api-documentation/authorization/
+      note: >-
+        Implicit grant and public client types are explicitly NOT supported. CMS recommends a
+        Backend-For-Frontend proxy for native and mobile apps.
+    - surface: CMS Data at the Point of Care (DPC)
+      style: SMART on FHIR Backend Services (JWT client assertion) — token URI https://dpc.cms.gov/api/v1/Token/auth
+      docs: https://dpc.cms.gov/docsV1
+    - surface: Healthcare.gov Marketplace API
+      style: API key as the `apikey` query parameter
+      lifetime: 60 days, auto-renewed by email
+      docs: https://developer.cms.gov/marketplace-api/key-request.html
+    - surface: CMS Procedure Price Lookup (PPL)
+      style: '`apiKey` header plus an `amaLicense` header carrying a separately purchased annual AMA CPT license'
+      docs: https://developer.cms.gov/ppl-api/
+  detail: authentication/cms-authentication.yml
+  scopes: scopes/cms-scopes.yml
+idempotency:
+  supported: false
+  header: null
+  note: >-
+    NO idempotency mechanism exists anywhere in the CMS API surface. There is no Idempotency-Key
+    header, no client-supplied request id, and no dedupe window on any operation in any harvested
+    spec. The closest thing is a SIDE EFFECT of the bulk-export concurrency guard: BCDA and AB2D
+    reject a second $export for a resource type while one is in flight with HTTP 429, which makes an
+    accidental duplicate kickoff fail loudly rather than duplicate work. That is a concurrency lock,
+    not idempotency, and it does not make a retried call safe — it makes it rejected. No `Idempotency`
+    pointer is emitted for CMS.
+asynchrony:
+  model: HL7 FHIR Bulk Data Access (Flat FHIR) kickoff-and-poll
+  applies_to:
+    - CMS Beneficiary Claims Data API (BCDA)
+    - CMS AB2D API (Claims Data to Part D Sponsors)
+    - CMS Data at the Point of Care (DPC) API
+  flow:
+    - step: kickoff
+      request: 'GET /api/v2/Patient/$export or /api/v2/Group/{groupId}/$export with Prefer: respond-async'
+      response: 202 Accepted with a Content-Location header carrying the job status URL
+    - step: poll
+      request: GET the job $status / jobs/{jobId} URL
+      response: 202 while in progress (X-Progress), 200 with a file manifest on completion
+      cadence: 'AB2D documents "once every few minutes"; jobs take minutes to hours by contract size'
+    - step: download
+      request: GET each NDJSON file URL from the manifest
+      response: 200 application/fhir+ndjson
+    - step: expiry
+      response: 410 Gone once the 24-hour BCDA output window has passed
+    - step: cancel
+      request: DELETE the job $status / jobs/{jobId} URL
+  note: >-
+    This is the defining convention of the CMS claims surface and the thing an agent most needs told:
+    a successful call returns a JOB, not data, and the data has a 24-hour shelf life.
+pagination:
+  style: fhir-bundle-links
+  applies_to:
+    - CMS Blue Button 2.0 API
+  params:
+    - _count
+    - startIndex
+  response_fields:
+    - Bundle.link (self, next, previous, first, last)
+    - Bundle.total
+  note: >-
+    The FHIR search surface pages through Bundle.link relations. The bulk surfaces do not paginate —
+    they return a manifest of whole NDJSON files. The Marketplace API paginates search results with
+    offset/limit body parameters on POST /plans/search.
+filtering:
+  params:
+    - name: _type
+      surface: BCDA, AB2D, DPC
+      description: Restrict an export to specific FHIR resource types instead of all available types.
+    - name: _since
+      surface: BCDA, AB2D
+      description: >-
+        Return only resources updated after the supplied instant. Without it BCDA returns claims data
+        as far back as 2014, so _since is the difference between an incremental pull and a full
+        historical dump.
+    - name: _typeFilter
+      surface: BCDA v3
+      description: Added in v3 per https://bcda.cms.gov/v3/welcome-v3.
+    - name: _elements
+      surface: FHIR search
+  docs: https://bcda.cms.gov/api-documentation/filter-claims-data.html
+media_types:
+  request: application/json
+  response:
+    - application/fhir+json
+    - application/fhir+ndjson
+    - application/json
+  note: Bulk export output is newline-delimited JSON (NDJSON), one FHIR resource per line.
+error_envelope:
+  fhir: FHIR OperationOutcome (application/fhir+json)
+  marketplace: Marketplace ApplicationError (application/json)
+  problem_json: false
+  detail: errors/cms-problem-types.yml
+rate_limiting:
+  model: concurrency-limited on the bulk surface, request-rate-limited on the key surface
+  detail: rate-limits/cms-rate-limits.yml
+request_tracing:
+  header: null
+  note: >-
+    No documented request-id or correlation header on any CMS API. The job UUID returned in
+    Content-Location is the only durable handle a caller can quote back to CMS support, and it exists
+    only on the bulk surface.
+versioning:
+  style: uri-path
+  detail: lifecycle/cms-lifecycle.yml
+metadata_fields:
+  supported: false
+  note: No CMS API accepts caller-supplied metadata on a request.
+field_expansion:
+  supported: false
+  note: >-
+    FHIR _include / _revinclude are not documented as supported on the CMS surfaces; the Marketplace
+    API has no expansion mechanism.

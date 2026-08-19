@@ -1,0 +1,27 @@
+# generated: '2026-08-15'
+# method: generated
+# source: openapi/cms-bcda-openapi.yml
+# Captures API Evangelist enhancements only. The original spec is never mutated.
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Beneficiary Claims Data API
+  version: 1.0.0
+extends: openapi/cms-bcda-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: cms
+    x-apievangelist-generated: '2026-08-15'
+    x-apievangelist-artifacts:
+      authentication: authentication/cms-authentication.yml
+      conventions: conventions/cms-conventions.yml
+      errors: errors/cms-problem-types.yml
+      lifecycle: lifecycle/cms-lifecycle.yml
+      rate-limits: rate-limits/cms-rate-limits.yml
+      conformance: conformance/cms-conformance.yml
+      data-model: data-model/cms-data-model.yml
+    x-apievangelist-contract-gaps:
+      operations: 19
+      missing_operation_id: 0
+      missing_summary: 0
+      missing_tags: 0

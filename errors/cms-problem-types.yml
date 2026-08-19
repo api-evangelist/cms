@@ -1,0 +1,148 @@
+generated: '2026-08-15'
+method: derived
+source: >-
+  openapi/cms-bcda-openapi.yml, openapi/cms-ab2d-openapi.yml,
+  openapi/cms-code-search-api-openapi.yml, openapi/cms-cost-search-api-openapi.yml,
+  openapi/cms-bulk-data-api-openapi.yml, openapi/cms-enrollments-api-openapi.yml,
+  openapi/cms-coverage-api-openapi.yml — enriched from
+  https://bcda.cms.gov/api-documentation.html and
+  https://bluebutton.cms.gov/api-documentation/authorization/
+format: fhir-operationoutcome
+format_note: >-
+  CMS does NOT use RFC 9457 Problem Details. The FHIR surfaces (BCDA, AB2D, DPC, Blue Button) return a
+  FHIR OperationOutcome resource with content type application/fhir+json — 44 of the 46 declared error
+  responses in the harvested specs carry that media type. The Marketplace / Procedure Price Lookup
+  surface returns a bespoke ApplicationError JSON object instead (schemas
+  json-schema/marketplace-applicationerror400.json and
+  json-schema/marketplace-applicationerror404.json). Two distinct error envelopes, both machine-
+  readable, neither of them problem+json. Do not emit an RFC 9457 conformance claim for CMS.
+envelopes:
+  - name: FHIR OperationOutcome
+    media_type: application/fhir+json
+    apis:
+      - CMS Beneficiary Claims Data API (BCDA)
+      - CMS AB2D API (Claims Data to Part D Sponsors)
+      - CMS Data at the Point of Care (DPC) API
+      - CMS Blue Button 2.0 API
+    spec: https://hl7.org/fhir/R4/operationoutcome.html
+  - name: Marketplace ApplicationError
+    media_type: application/json
+    apis:
+      - Healthcare.gov Marketplace API
+      - CMS Procedure Price Lookup (PPL) API
+    schema: json-schema/marketplace-applicationerror400.json
+problems:
+  - status: 400
+    title: Malformed request
+    envelope: FHIR OperationOutcome
+    remediation: >-
+      Check the URI, the _type / _since query parameters, and the resource path. BCDA returns an
+      OperationOutcome describing the specific parameter at fault.
+    source_operation: openapi/cms-bcda-openapi.yml#bulkGroupRequest
+  - status: 400
+    title: Invalid market year
+    envelope: Marketplace ApplicationError
+    remediation: Supply a market year the Marketplace bulk data surface publishes; see the /market-years operation.
+    source_operation: openapi/cms-bulk-data-api-openapi.yml#get:/data/apt
+  - status: 400
+    title: Invalid request or code format
+    envelope: Marketplace ApplicationError
+    remediation: Supply a valid CPT/HCPCS procedure code.
+    source_operation: openapi/cms-code-search-api-openapi.yml#getCodeInformation
+  - status: 400
+    title: Enrollment info is not valid
+    envelope: Marketplace ApplicationError
+    remediation: Correct the extended enrollment payload before re-validating.
+    source_operation: openapi/cms-enrollments-api-openapi.yml#post:/enrollment/validate
+  - status: 400
+    title: Missing credentials
+    envelope: plain
+    remediation: Supply client id and secret on the BCDA /auth/token request.
+    source_operation: openapi/cms-bcda-openapi.yml#GetAuthToken
+  - status: 401
+    title: Unauthorized — credentials invalid for the requested resource
+    envelope: FHIR OperationOutcome
+    remediation: >-
+      Bearer tokens are short-lived (AB2D tokens expire after 30 minutes, Blue Button access tokens
+      after 1 hour). Re-request a token rather than retrying the same one.
+    source_operation: openapi/cms-bcda-openapi.yml#bulkGroupRequest
+  - status: 401
+    title: Missing or invalid apiKey
+    envelope: Marketplace ApplicationError
+    remediation: >-
+      Marketplace and PPL keys are requested from developer.cms.gov and expire every 60 days with an
+      automated renewal email. An expired key presents as a 401.
+    source_operation: openapi/cms-code-search-api-openapi.yml#getCodeInformation
+  - status: 403
+    title: Missing or invalid amaLicense
+    envelope: Marketplace ApplicationError
+    remediation: >-
+      The Procedure Price Lookup API requires a separately purchased annual AMA CPT license, sent in the
+      amaLicense header alongside apiKey. This is the only CMS surface with a paid licensing
+      precondition.
+    source_operation: openapi/cms-code-search-api-openapi.yml#getCodeInformation
+  - status: 403
+    title: FORBIDDEN — client credentials or permissions
+    envelope: FHIR OperationOutcome
+    remediation: >-
+      Documented at https://bluebutton.cms.gov/api-documentation/authorization/ — raised when the
+      calling client lacks permission for the requested enrollee data.
+    source_operation: docs
+  - status: 404
+    title: Job or file not found
+    envelope: FHIR OperationOutcome
+    remediation: Confirm the job UUID from the Content-Location header returned by the $export kickoff.
+    source_operation: openapi/cms-ab2d-openapi.yml#downloadFile
+  - status: 404
+    title: No attribution data found
+    envelope: application/json
+    remediation: Attribution files are refreshed once per month; a new model entity may have none yet.
+    source_operation: openapi/cms-bcda-openapi.yml#attributionStatus
+  - status: 404
+    title: Data Access Grant was not found
+    envelope: FHIR OperationOutcome
+    remediation: >-
+      Blue Button: the Medicare enrollee has not granted your application access to this patient id.
+      Documented at https://bluebutton.cms.gov/api-documentation/authorization/.
+    source_operation: docs
+  - status: 410
+    title: Gone — export job output has expired
+    envelope: FHIR OperationOutcome
+    remediation: >-
+      BCDA completed jobs expire after 24 hours. Download the NDJSON files inside that window or
+      re-run the export. This is the single most operationally important error in the CMS bulk surface
+      and it has no equivalent in a synchronous API.
+    source_operation: openapi/cms-bcda-openapi.yml#jobStatus
+  - status: 429
+    title: Too many requests — a bulk export of this resource type is already in progress
+    envelope: FHIR OperationOutcome
+    remediation: >-
+      BCDA and AB2D limit CONCURRENCY, not request rate: one in-flight export job per resource type per
+      model entity / contract. Wait for the running job to complete or cancel it, rather than backing
+      off and retrying. See rate-limits/cms-rate-limits.yml.
+    source_operation: openapi/cms-bcda-openapi.yml#bulkGroupRequest
+  - status: 429
+    title: Too many jobs currently running
+    envelope: FHIR OperationOutcome
+    remediation: Cancel a running AB2D job with DELETE on the $status endpoint, or wait for it to finish.
+    source_operation: openapi/cms-ab2d-openapi.yml#exportAllPatients
+  - status: 500
+    title: Internal server error
+    envelope: FHIR OperationOutcome
+    remediation: >-
+      Retry the export kickoff. For AB2D check https://ab2d.cms.gov/status, which reports operating
+      normally / maintenance mode / unreachable.
+    source_operation: openapi/cms-bcda-openapi.yml#bulkGroupRequestV2
+counts:
+  declared_error_responses: 96
+  distinct_status_codes: 8
+  status_codes:
+    - 400
+    - 401
+    - 403
+    - 404
+    - 410
+    - 429
+    - 500
+  problem_json_responses: 0
+  fhir_json_responses: 44

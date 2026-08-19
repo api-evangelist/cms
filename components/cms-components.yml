@@ -1,0 +1,52 @@
+generated: '2026-08-15'
+method: searched
+source: >-
+  https://design.cms.gov/, https://github.com/CMSgov/design-system,
+  https://www.npmjs.com/package/@cmsgov/design-system
+summary: >-
+  CMS publishes a first-party, open-source, Section 508-compliant React and Sass component library —
+  the CMS Design System — plus three child design systems themed for CMS.gov, Medicare.gov and
+  HealthCare.gov. These are client-side UI components a developer embeds in their own product, which is
+  what makes them Components rather than SDKs. There are no embeddable hosted widgets, no prebuilt
+  iframes, and no embedded dashboards: CMS ships the building blocks, not a drop-in surface.
+families:
+  - family: CMS Design System (core)
+    description: >-
+      Base Sass/CSS and React assets for building Section 508 compliant, responsive, consistent CMS
+      products. Built on the U.S. Web Design System.
+    docs: https://design.cms.gov/
+    repo: https://github.com/CMSgov/design-system
+    registry: npm
+    package: '@cmsgov/design-system'
+    version: 18.1.0
+    published: '2026-07-29'
+    official: true
+  - family: HealthCare.gov design system
+    description: Child design system themed for HealthCare.gov products.
+    registry: npm
+    package: '@cmsgov/ds-healthcare-gov'
+    version: 18.1.0
+    published: '2026-07-29'
+    official: true
+  - family: Medicare.gov design system
+    description: Child design system themed for Medicare.gov products.
+    registry: npm
+    package: '@cmsgov/ds-medicare-gov'
+    version: 18.1.0
+    published: '2026-07-29'
+    official: true
+  - family: CMS.gov design system
+    description: Child design system themed for CMS.gov products.
+    registry: npm
+    package: '@cmsgov/ds-cms-gov'
+    version: 18.1.0
+    published: '2026-07-29'
+    official: true
+loaders:
+  - kind: npm
+    note: All four packages are consumed through npm and bundled by the consumer; there is no CDN loader script.
+hosted_surfaces: []
+hosted_surfaces_note: >-
+  No CMS API offers a hosted or embeddable UI surface (no hosted checkout equivalent, no embedded
+  dashboard, no drop-in authorization widget). The Blue Button OAuth consent screen is hosted by
+  Medicare.gov but is a redirect destination, not an embeddable component.

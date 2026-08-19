@@ -1,33 +1,151 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/marketplace-openapi.json, openapi/ppl-openapi.json
+generated: '2026-08-15'
+method: searched
+source: >-
+  openapi/marketplace-openapi.json, openapi/ppl-openapi.json, openapi/cms-bcda-openapi.yml,
+  openapi/cms-ab2d-openapi.yml, openapi/_original/cms-cms-blue-button-2-openapi.yml
+docs:
+  - https://bluebutton.cms.gov/api-documentation/authorization/
+  - https://bcda.cms.gov/api-documentation/get-a-bearer-token.html
+  - https://ab2d.cms.gov/get-a-bearer-token
+  - https://dpc.cms.gov/docsV1
+  - https://developer.cms.gov/marketplace-api/key-request.html
+  - https://developer.cms.gov/ppl-api/
+discovery: https://api.bluebutton.cms.gov/.well-known/openid-configuration
+upgrade_note: >-
+  Upgraded 2026-08-15 from derived to searched. The 2026-07-11 derived pass saw only the Marketplace
+  and PPL API-key schemes because those were the only harvested specs with securitySchemes. The BCDA
+  and AB2D OpenAPIs discovered in this pass add the bearer schemes, and the CMS authorization docs add
+  the Blue Button OAuth profile and the DPC SMART Backend Services profile.
 summary:
   types:
-  - apiKey
+    - apiKey
+    - http (bearer)
+    - http (basic)
+    - oauth2
   api_key_in:
-  - header
-  - query
+    - header
+    - query
+  note: >-
+    Five distinct authentication models across one agency. There is no single CMS credential and no
+    single CMS identity provider: BCDA issues its own tokens via SSAS, AB2D federates to Okta, Blue
+    Button runs its own OAuth server against Medicare.gov login, DPC uses SMART Backend Services JWT
+    assertions, and the Marketplace surface is plain API keys. A developer integrating two CMS APIs
+    implements two auth stacks.
 schemes:
-- name: API Key
-  type: apiKey
-  in: query
-  parameter: apikey
-  description: Your API key should be included as a query parameter with the request. You can
-    [fill out this form](https://cms.gov1.qualtrics.com/jfe/form/SV_4N2GHCJfNuX7n8x) to request
-    an API key.
-  sources:
-  - openapi/marketplace-openapi.json
-- name: apiKey
-  type: apiKey
-  in: header
-  parameter: apiKey
-  description: All requests must include the `apiKey` header containing your API Key.
-  sources:
-  - openapi/ppl-openapi.json
-- name: amaLicense
-  type: apiKey
-  in: header
-  parameter: amaLicense
-  description: All requests must include the `amaLicense` header containing your AMA License.
-  sources:
-  - openapi/ppl-openapi.json
+  - name: Blue Button OAuth 2.0
+    api: CMS Blue Button 2.0 API
+    type: oauth2
+    flow: authorizationCode
+    pkce: required (S256)
+    client_type: confidential
+    authorizationUrl: https://api.bluebutton.cms.gov/v2/o/authorize
+    tokenUrl: https://api.bluebutton.cms.gov/v2/o/token
+    revocationUrl: https://api.bluebutton.cms.gov/v2/o/revoke_token
+    userinfoUrl: https://api.bluebutton.cms.gov/v2/connect/userinfo
+    token_lifetime: access token 1 hour; refresh token supported
+    scopes: scopes/cms-scopes.yml
+    unsupported:
+      - implicit grant
+      - public client type
+    guidance: >-
+      For native and mobile apps CMS requires a Backend-For-Frontend proxy so all code and refresh
+      exchanges happen server-side.
+    description: >-
+      Beneficiary-consent OAuth. The Medicare enrollee authenticates at Medicare.gov and grants the
+      application access to their own claims data; the enrollee can revoke at any time.
+    sources:
+      - https://bluebutton.cms.gov/api-documentation/authorization/
+      - https://api.bluebutton.cms.gov/.well-known/openid-configuration
+  - name: bearer_token
+    api: CMS Beneficiary Claims Data API (BCDA)
+    type: http
+    in: header
+    parameter: Authorization
+    scheme: bearer
+    token_endpoint: POST /auth/token
+    token_endpoint_auth: HTTP Basic (client id + secret)
+    description: >-
+      BCDA's System-to-System Authentication Service (SSAS) issues a bearer token to an eligible model
+      entity's registered client credentials. Credentials are managed in 4i and ACO-MS.
+    sources:
+      - openapi/cms-bcda-openapi.yml
+      - https://bcda.cms.gov/api-documentation/get-a-bearer-token.html
+  - name: basic_auth
+    api: CMS Beneficiary Claims Data API (BCDA)
+    type: http
+    scheme: basic
+    description: Used only to authenticate the POST /auth/token exchange, not the data endpoints.
+    sources:
+      - openapi/cms-bcda-openapi.yml
+  - name: bearerAuth
+    api: CMS AB2D API (Claims Data to Part D Sponsors)
+    type: http
+    in: header
+    parameter: Authorization
+    scheme: bearer
+    bearerFormat: JWT
+    idp:
+      production: idm.cms.gov
+      sandbox: test.idp.idm.cms.gov
+      vendor: Okta
+    token_lifetime: 30 minutes
+    network_control: >-
+      Production additionally requires each calling system's static source IP address to be registered
+      with CMS. This is why an anonymous probe of api.ab2d.cms.gov times out rather than returning 401.
+    sources:
+      - openapi/cms-ab2d-openapi.yml
+      - https://ab2d.cms.gov/api-documentation
+  - name: SMART on FHIR Backend Services
+    api: CMS Data at the Point of Care (DPC) API
+    type: oauth2
+    flow: clientCredentials (JWT client assertion)
+    tokenUrl: https://dpc.cms.gov/api/v1/Token/auth
+    description: >-
+      Declared in the DPC CapabilityStatement via the SMART oauth-uris extension and the
+      restful-security-service code SMART-on-FHIR, text "SMART on FHIR Backend Services". Provider
+      organizations register a public key and sign a JWT assertion to obtain a token.
+    sources:
+      - conformance/cms-dpc-capabilitystatement.json
+      - https://dpc.cms.gov/docsV1
+  - name: API Key
+    api: Healthcare.gov Marketplace API
+    type: apiKey
+    in: query
+    parameter: apikey
+    lifetime: 60 days, auto-renewed by email notification
+    description: >-
+      Your API key should be included as a query parameter with the request. Request one at
+      https://developer.cms.gov/marketplace-api/key-request.html.
+    sources:
+      - openapi/marketplace-openapi.json
+      - https://developer.cms.gov/marketplace-api/key-request.html
+    caution: >-
+      The key travels in the query string, so it lands in proxy and server access logs. There is no
+      header alternative documented for this API.
+  - name: apiKey
+    api: CMS Procedure Price Lookup (PPL) API
+    type: apiKey
+    in: header
+    parameter: apiKey
+    description: All requests must include the `apiKey` header containing your API Key.
+    sources:
+      - openapi/ppl-openapi.json
+  - name: amaLicense
+    api: CMS Procedure Price Lookup (PPL) API
+    type: apiKey
+    in: header
+    parameter: amaLicense
+    description: >-
+      All requests must include the `amaLicense` header containing your AMA License. This is a
+      separately purchased annual American Medical Association CPT license — the only paid
+      precondition anywhere in the CMS API surface. Missing or invalid returns HTTP 403.
+    sources:
+      - openapi/ppl-openapi.json
+      - https://developer.cms.gov/ppl-api/
+  - name: none
+    api: CMS Provider Data Catalog API / NPPES NPI Registry API
+    type: none
+    description: >-
+      Fully open. Probed anonymously on 2026-08-15: https://npiregistry.cms.hhs.gov/api/ returned 200
+      without any credential, and https://data.cms.gov/provider-data/api/1/metastore/schemas/dataset/items
+      returned 200 with a 290 KB DCAT dataset collection.

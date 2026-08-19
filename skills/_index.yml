@@ -1,0 +1,56 @@
+generated: '2026-08-15'
+method: generated
+source: >-
+  openapi/*.yml (operationIds verified against the specs), conventions/cms-conventions.yml,
+  errors/cms-problem-types.yml, scopes/cms-scopes.yml, sandbox/cms-sandbox.yml,
+  lifecycle/cms-lifecycle.yml
+note: >-
+  Packaged Agent Skills for the marquee CMS flows. CMS publishes no skills or AGENTS.md of its own
+  (searched the CMSgov GitHub organization and every developer site), so these are GENERATED from the
+  harvested specs and CMS's own documentation. Every operationId referenced was grepped out of the
+  spec in this repository — none is invented. Where an API declares no operationIds at all (the whole
+  Marketplace family), the skill references operations by method + path and says so.
+skills:
+  - name: cms-export-aco-claims-bcda
+    file: cms-export-aco-claims-bcda.md
+    api: CMS Beneficiary Claims Data API (BCDA)
+    summary: >-
+      Bulk FHIR export of Part A/B/D claims for an ACO's attributed enrollees — token, kickoff, the
+      concurrency 429, polling, download, and the 24-hour 410 expiry.
+    operations: 8
+  - name: cms-export-partd-claims-ab2d
+    file: cms-export-partd-claims-ab2d.md
+    api: CMS AB2D API (Claims Data to Part D Sponsors)
+    summary: >-
+      Bulk FHIR export of Part A/B claims for a Part D plan sponsor — Okta 30-minute tokens, the three
+      live API versions, IP allowlisting in production, kickoff-poll-download.
+    operations: 8
+  - name: cms-authorize-beneficiary-bluebutton
+    file: cms-authorize-beneficiary-bluebutton.md
+    api: CMS Blue Button 2.0 API
+    summary: >-
+      Beneficiary-consent OAuth 2.0 with mandatory PKCE, the FHIR scope set, reading Patient / Coverage
+      / ExplanationOfBenefit, and designing for an enrollee who blocks personal information.
+    operations: 7
+  - name: cms-search-marketplace-plans
+    file: cms-search-marketplace-plans.md
+    api: Healthcare.gov Marketplace API
+    summary: >-
+      Resolve a household's geography, estimate APTC/CSR eligibility, search Qualified Health Plans,
+      and check provider network and drug formulary coverage.
+    operations: 12
+not_covered:
+  - api: CMS Data at the Point of Care (DPC) API
+    reason: >-
+      DPC's own OpenAPI is not published — only a FHIR CapabilityStatement. A skill would have to
+      invent operation names, so none was written. The DPC flow is materially the same shape as the
+      BCDA skill.
+  - api: CMS Quality Payment Program (QPP) Submissions API
+    reason: >-
+      No machine-readable spec is published for the submissions surface
+      (https://qpp.cms.gov/api/submissions/public/swagger.json returns 404), so there are no verified
+      operationIds to ground a skill in.
+  - api: CMS Procedure Price Lookup (PPL) API
+    reason: >-
+      Requires a separately purchased AMA CPT license; a skill would document a flow most callers
+      cannot legally execute.

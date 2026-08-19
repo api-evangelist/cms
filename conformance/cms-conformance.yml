@@ -1,0 +1,140 @@
+generated: '2026-08-15'
+method: searched
+source: >-
+  https://api.bluebutton.cms.gov/v2/fhir/metadata (FHIR R4 CapabilityStatement, saved verbatim),
+  https://sandbox.dpc.cms.gov/api/v1/metadata (FHIR STU3 CapabilityStatement, saved verbatim),
+  https://api.bluebutton.cms.gov/.well-known/openid-configuration,
+  https://bluebutton.cms.gov/api-documentation/authorization/,
+  https://bcda.cms.gov/api-documentation.html, https://ab2d.cms.gov/api-documentation,
+  https://security.cms.gov/, openapi/*.yml
+standards:
+  - id: fhir-r4
+    conforms: true
+    evidence: >-
+      https://api.bluebutton.cms.gov/v2/fhir/metadata returns a CapabilityStatement with
+      fhirVersion 4.0.1, software "Blue Button API: Direct" 2.262.0, publisher "Centers for Medicare &
+      Medicaid Services", declaring the Patient, Coverage and ExplanationOfBenefit resources. Saved
+      verbatim to conformance/cms-bluebutton-capabilitystatement.json. BCDA v2 and AB2D v2/v3 are also
+      R4.
+  - id: fhir-stu3
+    conforms: true
+    evidence: >-
+      https://sandbox.dpc.cms.gov/api/v1/metadata returns a CapabilityStatement with fhirVersion 3.0.2,
+      software "Data @ Point of Care API", publisher CMS, declaring Endpoint, Group, Organization,
+      Patient, Practitioner and StructureDefinition. Saved verbatim to
+      conformance/cms-dpc-capabilitystatement.json. BCDA v1 and AB2D v1 are also STU3 and are sunset
+      2027-07-30.
+  - id: hl7-bulk-data-access
+    conforms: true
+    evidence: >-
+      BCDA, AB2D and DPC all implement the HL7 FHIR Bulk Data Access (Flat FHIR) Implementation Guide:
+      $export kickoff on /Patient and /Group, 202 + Content-Location polling, and NDJSON output.
+      Documented at https://bcda.cms.gov/api-documentation.html and
+      https://ab2d.cms.gov/api-documentation; realized in openapi/cms-bcda-openapi.yml and
+      openapi/cms-ab2d-openapi.yml.
+  - id: carin-blue-button-ig
+    conforms: true
+    evidence: >-
+      https://bcda.cms.gov/bcda-data/difference-between-v1-v2.html states BCDA v2 is built on the CARIN
+      Blue Button Implementation Guide (v1 used the older Blue Button IG), with value sets bound to
+      C4BB code systems such as the C4BB Patient Identifier and C4BB Payee types.
+  - id: smart-on-fhir
+    conforms: true
+    evidence: >-
+      Both CapabilityStatements declare SMART-on-FHIR. Blue Button lists
+      restful-security-service codes OAuth and SMART-on-FHIR with a
+      http://fhir-registry.smarthealthit.org/StructureDefinition/oauth-uris extension carrying
+      authorize/token URIs; DPC declares "SMART on FHIR Backend Services" with token URI
+      https://dpc.cms.gov/api/v1/Token/auth.
+  - id: ndjson
+    conforms: true
+    evidence: Every bulk export (BCDA, AB2D, DPC) returns newline-delimited JSON per the ndjson spec.
+  - id: oauth2
+    conforms: true
+    evidence: >-
+      Blue Button 2.0 uses the OAuth 2.0 authorization code grant with confidential clients; AB2D and
+      BCDA use bearer tokens issued by Okta / SSAS client-credentials. Declared in
+      openapi/cms-ab2d-openapi.yml components.securitySchemes.bearerAuth and
+      openapi/cms-bcda-openapi.yml (basic_auth, bearer_token).
+  - id: oauth2-pkce
+    conforms: true
+    evidence: >-
+      https://bluebutton.cms.gov/api-documentation/authorization/ — "we require using the Proof Key for
+      Code Exchange (PKCE) extension", S256 code challenge only. Implicit grant and public clients are
+      explicitly NOT supported.
+  - id: oidc
+    conforms: partial
+    evidence: >-
+      https://api.bluebutton.cms.gov/.well-known/openid-configuration is served and the openid and
+      profile scopes plus a /v2/connect/userinfo endpoint exist. The document omits
+      jwks_uri, id_token_signing_alg_values_supported, subject_types_supported and
+      scopes_supported, so it is not a complete OIDC Discovery 1.0 document — recorded partial rather
+      than true.
+  - id: rfc8414-oauth-authorization-server-metadata
+    conforms: false
+    evidence: /.well-known/oauth-authorization-server returns 404 on every CMS host probed 2026-08-15.
+  - id: rfc9728-oauth-protected-resource
+    conforms: false
+    evidence: /.well-known/oauth-protected-resource returns 404 on every CMS host probed 2026-08-15.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: >-
+      No CMS API returns application/problem+json. FHIR surfaces return an OperationOutcome resource;
+      the Marketplace API returns a bespoke ApplicationError object. See errors/cms-problem-types.yml.
+  - id: fhir-operationoutcome
+    conforms: true
+    evidence: >-
+      BCDA, AB2D, DPC and Blue Button all return the FHIR OperationOutcome resource on error, which is
+      the FHIR-native error envelope in place of RFC 9457.
+  - id: rfc9116-security-txt
+    conforms: false
+    evidence: >-
+      No CMS or HHS host in scope serves /.well-known/security.txt (see well-known/cms-well-known.yml).
+      A vulnerability disclosure policy is published as an HTML page instead.
+  - id: rfc8594-sunset-header
+    conforms: false
+    evidence: >-
+      CMS announces version retirement in prose (BCDA v1/v2 removed 2027-07-30) but no probed response
+      carries a Sunset or Deprecation header.
+  - id: fapi
+    conforms: false
+    evidence: No FAPI profile is claimed or implied by any CMS securityScheme.
+  - id: scim
+    conforms: false
+  - id: odata
+    conforms: false
+  - id: json-api
+    conforms: false
+  - id: psd2
+    conforms: false
+    evidence: Not applicable — US federal health payer, not a financial institution.
+  - id: dcat-us
+    conforms: true
+    evidence: >-
+      https://data.cms.gov/data.json returns a 3.0 MB Project Open Data / DCAT-US catalog (HTTP 200),
+      and https://data.cms.gov/provider-data/api/1/metastore/schemas/dataset/items returns a 290 KB
+      DCAT dataset collection (HTTP 200) from the DKAN-based Provider Data Catalog.
+  - id: section-508-accessibility
+    conforms: true
+    evidence: >-
+      Every CMS API site is built on the CMS Design System (@cmsgov/design-system), described by CMS as
+      resources "for creating Section 508 compliant, responsive, and consistent websites", and links a
+      published Accessibility Statement.
+compliance_program:
+  published: true
+  url: https://security.cms.gov/
+  name: CMS Information Security and Privacy Program
+  frameworks:
+    - FISMA (Federal Information Security Modernization Act)
+    - FedRAMP
+    - NIST Risk Management Framework
+    - CMS Acceptable Risk Safeguards (ARS)
+    - CMS Information Systems Security and Privacy Policy (IS2P2)
+    - Authorization to Operate (ATO) / Ongoing Authorization (OA)
+    - HIPAA Privacy and Security Rules
+  note: >-
+    security.cms.gov (HTTP 200, fetched 2026-08-15) is CMS's public information security and privacy
+    program site and names the frameworks every CMS system — including these APIs — is authorized
+    under. This is a published compliance posture rather than a commercial certification set: CMS is a
+    federal agency, so it operates ATO/FISMA/FedRAMP authorization rather than buying SOC 2 or
+    ISO 27001 attestations. Do not expect and do not record those.

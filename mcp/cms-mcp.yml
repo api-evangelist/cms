@@ -1,0 +1,123 @@
+generated: '2026-08-15'
+method: derived
+status: candidate
+source: >-
+  openapi/cms-bcda-openapi.yml, openapi/cms-ab2d-openapi.yml,
+  openapi/cms-patient-api-openapi.yml, openapi/cms-coverage-api-openapi.yml,
+  openapi/cms-explanationofbenefit-api-openapi.yml
+search_note: >-
+  SEARCHED and found nothing. There is no CMS-published MCP server. The CMSgov GitHub organization has
+  no MCP repository; the npm registry returns no @cmsgov or CMS-maintained MCP package; nothing on
+  developer.cms.gov, bluebutton.cms.gov, bcda.cms.gov, ab2d.cms.gov, dpc.cms.gov or data.cms.gov
+  advertises an MCP endpoint; and no probed host serves /.well-known/ai-plugin.json or an agent card
+  that could point at one. Third-party MCP servers wrapping Medicare data exist on npm
+  (@pipeworx/mcp-medicare-coverage, @mymedi-ai/mcp-server) but they are NOT CMS products and are
+  deliberately excluded — listing them here would credit CMS with an agent surface it does not ship.
+  The tools[] below are therefore a DERIVED candidate mapping of existing REST operations, not a
+  server anyone can call.
+deployment:
+  mode: none
+  auth: unknown
+  verified: derived
+  note: >-
+    No hosted endpoint and no installable package exist. mode is none because CMS ships nothing; the
+    endpoint and install fields are deliberately left empty rather than guessed.
+server:
+  name: cms
+  transport: null
+  url: null
+tools:
+  - name: bcda_export_group_claims
+    description: >-
+      Start a Bulk FHIR export job for all Medicare enrollees attributed to the calling model entity
+      (/Group/all) or for prior-year runout enrollees (/Group/runout). Returns 202 with a Content-Location
+      job URL.
+    source_operation: openapi/cms-bcda-openapi.yml#bulkGroupRequestV2
+    api: CMS Beneficiary Claims Data API (BCDA)
+  - name: bcda_export_patient_claims
+    description: Start a Bulk FHIR export job for all currently attributed Medicare enrollees (/Patient/$export).
+    source_operation: openapi/cms-bcda-openapi.yml#bulkPatientRequestv2
+    api: CMS Beneficiary Claims Data API (BCDA)
+  - name: bcda_get_job_status
+    description: Poll a BCDA export job for progress and, on completion, the NDJSON file manifest.
+    source_operation: openapi/cms-bcda-openapi.yml#jobStatusidv2
+    api: CMS Beneficiary Claims Data API (BCDA)
+  - name: bcda_list_jobs
+    description: List previously submitted BCDA export jobs as FHIR Task resources.
+    source_operation: openapi/cms-bcda-openapi.yml#jobsStatusV2
+    api: CMS Beneficiary Claims Data API (BCDA)
+  - name: bcda_cancel_job
+    description: Cancel an in-progress BCDA export job.
+    source_operation: openapi/cms-bcda-openapi.yml#deleteJobv2
+    api: CMS Beneficiary Claims Data API (BCDA)
+  - name: bcda_download_export_file
+    description: Download a completed BCDA export NDJSON file by job id and filename.
+    source_operation: openapi/cms-bcda-openapi.yml#serveData
+    api: CMS Beneficiary Claims Data API (BCDA)
+  - name: bcda_get_attribution_status
+    description: Retrieve the timestamp of the most recent enrollee-attribution or runout file update.
+    source_operation: openapi/cms-bcda-openapi.yml#attributionStatusv2
+    api: CMS Beneficiary Claims Data API (BCDA)
+  - name: bcda_get_token
+    description: Exchange BCDA client credentials for a bearer token.
+    source_operation: openapi/cms-bcda-openapi.yml#GetAuthToken
+    api: CMS Beneficiary Claims Data API (BCDA)
+  - name: ab2d_export_patient_claims
+    description: >-
+      Start an AB2D Bulk FHIR export of Part A and B claims for the calling PDP sponsor's active
+      enrollees.
+    source_operation: openapi/cms-ab2d-openapi.yml#exportAllPatients
+    api: CMS AB2D API (Claims Data to Part D Sponsors)
+  - name: ab2d_export_contract_claims
+    description: Start an AB2D Bulk FHIR export scoped to a single contract number.
+    source_operation: openapi/cms-ab2d-openapi.yml#exportPatientsWithContract
+    api: CMS AB2D API (Claims Data to Part D Sponsors)
+  - name: ab2d_get_job_status
+    description: Poll an AB2D export job for progress and the completed file manifest.
+    source_operation: openapi/cms-ab2d-openapi.yml#getJobStatus
+    api: CMS AB2D API (Claims Data to Part D Sponsors)
+  - name: ab2d_cancel_job
+    description: Cancel an in-progress AB2D export job.
+    source_operation: openapi/cms-ab2d-openapi.yml#deleteRequest
+    api: CMS AB2D API (Claims Data to Part D Sponsors)
+  - name: ab2d_download_export_file
+    description: Download a completed AB2D export NDJSON file.
+    source_operation: openapi/cms-ab2d-openapi.yml#downloadFile
+    api: CMS AB2D API (Claims Data to Part D Sponsors)
+  - name: ab2d_get_health
+    description: Check whether the AB2D API is up, and whether it is in maintenance mode.
+    source_operation: openapi/cms-ab2d-openapi.yml#getHealth
+    api: CMS AB2D API (Claims Data to Part D Sponsors)
+  - name: bluebutton_read_patient
+    description: Read the authorizing Medicare enrollee's FHIR R4 Patient resource.
+    source_operation: openapi/cms-patient-api-openapi.yml#readPatient
+    api: CMS Blue Button 2.0 API
+  - name: bluebutton_search_coverage
+    description: Search the authorizing enrollee's Medicare and supplemental Coverage resources.
+    source_operation: openapi/cms-coverage-api-openapi.yml#searchCoverage
+    api: CMS Blue Button 2.0 API
+  - name: bluebutton_search_explanation_of_benefit
+    description: Search the authorizing enrollee's Medicare claims as FHIR ExplanationOfBenefit resources.
+    source_operation: openapi/cms-explanationofbenefit-api-openapi.yml#searchExplanationOfBenefit
+    api: CMS Blue Button 2.0 API
+  - name: marketplace_search_plans
+    description: Search Federally-Facilitated Marketplace QHP plans for a household.
+    source_operation: openapi/cms-insurance-plans-api-openapi.yml#post:/plans/search
+    api: Healthcare.gov Marketplace API
+  - name: marketplace_estimate_eligibility
+    description: Estimate household APTC/CSR eligibility for Marketplace coverage.
+    source_operation: openapi/cms-households-eligibility-api-openapi.yml#post:/households/eligibility/estimates
+    api: Healthcare.gov Marketplace API
+  - name: marketplace_search_providers
+    description: Search Marketplace plan provider networks.
+    source_operation: openapi/cms-provider-drug-coverage-api-openapi.yml#get:/providers/search
+    api: Healthcare.gov Marketplace API
+  - name: marketplace_search_drugs
+    description: Search Marketplace plan drug formularies.
+    source_operation: openapi/cms-provider-drug-coverage-api-openapi.yml#get:/drugs/search
+    api: Healthcare.gov Marketplace API
+agent_readiness_note: >-
+  Every tool above is a bulk, asynchronous, consent- or attribution-gated data export governed by
+  federal privacy rules. If CMS ever builds an MCP server, the export-start operations are the ones
+  that need explicit escalation semantics — they return PHI for whole attributed populations, not a
+  single record. See agentic-access/cms-agentic-access.yml.

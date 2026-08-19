@@ -1,0 +1,88 @@
+# Centers for Medicare & Medicaid Services (CMS)
+
+> CMS is the US federal agency that administers Medicare, Medicaid, CHIP and the Health Insurance
+> Marketplace. It publishes a large, free, standards-based API surface: four HL7 FHIR claims APIs
+> (Blue Button 2.0, BCDA, AB2D, Data at the Point of Care), the Healthcare.gov Marketplace API, the
+> Provider Data Catalog and Socrata open-data catalogs, the NPPES NPI Registry, and the Quality
+> Payment Program submissions and measures APIs. Nothing costs money; access is gated by programme
+> eligibility or by beneficiary consent rather than by price.
+
+Generated 2026-08-15 by the API Evangelist enrichment pipeline. CMS publishes no llms.txt of its own
+(probed /llms.txt on sixteen CMS and HHS hosts — 404 or an SPA HTML shell on every one), so this file
+is GENERATED from apis.yml and the artifacts in this repository, not harvested.
+
+## Read this first
+
+- The claims APIs are ASYNCHRONOUS BULK EXPORTS, not query APIs. A successful call returns a JOB
+  (HTTP 202 + Content-Location), you poll it for minutes to hours, then download NDJSON files. BCDA
+  output expires after 24 hours and then returns HTTP 410 Gone.
+- 429 on the bulk surface means CONCURRENCY, not rate. One export per resource type can be in flight;
+  backing off does not help — wait for the running job or cancel it.
+- There is no idempotency mechanism anywhere in the CMS surface, and no Retry-After or RateLimit-*
+  header on any response.
+- Errors are FHIR OperationOutcome (application/fhir+json), not RFC 9457 problem+json. The Marketplace
+  surface uses its own ApplicationError object instead.
+- BCDA v1 and v2 are retired on 2027-07-30. No response carries a Sunset or Deprecation header saying so.
+
+## APIs
+
+- [CMS Blue Button 2.0 API](https://bluebutton.cms.gov/): FHIR R4 Medicare claims released with the
+  enrollee's own OAuth consent. Base https://api.bluebutton.cms.gov/v2/fhir/ (sandbox
+  https://sandbox.bluebutton.cms.gov/v2/fhir/). Patient, Coverage, ExplanationOfBenefit.
+- [CMS Beneficiary Claims Data API (BCDA)](https://bcda.cms.gov/): Bulk FHIR Part A/B/D claims for
+  enrollees attributed to a Medicare ACO or alternative payment model entity. v3 current; v1/v2 retire
+  2027-07-30.
+- [CMS AB2D API](https://ab2d.cms.gov/): Bulk FHIR Part A/B claims for stand-alone Part D plan
+  sponsors. Sandbox https://sandbox.ab2d.cms.gov; production https://api.ab2d.cms.gov is IP-allowlisted.
+- [CMS Data at the Point of Care (DPC) API](https://dpc.cms.gov/): FHIR STU3 claims at the point of
+  care for fee-for-service Medicare providers. SMART on FHIR Backend Services.
+- [Healthcare.gov Marketplace API](https://developer.cms.gov/marketplace-api/): Qualified health plan
+  search, household eligibility estimation, provider networks and drug formularies. Base
+  https://marketplace.api.healthcare.gov/api/v1. API key in the `apikey` query parameter.
+- [CMS Provider Data Catalog API](https://data.cms.gov/provider-data/): Care Compare quality measures
+  for hospitals, nursing homes, home health, hospice, physicians and dialysis facilities. No key, no
+  rate limit.
+- [CMS Socrata Open Data API](https://data.cms.gov/): Hundreds of CMS datasets; DCAT-US catalog at
+  https://data.cms.gov/data.json.
+- [NPPES NPI Registry API](https://npiregistry.cms.hhs.gov/): Free public National Provider Identifier
+  lookup. No authentication.
+- [CMS Quality Payment Program Submissions API](https://cmsgov.github.io/qpp-submissions-docs/): MIPS
+  and APM quality data submission with real-time scoring. Base https://qpp.cms.gov/api/submissions.
+- [CMS Procedure Price Lookup (PPL) API](https://developer.cms.gov/ppl-api/): CPT/HCPCS code and
+  national average cost lookup. Requires a purchased AMA CPT license in the `amaLicense` header.
+
+## Specs
+
+- [AB2D OpenAPI 3.1.0](https://sandbox.ab2d.cms.gov/v3/api-docs) — 21 paths across v1, v2 and v3
+- [BCDA OpenAPI 3.0.1](https://raw.githubusercontent.com/CMSgov/bcda-app/main/swagger.json) — 17 paths
+- [Blue Button 2.0 FHIR R4 CapabilityStatement](https://api.bluebutton.cms.gov/v2/fhir/metadata)
+- [DPC FHIR STU3 CapabilityStatement](https://sandbox.dpc.cms.gov/api/v1/metadata)
+- [Blue Button OpenID configuration](https://api.bluebutton.cms.gov/.well-known/openid-configuration)
+- Seventeen refined OpenAPI documents in `openapi/`, 95 JSON Schemas in `json-schema/`, and 34 Postman
+  and OpenCollection files in `collections/` in this repository.
+
+## Docs
+
+- [CMS Developer Portal](https://developer.cms.gov/)
+- [Blue Button authorization (OAuth 2.0 + PKCE, scopes)](https://bluebutton.cms.gov/api-documentation/authorization/)
+- [Blue Button calling the API](https://bluebutton.cms.gov/api-documentation/calling-the-api/)
+- [BCDA API documentation](https://bcda.cms.gov/api-documentation.html)
+- [BCDA v3 migration guide](https://bcda.cms.gov/v3/welcome-v3)
+- [BCDA announcements (the closest thing to a CMS changelog)](https://bcda.cms.gov/announcements.html)
+- [AB2D API documentation](https://ab2d.cms.gov/api-documentation)
+- [AB2D system status](https://ab2d.cms.gov/status)
+- [DPC documentation](https://dpc.cms.gov/docsV1)
+- [CMS interoperability standards and implementation guides](https://www.cms.gov/priorities/burden-reduction/overview/interoperability/implementation-guides-standards/application-programming-interfaces-apis-relevant-standards-implementation-guides-igs)
+
+## SDKs
+
+- [cms-bluebutton-sdk (npm)](https://www.npmjs.com/package/cms-bluebutton-sdk) — official Node SDK, 1.0.11
+- [cms-bluebutton-sdk (PyPI)](https://pypi.org/project/cms-bluebutton-sdk/) — official Python SDK, 1.0.5
+- [qpp-measures-data (npm)](https://www.npmjs.com/package/qpp-measures-data) — official QPP measure specs, 11.0.0
+- [CMSgov on GitHub](https://github.com/CMSgov) — sample clients for BCDA, AB2D, Blue Button and Marketplace
+
+## Governance
+
+- [CMS/HHS Vulnerability Disclosure Policy](https://www.cms.gov/vulnerability-disclosure-policy)
+- [CMS Information Security and Privacy Program](https://security.cms.gov/) — FISMA, FedRAMP, NIST RMF, ATO
+- [CMS Privacy Policy](https://www.cms.gov/privacy)
