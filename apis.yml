@@ -29,6 +29,17 @@ tags:
 - Healthcare
 - Health Insurance
 - FHIR
+- Federal-Government
+- Drug Spending
+- Provider Data
+- Quality Measures
+- Claims Data
+tags_raw:
+- Medicare
+- Medicaid
+- Healthcare
+- Health Insurance
+- FHIR
 - Federal Government
 - Drug Spending
 - Provider Data
@@ -525,6 +536,12 @@ apis:
   tags:
   - Coverage
   - LCD
+  - Mac
+  - NCD
+  - Policy
+  tags_raw:
+  - Coverage
+  - LCD
   - MAC
   - NCD
   - Policy
@@ -543,6 +560,8 @@ apis:
   humanURL: https://bluebutton.cms.gov/
   baseURL: https://api.bluebutton.cms.gov/v2/fhir/
   tags:
+  - Capabilities
+  tags_raw:
   - Capability
   properties:
   - type: OpenAPI
