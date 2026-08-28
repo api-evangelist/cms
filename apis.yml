@@ -5,6 +5,20 @@ description: The Centers for Medicare and Medicaid Services (CMS) provides a sui
   beneficiary claims, and public health insurance datasets. CMS APIs support interoperability standards
   including HL7 FHIR and OAuth 2.0 to power healthcare applications across the US health system.
 type: Index
+deliveryModel:
+  model: saas
+  license: CC0-1.0
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - license
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: free
   onboarding: open
