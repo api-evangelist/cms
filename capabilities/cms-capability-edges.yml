@@ -13,34 +13,37 @@ capability_model:
   notice: NOTICE
 edge_count: 3
 edges:
-- tag: patient
-  spec_file: cms-patient-api-openapi.yml
+- tag: ExplanationOfBenefit
+  spec_file: cms-explanationofbenefit-api-openapi.yml
   capability_id: BC-2900.60
   capability_id_l1: BC-2900
   capability_name: Healthcare Interoperability Operations
-  confidence: 0.75
-  evidence: GET /api/v1/Patient/$export 'Start FHIR STU3 data export job'; GET /Patient 'Search Patient'
-  reason: FHIR patient search/read plus bulk data export are healthcare interoperability operations (FHIR
-    endpoints, patient data sharing), fitting Healthcare Interoperability Operations.
-- tag: Coverage
-  spec_file: cms-coverage-api-openapi.yml
-  capability_id: BC-2800.30
-  capability_id_l1: BC-2800
-  capability_name: Eligibility & Benefits Verification
   confidence: 0.7
-  evidence: GET /Coverage  searchCoverage — "delivers Medicare Part A, B, and D claims data" via "HL7
-    FHIR R4 API"
-  reason: FHIR Coverage resource exposes a beneficiary's insurance coverage details, which is the data
-    substrate for verifying insurance coverage and benefits before service. Moderate confidence since
-    the API is a payer-side data feed rather than a provider verification workflow.
+  evidence: '"standards-based HL7 FHIR R4 API that delivers Medicare Part A, B, and D claims data ...
+    Beneficiaries authorize sharing via OAuth 2.0"; GET /ExplanationOfBenefit "Search ExplanationOfBenefit"'
+  reason: A FHIR R4 read/search endpoint for claims resources, consumed by third-party apps under patient
+    authorisation. That is health-information-exchange / FHIR endpoint operation and patient-initiated
+    data sharing rather than any care-delivery or billing execution capability.
 - tag: group
   spec_file: cms-group-api-openapi.yml
   capability_id: BC-2900.60
   capability_id_l1: BC-2900
   capability_name: Healthcare Interoperability Operations
   confidence: 0.7
-  evidence: GET /api/v2/Group/{groupId}/$export  bulkGroupRequestV2  Start FHIR R4 data export job for
-    the specified group identifier and resource type(s)
-  reason: Initiates FHIR Bulk Data Export of beneficiary claims for an attributed group, i.e. operation
-    of FHIR endpoints for health data exchange. Maps to Healthcare Interoperability Operations, though
-    the surface is a single export trigger.
+  evidence: GET /api/v1/Group/{groupId}/$export — 'Start FHIR STU3 data export job for the specified group
+    identifier and resource type(s)'
+  reason: Operations are FHIR bulk data export ($export) endpoints for sharing claims/clinical resources
+    with authorised data consumers, which is the operation of FHIR endpoints and health data exchange
+    (Healthcare Interoperability Operations). Some ambiguity because it is also a data-distribution mechanism
+    rather than provider-side record keeping.
+- tag: patient
+  spec_file: cms-patient-api-openapi.yml
+  capability_id: BC-2900.60
+  capability_id_l1: BC-2900
+  capability_name: Healthcare Interoperability Operations
+  confidence: 0.7
+  evidence: GET /Patient searchPatient 'Search Patient'; GET /api/v1/Patient/$export 'Start FHIR STU3
+    data export job'
+  reason: 'FHIR Patient search/read plus patient-scoped bulk export: operation of FHIR endpoints for exchanging
+    patient records with external applications, i.e. healthcare interoperability operations rather than
+    registration workflow (no create/update of demographics).'
