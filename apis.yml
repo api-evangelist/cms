@@ -1193,6 +1193,9 @@ apis:
   - type: AdvancedGuide
     url: https://ab2d.cms.gov/advanced-user-guide.html
 common:
+- type: CapabilityMap
+  url: capabilities/cms-capability-edges.yml
+  name: Centers for Medicare and Medicaid Services Business Capability Map
 - type: AgentSkill
   url: skills/cms-export-aco-claims-bcda.md
 - type: AgentSkill

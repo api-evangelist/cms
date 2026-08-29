@@ -1,0 +1,46 @@
+slug: cms
+provider: Centers for Medicare and Medicaid Services
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Healthcare Providers
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: patient
+  spec_file: cms-patient-api-openapi.yml
+  capability_id: BC-2900.60
+  capability_id_l1: BC-2900
+  capability_name: Healthcare Interoperability Operations
+  confidence: 0.75
+  evidence: GET /api/v1/Patient/$export 'Start FHIR STU3 data export job'; GET /Patient 'Search Patient'
+  reason: FHIR patient search/read plus bulk data export are healthcare interoperability operations (FHIR
+    endpoints, patient data sharing), fitting Healthcare Interoperability Operations.
+- tag: Coverage
+  spec_file: cms-coverage-api-openapi.yml
+  capability_id: BC-2800.30
+  capability_id_l1: BC-2800
+  capability_name: Eligibility & Benefits Verification
+  confidence: 0.7
+  evidence: GET /Coverage  searchCoverage — "delivers Medicare Part A, B, and D claims data" via "HL7
+    FHIR R4 API"
+  reason: FHIR Coverage resource exposes a beneficiary's insurance coverage details, which is the data
+    substrate for verifying insurance coverage and benefits before service. Moderate confidence since
+    the API is a payer-side data feed rather than a provider verification workflow.
+- tag: group
+  spec_file: cms-group-api-openapi.yml
+  capability_id: BC-2900.60
+  capability_id_l1: BC-2900
+  capability_name: Healthcare Interoperability Operations
+  confidence: 0.7
+  evidence: GET /api/v2/Group/{groupId}/$export  bulkGroupRequestV2  Start FHIR R4 data export job for
+    the specified group identifier and resource type(s)
+  reason: Initiates FHIR Bulk Data Export of beneficiary claims for an attributed group, i.e. operation
+    of FHIR endpoints for health data exchange. Maps to Healthcare Interoperability Operations, though
+    the surface is a single export trigger.
