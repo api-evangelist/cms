@@ -490,7 +490,7 @@ apis:
   tags:
   - Coverage
   - LCD
-  - Mac
+  - MAC
   - NCD
   - Policy
   tags_raw:
@@ -515,7 +515,7 @@ apis:
   humanURL: https://bluebutton.cms.gov/
   baseURL: https://api.bluebutton.cms.gov/v2/fhir/
   tags:
-  - Capabilities
+  - Capability
   tags_raw:
   - Capability
   properties:
@@ -746,6 +746,8 @@ apis:
   humanURL: https://bcda.cms.gov/
   baseURL: https://bcda.cms.gov
   tags:
+  - Admin API
+  tags_raw:
   - admin-api
   properties:
   - type: OpenAPI
@@ -781,6 +783,8 @@ apis:
   humanURL: https://bcda.cms.gov/
   baseURL: https://bcda.cms.gov
   tags:
+  - Attribution
+  tags_raw:
   - attribution
   properties:
   - type: OpenAPI
@@ -815,6 +819,8 @@ apis:
   humanURL: https://bcda.cms.gov/
   baseURL: https://bcda.cms.gov
   tags:
+  - Authentication
+  tags_raw:
   - auth
   properties:
   - type: OpenAPI
@@ -883,6 +889,8 @@ apis:
   humanURL: https://bcda.cms.gov/
   baseURL: https://bcda.cms.gov
   tags:
+  - Data
+  tags_raw:
   - data
   properties:
   - type: OpenAPI
@@ -917,6 +925,8 @@ apis:
   humanURL: https://bcda.cms.gov/
   baseURL: https://bcda.cms.gov
   tags:
+  - Downloads
+  tags_raw:
   - Download
   properties:
   - type: OpenAPI
@@ -988,6 +998,8 @@ apis:
   humanURL: https://bcda.cms.gov/
   baseURL: https://bcda.cms.gov
   tags:
+  - Group
+  tags_raw:
   - group
   properties:
   - type: OpenAPI
@@ -1023,6 +1035,8 @@ apis:
   humanURL: https://bcda.cms.gov/
   baseURL: https://bcda.cms.gov
   tags:
+  - Health API
+  tags_raw:
   - health-api
   properties:
   - type: OpenAPI
@@ -1057,6 +1071,8 @@ apis:
   humanURL: https://bcda.cms.gov/
   baseURL: https://bcda.cms.gov
   tags:
+  - Job
+  tags_raw:
   - job
   properties:
   - type: OpenAPI
@@ -1128,6 +1144,8 @@ apis:
   humanURL: https://bcda.cms.gov/
   baseURL: https://bcda.cms.gov
   tags:
+  - Metadata
+  tags_raw:
   - metadata
   properties:
   - type: OpenAPI
