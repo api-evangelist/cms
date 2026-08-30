@@ -1,0 +1,511 @@
+openapi: 3.2.0
+info:
+  title: Beneficiary Claims Data Job API
+  description: 'The Beneficiary Claims Data API (BCDA) allows downloading of claims data in accordance with the FHIR Bulk Data Export specification.
+
+
+    If you have a Client ID and Secret you can use this page to explore the API.  To do this:
+
+    1. Click the green "Authorize" button below and enter your Client ID and secret in the Basic Authentication boxes.
+
+    2. Request a bearer token from /auth/token
+
+    3. Click the green "Authorize" button below and put "Bearer {YOUR_TOKEN}" in the bearer_token box.
+
+
+    Until you click logout your token will be presented with every request made.  To make requests click on the
+
+    "Try it out" button for the desired endpoint.'
+  contact:
+    email: bcapi@cms.hhs.gov
+  license:
+    name: Public Domain
+    url: https://github.com/CMSgov/bcda-app/blob/main/LICENSE.md
+  version: 1.0.0
+servers: []
+tags:
+- name: job
+paths:
+  /api/v1/jobs:
+    get:
+      tags:
+      - job
+      summary: Get job(s) by status
+      description: "Returns the current statuses of all current and past export jobs, along with the original job request url. Supported status types are: \n\n - Completed\n\n - Archived\n\n - Expired\n\n - Failed\n\n - FailedExpired\n\n - In Progress\n\n - Pending\n\n - Cancelled\n\n - CancelledExpired\n\n If no status(s) is provided, all jobs will be returned.\n\nNote on job status to fhir task resource status mapping:\nDue to the fhir task status field having a smaller set of values, the following statuses will be set to different fhir values in the response\n\n - Archived, Expired -> Completed\n\n - FailedExpired -> Failed\n\n - Pending -> In Progress\n\n - CancelledExpired -> Cancelled\n\nThough the status name has been remapped the response will still only contain jobs pertaining to the provided job status in the request."
+      operationId: jobsStatus
+      parameters:
+      - name: _status
+        in: query
+        description: Job statuses requested
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobStatus'
+          x-go-name: Status
+        x-go-name: Status
+      responses:
+        '200':
+          description: JSON object containing statuses of all current and previously requested jobs. The body will contain a FHIR Bundle resource in JSON format https://www.hl7.org/fhir/bundle.html and FHIR Task resources for the Bundle entries in JSON format https://www.hl7.org/fhir/task.html
+          headers:
+            Body:
+              schema:
+                type: object
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/BundleResponse'
+        '400':
+          description: 'Malformed request; check URI and parameters are correct. The body will contain a FHIR OperationOutcome resource in JSON format: https://www.hl7.org/fhir/operationoutcome.html'
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcomeResponse'
+        '401':
+          description: 'Unauthorized. The provided credentials are invalid for the requested resource. The body will contain a FHIR OperationOutcome resource in JSON format: https://www.hl7.org/fhir/operationoutcome.html'
+          content: {}
+        '404':
+          description: 'The requested path was not found. The body will contain a FHIR OperationOutcome resource in JSON format: https://www.hl7.org/fhir/operationoutcome.html'
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcomeResponse'
+        '410':
+          description: 'The requested resource is no longer available. Completed jobs expire after 24 hours; request the data again. The body will contain a FHIR OperationOutcome resource in JSON format: https://www.hl7.org/fhir/operationoutcome.html'
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcomeResponse'
+        '500':
+          description: 'An error occurred. The body will contain a FHIR OperationOutcome resource in JSON format: https://www.hl7.org/fhir/operationoutcome.html'
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcomeResponse'
+      security:
+      - bearer_token: []
+  /api/v1/jobs/{jobId}:
+    get:
+      tags:
+      - job
+      summary: Get job status and file location(s)
+      description: Returns the current status of an export job and ndjson file locations, if available. The file locations will be under `output` and any job processing that encountered errors will be written to _<...-error.ndjson>_ files and located under `errors`.
+      operationId: jobStatus
+      parameters:
+      - name: jobId
+        in: path
+        description: ID of data export job
+        required: true
+        schema:
+          type: integer
+          format: int64
+          x-go-name: JobID
+        x-go-name: JobID
+      responses:
+        '200':
+          description: Data export job has completed successfully. The response body will contain a JSON object providing metadata about the transaction.
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/BulkResponseBody'
+        '202':
+          description: Data export job is in progress.
+          headers:
+            X-Progress:
+              description: The status of the job progress
+              schema:
+                type: string
+          content: {}
+        '400':
+          description: Malformed request. The body will contain a FHIR OperationOutcome resource in JSON format. https://www.hl7.org/fhir/operationoutcome.html Please refer to the body of the response for details.
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcomeResponse'
+        '401':
+          description: Unauthorized. The provided credentials are invalid for the requested resource.
+          content: {}
+        '404':
+          description: The requested path was not found. The body will contain a FHIR OperationOutcome resource in JSON format. https://www.hl7.org/fhir/operationoutcome.html
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcomeResponse'
+        '410':
+          description: The requested resource is no longer available. The body will contain a FHIR OperationOutcome resource in JSON format. https://www.hl7.org/fhir/operationoutcome.html
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcomeResponse'
+      security:
+      - bearer_token: []
+    delete:
+      tags:
+      - job
+      summary: Cancel a job
+      description: Cancels a currently running job.
+      operationId: deleteJob
+      parameters:
+      - name: jobId
+        in: path
+        description: ID of data export job
+        required: true
+        schema:
+          type: integer
+          format: int64
+          x-go-name: JobID
+        x-go-name: JobID
+      responses:
+        '202':
+          description: The job has been cancelled. No data will be available for download.
+          content: {}
+        '400':
+          description: There was a problem with the request. The body will contain a FHIR OperationOutcome resource in JSON format. https://www.hl7.org/fhir/operationoutcome.html
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcomeResponse'
+        '401':
+          description: Unauthorized. The provided credentials are invalid for the requested resource.
+          content: {}
+        '404':
+          description: The requested path was not found. The body will contain a FHIR OperationOutcome resource in JSON format. https://www.hl7.org/fhir/operationoutcome.html
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcomeResponse'
+        '410':
+          description: The requested resource is no longer available. The body will contain a FHIR OperationOutcome resource in JSON format. https://www.hl7.org/fhir/operationoutcome.html
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcomeResponse'
+      security:
+      - bearer_token: []
+  /api/v2/jobs:
+    get:
+      tags:
+      - job
+      summary: Get job(s) by status
+      description: "Returns the current statuses of all current and past export jobs, along with the original job request url. Supported status types are: \n\n - Completed\n\n - Archived\n\n - Expired\n\n - Failed\n\n - FailedExpired\n\n - In Progress\n\n - Pending\n\n - Cancelled\n\n - CancelledExpired\n\n If no status(s) is provided, all jobs will be returned.\n\nNote on job status to fhir task resource status mapping:\nDue to the fhir task status field having a smaller set of values, the following statuses will be set to different fhir values in the response\n\n - Archived, Expired -> Completed\n\n - FailedExpired -> Failed\n\n - Pending -> In Progress\n\n - CancelledExpired -> Cancelled\n\nThough the status name has been remapped the response will still only contain jobs pertaining to the provided job status in the request."
+      operationId: jobsStatusV2
+      parameters:
+      - name: _status
+        in: query
+        description: Job statuses requested
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobStatus'
+          x-go-name: Status
+        x-go-name: Status
+      responses:
+        '200':
+          description: JSON object containing statuses of all current and previously requested jobs. The body will contain a FHIR Bundle resource in JSON format https://www.hl7.org/fhir/bundle.html and FHIR Task resources for the Bundle entries in JSON format https://www.hl7.org/fhir/task.html
+          headers:
+            Body:
+              schema:
+                type: object
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/BundleResponse'
+        '400':
+          description: 'Malformed request; check URI and parameters are correct. The body will contain a FHIR OperationOutcome resource in JSON format: https://www.hl7.org/fhir/operationoutcome.html'
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcomeResponse'
+        '401':
+          description: 'Unauthorized. The provided credentials are invalid for the requested resource. The body will contain a FHIR OperationOutcome resource in JSON format: https://www.hl7.org/fhir/operationoutcome.html'
+          content: {}
+        '404':
+          description: 'The requested path was not found. The body will contain a FHIR OperationOutcome resource in JSON format: https://www.hl7.org/fhir/operationoutcome.html'
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcomeResponse'
+        '410':
+          description: 'The requested resource is no longer available. Completed jobs expire after 24 hours; request the data again. The body will contain a FHIR OperationOutcome resource in JSON format: https://www.hl7.org/fhir/operationoutcome.html'
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcomeResponse'
+        '500':
+          description: 'An error occurred. The body will contain a FHIR OperationOutcome resource in JSON format: https://www.hl7.org/fhir/operationoutcome.html'
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcomeResponse'
+      security:
+      - bearer_token: []
+  /api/v2/jobs/{jobId}:
+    get:
+      tags:
+      - job
+      summary: Get job status and file location(s)
+      description: Returns the current status of an export job and ndjson file locations, if available. The file locations will be under `output` and any job processing that encountered errors will be written to _<...-error.ndjson>_ files and located under `errors`.
+      operationId: jobStatusidv2
+      parameters:
+      - name: jobId
+        in: path
+        description: ID of data export job
+        required: true
+        schema:
+          type: integer
+          format: int64
+          x-go-name: JobID
+        x-go-name: JobID
+      responses:
+        '200':
+          description: Data export job has completed successfully. The response body will contain a JSON object providing metadata about the transaction.
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/BulkResponseBody'
+        '202':
+          description: Data export job is in progress.
+          headers:
+            X-Progress:
+              description: The status of the job progress
+              schema:
+                type: string
+          content: {}
+        '400':
+          description: Malformed request. The body will contain a FHIR OperationOutcome resource in JSON format. https://www.hl7.org/fhir/operationoutcome.html Please refer to the body of the response for details.
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcomeResponse'
+        '401':
+          description: Unauthorized. The provided credentials are invalid for the requested resource.
+          content: {}
+        '404':
+          description: The requested path was not found. The body will contain a FHIR OperationOutcome resource in JSON format. https://www.hl7.org/fhir/operationoutcome.html
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcomeResponse'
+        '410':
+          description: The requested resource is no longer available. The body will contain a FHIR OperationOutcome resource in JSON format. https://www.hl7.org/fhir/operationoutcome.html
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcomeResponse'
+      security:
+      - bearer_token: []
+    delete:
+      tags:
+      - job
+      summary: Cancel a job
+      description: Cancels a currently running job.
+      operationId: deleteJobv2
+      parameters:
+      - name: jobId
+        in: path
+        description: ID of data export job
+        required: true
+        schema:
+          type: integer
+          format: int64
+          x-go-name: JobID
+        x-go-name: JobID
+      responses:
+        '202':
+          description: The job has been cancelled. No data will be available for download.
+          content: {}
+        '400':
+          description: There was a problem with the request. The body will contain a FHIR OperationOutcome resource in JSON format. https://www.hl7.org/fhir/operationoutcome.html
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcomeResponse'
+        '401':
+          description: Unauthorized. The provided credentials are invalid for the requested resource.
+          content: {}
+        '404':
+          description: The requested path was not found. The body will contain a FHIR OperationOutcome resource in JSON format. https://www.hl7.org/fhir/operationoutcome.html
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcomeResponse'
+        '410':
+          description: The requested resource is no longer available. The body will contain a FHIR OperationOutcome resource in JSON format. https://www.hl7.org/fhir/operationoutcome.html
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcomeResponse'
+      security:
+      - bearer_token: []
+components:
+  schemas:
+    JobStatus:
+      type: string
+      x-go-package: github.com/CMSgov/bcda-app/bcda/models
+    EntryResponse:
+      type: object
+      properties:
+        resource:
+          type: object
+          properties:
+            ExecutionPeriod:
+              type: object
+              properties:
+                end:
+                  description: Time job completed
+                  type: string
+                  format: date-time
+                  x-go-name: End
+                start:
+                  description: Time job started
+                  type: string
+                  format: date-time
+                  x-go-name: Start
+            identifier:
+              type: object
+              properties:
+                system:
+                  description: Url for jobs statuses
+                  type: string
+                  x-go-name: System
+                use:
+                  description: Official
+                  type: string
+                  x-go-name: Use
+                value:
+                  description: Job Id
+                  type: string
+                  x-go-name: Value
+              x-go-name: Identifier
+            input:
+              type: array
+              items:
+                type: object
+                properties:
+                  type:
+                    type: object
+                    properties:
+                      text:
+                        description: BULK FHIR Export
+                        type: string
+                        x-go-name: Text
+                    x-go-name: Type
+                  valueString:
+                    description: Original job request url
+                    type: string
+                    x-go-name: ValueString
+              x-go-name: Input
+            intent:
+              description: Order
+              type: string
+              x-go-name: Intent
+            resourceType:
+              description: Task
+              type: string
+              x-go-name: ResourceType
+            status:
+              description: Job Status
+              type: string
+              x-go-name: Status
+          x-go-name: Resource
+      x-go-package: github.com/CMSgov/bcda-app/bcda/models
+    fileItem:
+      type: object
+      properties:
+        type:
+          description: FHIR resource type of file contents
+          type: string
+          x-go-name: Type
+        url:
+          description: URL of the file
+          type: string
+          x-go-name: URL
+      x-go-name: FileItem
+      x-go-package: github.com/CMSgov/bcda-app/bcda/api
+    BulkResponseBody:
+      type: object
+      properties:
+        JobID:
+          type: integer
+          format: uint64
+        error:
+          description: Information about error files, including URLs for downloading
+          type: array
+          items:
+            $ref: '#/components/schemas/fileItem'
+          x-go-name: Errors
+        output:
+          description: Information about generated data files, including URLs for downloading
+          type: array
+          items:
+            $ref: '#/components/schemas/fileItem'
+          x-go-name: Files
+        request:
+          description: URL of the bulk data export request
+          type: string
+          x-go-name: RequestURL
+        requiresAccessToken:
+          description: Indicates whether an access token is required to download generated data files
+          type: boolean
+          x-go-name: RequiresAccessToken
+        transactionTime:
+          description: Server time when the query was run
+          type: string
+          format: date-time
+          x-go-name: TransactionTime
+      x-go-package: github.com/CMSgov/bcda-app/bcda/api
+    BundleResponse:
+      type: object
+      properties:
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntryResponse'
+          x-go-name: Entry
+        resourceType:
+          description: Bundle
+          type: string
+          x-go-name: ResourceType
+        total:
+          description: Total number of entries
+          type: integer
+          format: int64
+          x-go-name: Total
+        type:
+          description: Searchset
+          type: string
+          x-go-name: Type
+      x-go-package: github.com/CMSgov/bcda-app/bcda/models
+    OperationOutcomeResponse:
+      type: object
+      properties:
+        Issue:
+          type: object
+          required:
+          - Severity
+          - Code
+          - Diagnostics
+          properties:
+            Severity:
+              description: 'Severity of the outcome: fatal | error | warning | information'
+              type: string
+            Code:
+              description: Error or warning code
+              type: string
+            Diagnostics:
+              description: Additional diagnostic information about the issue
+              type: string
+      x-go-package: github.com/CMSgov/bcda-app/bcda/models
+  securitySchemes:
+    basic_auth:
+      type: http
+      scheme: basic
+    bearer_token:
+      type: apiKey
+      description: The Group and Patient endpoints require a Bearer Token. 1) Put your credentials in Basic Authentication, 2) Request a bearer token from /auth/token, 3) Put "Bearer {TOKEN}" in this field (no quotes) using the bearer token retrieved in step 2
+      name: Authorization
+      in: header
+x-original-swagger-version: '2.0'

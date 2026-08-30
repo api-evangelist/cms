@@ -1,0 +1,37 @@
+openapi: 3.2.0
+info:
+  title: AB2D 4. Capabilities API
+  description: This API Provides Part A (Hospital Insurance) & B (Medical Insurance) claim data to Part D (Prescription Drug Benefit) sponsors. Consistent with CMS' Final Rule to implement Section 50354 of the Bipartisan Budget Act of 2018, CMS is providing standalone Medicare Part D plan (PDP) sponsors the opportunity to request access to Medicare claims data. Access to Medicare claims data for their enrollees will help plans promote the appropriate use of medications and improve health outcomes, among other benefits.
+servers:
+- url: https://sandbox.ab2d.cms.gov
+  description: Generated server url
+security:
+- bearerAuth: []
+tags:
+- name: 4. Capabilities
+  description: Provide the standard required FHIR capability statement
+paths:
+  /api/v1/fhir/metadata:
+    get:
+      tags:
+      - 4. Capabilities
+      summary: 'Request the FHIR capability statement detailing what operations this API supports '
+      operationId: capabilityStatement_2
+      responses:
+        '200':
+          description: A JSON FHIR capability statement matching  https://www.hl7.org/fhir/STU3/capabilitystatement.html
+          headers:
+            Content-Type:
+              description: application/json
+              style: simple
+          content:
+            application/json:
+              schema:
+                type: string
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      name: bearerAuth
+      scheme: bearer
+      bearerFormat: JWT

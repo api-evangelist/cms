@@ -1,0 +1,213 @@
+openapi: 3.2.0
+info:
+  title: Beneficiary Claims Data Group API
+  description: 'The Beneficiary Claims Data API (BCDA) allows downloading of claims data in accordance with the FHIR Bulk Data Export specification.
+
+
+    If you have a Client ID and Secret you can use this page to explore the API.  To do this:
+
+    1. Click the green "Authorize" button below and enter your Client ID and secret in the Basic Authentication boxes.
+
+    2. Request a bearer token from /auth/token
+
+    3. Click the green "Authorize" button below and put "Bearer {YOUR_TOKEN}" in the bearer_token box.
+
+
+    Until you click logout your token will be presented with every request made.  To make requests click on the
+
+    "Try it out" button for the desired endpoint.'
+  contact:
+    email: bcapi@cms.hhs.gov
+  license:
+    name: Public Domain
+    url: https://github.com/CMSgov/bcda-app/blob/main/LICENSE.md
+  version: 1.0.0
+servers: []
+tags:
+- name: group
+paths:
+  /api/v1/Group/{groupId}/$export:
+    get:
+      tags:
+      - group
+      summary: Start FHIR STU3 data export job for the specified group identifier and resource type(s)
+      description: "Initiates a job to collect data from the Beneficiary FHIR Data API for your ACO. The supported Group identifiers are `all` and `runout`. The `all` identifier returns data for the group of all patients attributed to the requesting ACO. The `runout` identifier returns claims runouts data. \n\nIf used when specifying `_since`: all claims data which has been updated since the specified date will be returned for beneficiaries which have been attributed to the ACO since before the specified date; and all historical claims data will be returned for beneficiaries which have been newly attributed to the ACO since the specified date.\n\n"
+      operationId: bulkGroupRequest
+      parameters:
+      - name: _type
+        in: query
+        description: 'Resource type(s) requested. When left empty, will return all available resource types. TODO: return resource types here?'
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+          x-go-name: ResourceType
+        x-go-name: ResourceType
+      - name: _since
+        in: query
+        description: Only include resource versions that were created at or after the given instant in time.  Format of string must align with the FHIR Instant datatype (i.e., `2020-02-13T08:00:00.000-05:00`)
+        schema:
+          type: string
+          x-go-name: DateTime
+        x-go-name: DateTime
+      - name: Prefer
+        in: header
+        required: true
+        schema:
+          type: string
+          enum:
+          - respond-async
+      - name: groupId
+        in: path
+        description: ID of group export
+        required: true
+        schema:
+          type: string
+          enum:
+          - all
+          - runout
+          x-go-name: GroupID
+        x-go-name: GroupID
+      responses:
+        '202':
+          description: 'A data export job has been started successfully. '
+          headers:
+            Content-Location:
+              description: Returns a URI to the jobs status endpoint, along with the job id. `/jobs/<jobId>`
+              schema:
+                type: string
+          content: {}
+        '400':
+          description: Malformed request
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcomeResponse'
+        '401':
+          description: Unauthorized. The provided credentials are invalid for the requested resource.
+          content: {}
+        '429':
+          description: Too many requests. A bulk export job of this resource type is already in progress for the ACO.
+          content: {}
+        '500':
+          description: Internal Server Error. The body will contain a FHIR OperationOutcome resource in JSON format. https://www.hl7.org/fhir/operationoutcome.html Please refer to the body of the response for details.
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcomeResponse'
+      security:
+      - bearer_token: []
+  /api/v2/Group/{groupId}/$export:
+    get:
+      tags:
+      - group
+      summary: Start FHIR R4 data export job for the specified group identifier and resource type(s)
+      description: "Initiates a job to collect data from the Beneficiary FHIR Data API for your ACO. The supported Group identifiers are `all` and `runout`. The `all` identifier returns data for the group of all patients attributed to the requesting ACO. The `runout` identifier returns claims runouts data. \n\nIf used when specifying `_since`: all claims data which has been updated since the specified date will be returned for beneficiaries which have been attributed to the ACO since before the specified date; and all historical claims data will be returned for beneficiaries which have been newly attributed to the ACO since the specified date.\n\n"
+      operationId: bulkGroupRequestV2
+      parameters:
+      - name: _type
+        in: query
+        description: 'Resource type(s) requested. When left empty, will return all available resource types. _Note_: Claim and ClaimResponse are only available to REACH ACOs.'
+        required: true
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - Coverage
+            - Patient
+            - ExplanationOfBenefit
+            - Claim
+            - ClaimResponse
+          x-go-name: ResourceType
+        x-go-name: ResourceType
+      - name: _since
+        in: query
+        description: Only include resource versions that were created at or after the given instant in time.  Format of string must align with the FHIR Instant datatype (i.e., `2020-02-13T08:00:00.000-05:00`)
+        schema:
+          type: string
+          x-go-name: DateTime
+        x-go-name: DateTime
+      - name: Prefer
+        in: header
+        required: true
+        schema:
+          type: string
+          enum:
+          - respond-async
+      - name: groupId
+        in: path
+        description: ID of group export
+        required: true
+        schema:
+          type: string
+          enum:
+          - all
+          - runout
+          x-go-name: GroupID
+        x-go-name: GroupID
+      responses:
+        '202':
+          description: 'A data export job has been started successfully. '
+          headers:
+            Content-Location:
+              description: Returns a URI to the jobs status endpoint, along with the job id. `/jobs/<jobId>`
+              schema:
+                type: string
+          content: {}
+        '400':
+          description: Malformed request
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcomeResponse'
+        '401':
+          description: Unauthorized. The provided credentials are invalid for the requested resource.
+          content: {}
+        '429':
+          description: Too many requests. A bulk export job of this resource type is already in progress for the ACO.
+          content: {}
+        '500':
+          description: Internal Server Error.
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcomeResponse'
+      security:
+      - bearer_token: []
+components:
+  schemas:
+    OperationOutcomeResponse:
+      type: object
+      properties:
+        Issue:
+          type: object
+          required:
+          - Severity
+          - Code
+          - Diagnostics
+          properties:
+            Severity:
+              description: 'Severity of the outcome: fatal | error | warning | information'
+              type: string
+            Code:
+              description: Error or warning code
+              type: string
+            Diagnostics:
+              description: Additional diagnostic information about the issue
+              type: string
+      x-go-package: github.com/CMSgov/bcda-app/bcda/models
+  securitySchemes:
+    basic_auth:
+      type: http
+      scheme: basic
+    bearer_token:
+      type: apiKey
+      description: The Group and Patient endpoints require a Bearer Token. 1) Put your credentials in Basic Authentication, 2) Request a bearer token from /auth/token, 3) Put "Bearer {TOKEN}" in this field (no quotes) using the bearer token retrieved in step 2
+      name: Authorization
+      in: header
+x-original-swagger-version: '2.0'

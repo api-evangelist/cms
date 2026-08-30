@@ -1,0 +1,262 @@
+openapi: 3.2.0
+info:
+  title: AB2D Export API
+  description: This API Provides Part A (Hospital Insurance) & B (Medical Insurance) claim data to Part D (Prescription Drug Benefit) sponsors. Consistent with CMS' Final Rule to implement Section 50354 of the Bipartisan Budget Act of 2018, CMS is providing standalone Medicare Part D plan (PDP) sponsors the opportunity to request access to Medicare claims data. Access to Medicare claims data for their enrollees will help plans promote the appropriate use of medications and improve health outcomes, among other benefits.
+servers:
+- url: https://sandbox.ab2d.cms.gov
+  description: Generated server url
+security:
+- bearerAuth: []
+tags:
+- name: Export
+  description: API through which an authenticated and authorized PDP sponsor may request a bulk-data export from a server.
+paths:
+  /api/v3/fhir/Patient/$export:
+    get:
+      tags:
+      - Export
+      summary: Initiate Part A & B bulk claim export job
+      operationId: exportAllPatients
+      parameters:
+      - name: _type
+        in: query
+        description: String of comma-delimited FHIR resource objects. Only resources of the specified resource types(s) SHALL be included in the response. Currently, only ExplanationOfBenefit objects are supported
+        required: false
+        schema:
+          type: string
+          enum:
+          - ExplanationOfBenefit
+      - name: _outputFormat
+        in: query
+        description: The format for the requested bulk data files to be generated. Currently, only application/fhir+json is supported.
+        required: false
+        schema:
+          type: string
+          enum:
+          - application/fhir+ndjson
+          - application/ndjson
+          - ndjson
+      - name: _since
+        in: query
+        description: If no value is provided, it will default to the last time a successful job was requested if it exists. The earliest accepted date is 2026-04-01T00:00:00.000-05:00
+        required: false
+        schema:
+          type: date-time
+          description: '2026-04-01T00:00:00.000-05:00'
+      - name: _until
+        in: query
+        description: ' If no value is provided, it will default to the current date.'
+        required: false
+        schema:
+          type: date-time
+          description: '2024-01-01T00:00:00.000-05:00'
+      - name: _typeFilter
+        in: query
+        description: Provide service-date to further refine results
+        required: false
+        schema:
+          type: string
+      - name: Prefer
+        in: header
+        description: Value must be respond-async
+        required: true
+        schema:
+          type: string
+          default: respond-async
+          enum:
+          - respond-async
+      responses:
+        '202':
+          description: Export request has started
+          headers:
+            Content-Location:
+              description: Absolute URL of an endpoint for subsequent status requests (polling location)
+              style: simple
+              schema:
+                type: string
+          content:
+            application/fhir+json:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too many jobs are currently running. Either wait for currently running jobs to finish or cancel some/all of those jobs.
+          headers:
+            Content-Location:
+              description: URLs of currently running jobs. To cancel one of those jobs, invoke the Status DELETE call.
+              style: simple
+              schema:
+                type: string
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcome'
+  /api/v2/fhir/Patient/$export:
+    get:
+      tags:
+      - Export
+      summary: Initiate Part A & B bulk claim export job
+      operationId: exportAllPatients_1
+      parameters:
+      - name: _type
+        in: query
+        description: String of comma-delimited FHIR resource objects. Only resources of the specified resource types(s) SHALL be included in the response. Currently, only ExplanationOfBenefit objects are supported
+        required: false
+        schema:
+          type: string
+          enum:
+          - ExplanationOfBenefit
+      - name: _outputFormat
+        in: query
+        description: The format for the requested bulk data files to be generated. Currently, only application/fhir+json is supported.
+        required: false
+        schema:
+          type: string
+          enum:
+          - application/fhir+ndjson
+          - application/ndjson
+          - ndjson
+      - name: _since
+        in: query
+        description: ' If no value is provided, it will default to the last time a successful job was requested if it exists. The earliest accepted date is 2020-02-13T00:00:00.000-05:00'
+        required: false
+        schema:
+          type: date-time
+          description: '2020-02-13T00:00:00.000-05:00'
+      - name: _until
+        in: query
+        description: ' If no value is provided, it will default to the current date.'
+        required: false
+        schema:
+          type: date-time
+          description: '2024-01-01T00:00:00.000-05:00'
+      - name: Prefer
+        in: header
+        description: Value must be respond-async
+        required: true
+        schema:
+          type: string
+          default: respond-async
+          enum:
+          - respond-async
+      responses:
+        '202':
+          description: Export request has started
+          headers:
+            Content-Location:
+              description: Absolute URL of an endpoint for subsequent status requests (polling location)
+              style: simple
+              schema:
+                type: string
+          content:
+            application/fhir+json:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too many jobs are currently running. Either wait for currently running jobs to finish or cancel some/all of those jobs.
+          headers:
+            Content-Location:
+              description: URLs of currently running jobs. To cancel one of those jobs, invoke the Status DELETE call.
+              style: simple
+              schema:
+                type: string
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcome'
+  /api/v2/fhir/Group/{contractNumber}/$export:
+    get:
+      tags:
+      - Export
+      summary: Initiate Part A & B bulk claim export job for a given contract number, DEPRECATED
+      operationId: exportPatientsWithContract
+      parameters:
+      - name: contractNumber
+        in: path
+        description: A contract number
+        required: true
+        schema:
+          type: string
+          minLength: 1
+        example: Z0000
+      - name: _type
+        in: query
+        description: String of comma-delimited FHIR resource objects. Only resources of the specified resource types(s) SHALL be included in the response. Currently, only ExplanationOfBenefit objects are supported
+        required: false
+        schema:
+          type: string
+          enum:
+          - ExplanationOfBenefit
+      - name: _outputFormat
+        in: query
+        description: The format for the requested bulk data files to be generated. Currently, only application/fhir+json is supported.
+        required: false
+        schema:
+          type: string
+          enum:
+          - application/fhir+ndjson
+          - application/ndjson
+          - ndjson
+      - name: _since
+        in: query
+        description: ' If no value is provided, it will default to the last time a successful job was requested if it exists. The earliest accepted date is 2020-02-13T00:00:00.000-05:00'
+        required: false
+        schema:
+          type: date-time
+        example: '2020-02-13T00:00:00.000-05:00'
+      - name: _until
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: Prefer
+        in: header
+        description: Value must be respond-async
+        required: true
+        schema:
+          type: string
+          default: respond-async
+          enum:
+          - respond-async
+      responses:
+        '202':
+          description: Export request has started
+          headers:
+            Content-Location:
+              description: Absolute URL of an endpoint for subsequent status requests (polling location)
+              style: simple
+              schema:
+                type: string
+          content:
+            application/fhir+json:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too many jobs are currently running. Either wait for currently running jobs to finish or cancel some/all of those jobs.
+          headers:
+            Content-Location:
+              description: URLs of currently running jobs. To cancel one of those jobs, invoke the Status DELETE call.
+              style: simple
+              schema:
+                type: string
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcome'
+      deprecated: true
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      name: bearerAuth
+      scheme: bearer
+      bearerFormat: JWT

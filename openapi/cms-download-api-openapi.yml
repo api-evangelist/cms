@@ -1,0 +1,92 @@
+openapi: 3.2.0
+info:
+  title: AB2D Download API
+  description: This API Provides Part A (Hospital Insurance) & B (Medical Insurance) claim data to Part D (Prescription Drug Benefit) sponsors. Consistent with CMS' Final Rule to implement Section 50354 of the Bipartisan Budget Act of 2018, CMS is providing standalone Medicare Part D plan (PDP) sponsors the opportunity to request access to Medicare claims data. Access to Medicare claims data for their enrollees will help plans promote the appropriate use of medications and improve health outcomes, among other benefits.
+servers:
+- url: https://sandbox.ab2d.cms.gov
+  description: Generated server url
+security:
+- bearerAuth: []
+tags:
+- name: Download
+  description: After creating a job, the API to download the generated bulk download files
+paths:
+  /api/v3/fhir/Job/{jobUuid}/file/{filename}:
+    get:
+      tags:
+      - Download
+      summary: Downloads a file produced by an export job.
+      operationId: downloadFile
+      parameters:
+      - name: jobUuid
+        in: path
+        description: A job identifier
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      - name: filename
+        in: path
+        description: A file name
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      responses:
+        '200':
+          description: Returns the requested file as application/fhir+ndjson
+          headers:
+            Content-Type:
+              description: 'Header which must match the file format being delivered: application/fhir+ndjson'
+              style: simple
+          content:
+            application/fhir+ndjson: {}
+        '404':
+          description: Job or file not found. The body will contain a FHIR OperationOutcome resource in JSON format. https://www.hl7.org/fhir/operationoutcome.html Please refer to the body of the response for details.
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcome'
+  /api/v2/fhir/Job/{jobUuid}/file/{filename}:
+    get:
+      tags:
+      - Download
+      summary: Downloads a file produced by an export job.
+      operationId: downloadFile_1
+      parameters:
+      - name: jobUuid
+        in: path
+        description: A job identifier
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      - name: filename
+        in: path
+        description: A file name
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      responses:
+        '200':
+          description: Returns the requested file as application/fhir+ndjson
+          headers:
+            Content-Type:
+              description: 'Header which must match the file format being delivered: application/fhir+ndjson'
+              style: simple
+          content:
+            application/fhir+ndjson: {}
+        '404':
+          description: Job or file not found. The body will contain a FHIR OperationOutcome resource in JSON format. https://www.hl7.org/fhir/operationoutcome.html Please refer to the body of the response for details.
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcome'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      name: bearerAuth
+      scheme: bearer
+      bearerFormat: JWT

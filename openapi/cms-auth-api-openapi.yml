@@ -1,0 +1,112 @@
+openapi: 3.2.0
+info:
+  title: Beneficiary Claims Data Auth API
+  description: 'The Beneficiary Claims Data API (BCDA) allows downloading of claims data in accordance with the FHIR Bulk Data Export specification.
+
+
+    If you have a Client ID and Secret you can use this page to explore the API.  To do this:
+
+    1. Click the green "Authorize" button below and enter your Client ID and secret in the Basic Authentication boxes.
+
+    2. Request a bearer token from /auth/token
+
+    3. Click the green "Authorize" button below and put "Bearer {YOUR_TOKEN}" in the bearer_token box.
+
+
+    Until you click logout your token will be presented with every request made.  To make requests click on the
+
+    "Try it out" button for the desired endpoint.'
+  contact:
+    email: bcapi@cms.hhs.gov
+  license:
+    name: Public Domain
+    url: https://github.com/CMSgov/bcda-app/blob/main/LICENSE.md
+  version: 1.0.0
+servers: []
+tags:
+- name: auth
+paths:
+  /_auth:
+    get:
+      tags:
+      - auth
+      summary: Get details about auth
+      description: Returns the auth provider that is currently being used. Note that this endpoint is **not** prefixed with the base path (e.g. /api/v1).
+      operationId: getAuthInfo
+      responses:
+        '200':
+          description: JSON object containing an auth_provider field
+          content:
+            application/json:
+              schema:
+                required:
+                - auth_provider
+                type: object
+                properties:
+                  auth_provider:
+                    type: string
+                    x-go-name: Version
+  /auth/token:
+    post:
+      tags:
+      - auth
+      summary: Get access token
+      description: Verifies Basic authentication credentials, and returns a JWT bearer token that can be presented to the other API endpoints.
+      operationId: GetAuthToken
+      responses:
+        '200':
+          description: JSON with a valid JWT
+          content:
+            application/json:
+              schema:
+                required:
+                - access_token
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                    x-go-name: AccessToken
+                  expires_in:
+                    type: string
+                    x-go-name: ExpiresIn
+                  token_type:
+                    type: string
+                    x-go-name: TokenType
+        '400':
+          description: Missing credentials
+          content: {}
+        '401':
+          description: Unauthorized. The provided credentials are invalid for the requested resource.
+          content: {}
+        '500':
+          description: Server error
+          content: {}
+      security:
+      - basic_auth: []
+  /auth/welcome:
+    get:
+      tags:
+      - auth
+      summary: Test authentication
+      description: If a valid token is presented, show a welcome message.
+      operationId: welcome
+      responses:
+        '200':
+          description: Welcome message
+          content: {}
+        '401':
+          description: Unauthorized. The provided credentials are invalid for the requested resource.
+          content: {}
+      security:
+      - bearer_token: []
+components:
+  securitySchemes:
+    basic_auth:
+      type: http
+      scheme: basic
+    bearer_token:
+      type: apiKey
+      description: The Group and Patient endpoints require a Bearer Token. 1) Put your credentials in Basic Authentication, 2) Request a bearer token from /auth/token, 3) Put "Bearer {TOKEN}" in this field (no quotes) using the bearer token retrieved in step 2
+      name: Authorization
+      in: header
+x-original-swagger-version: '2.0'

@@ -1,0 +1,124 @@
+openapi: 3.2.0
+info:
+  title: Beneficiary Claims Data Attribution API
+  description: 'The Beneficiary Claims Data API (BCDA) allows downloading of claims data in accordance with the FHIR Bulk Data Export specification.
+
+
+    If you have a Client ID and Secret you can use this page to explore the API.  To do this:
+
+    1. Click the green "Authorize" button below and enter your Client ID and secret in the Basic Authentication boxes.
+
+    2. Request a bearer token from /auth/token
+
+    3. Click the green "Authorize" button below and put "Bearer {YOUR_TOKEN}" in the bearer_token box.
+
+
+    Until you click logout your token will be presented with every request made.  To make requests click on the
+
+    "Try it out" button for the desired endpoint.'
+  contact:
+    email: bcapi@cms.hhs.gov
+  license:
+    name: Public Domain
+    url: https://github.com/CMSgov/bcda-app/blob/main/LICENSE.md
+  version: 1.0.0
+servers: []
+tags:
+- name: attribution
+paths:
+  /api/v1/attribution_status:
+    get:
+      tags:
+      - attribution
+      summary: Get attribution status
+      description: Returns the status of the latest ingestion for attribution and claims runout files. The response will contain the attribution Type to identify which ingestion and a Timestamp for the last time it was updated.
+      operationId: attributionStatus
+      responses:
+        '200':
+          description: Successful request. Response will contain an attribution type(s) of `last_attribution_update`, `last_runout_update`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AttributionFilesParam'
+        '404':
+          description: 'No attribution data was found. '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcomeResponse'
+      security:
+      - bearer_token: []
+  /api/v2/attribution_status:
+    get:
+      tags:
+      - attribution
+      summary: Get attribution status
+      description: Returns the status of the latest ingestion for attribution and claims runout files. The response will contain the attribution Type to identify which ingestion and a Timestamp for the last time it was updated.
+      operationId: attributionStatusv2
+      responses:
+        '200':
+          description: Successful request. Response will contain an attribution type(s) of `last_attribution_update`, `last_runout_update`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AttributionFilesParam'
+        '404':
+          description: 'No attribution data was found. '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcomeResponse'
+      security:
+      - bearer_token: []
+components:
+  schemas:
+    OperationOutcomeResponse:
+      type: object
+      properties:
+        Issue:
+          type: object
+          required:
+          - Severity
+          - Code
+          - Diagnostics
+          properties:
+            Severity:
+              description: 'Severity of the outcome: fatal | error | warning | information'
+              type: string
+            Code:
+              description: Error or warning code
+              type: string
+            Diagnostics:
+              description: Additional diagnostic information about the issue
+              type: string
+      x-go-package: github.com/CMSgov/bcda-app/bcda/models
+    IngestionDatesStatusParam:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          x-go-name: Timestamp
+        type:
+          type: string
+          x-go-name: Type
+      x-go-package: github.com/CMSgov/bcda-app/bcda/models
+    AttributionFilesParam:
+      type: object
+      properties:
+        ingestion_dates:
+          type: array
+          items:
+            $ref: '#/components/schemas/IngestionDatesStatusParam'
+          x-go-name: IngestionDates
+      x-go-package: github.com/CMSgov/bcda-app/bcda/models
+  securitySchemes:
+    basic_auth:
+      type: http
+      scheme: basic
+    bearer_token:
+      type: apiKey
+      description: The Group and Patient endpoints require a Bearer Token. 1) Put your credentials in Basic Authentication, 2) Request a bearer token from /auth/token, 3) Put "Bearer {TOKEN}" in this field (no quotes) using the bearer token retrieved in step 2
+      name: Authorization
+      in: header
+x-original-swagger-version: '2.0'

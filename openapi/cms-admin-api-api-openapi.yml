@@ -1,0 +1,199 @@
+openapi: 3.2.0
+info:
+  title: AB2D Admin API
+  description: This API Provides Part A (Hospital Insurance) & B (Medical Insurance) claim data to Part D (Prescription Drug Benefit) sponsors. Consistent with CMS' Final Rule to implement Section 50354 of the Bipartisan Budget Act of 2018, CMS is providing standalone Medicare Part D plan (PDP) sponsors the opportunity to request access to Medicare claims data. Access to Medicare claims data for their enrollees will help plans promote the appropriate use of medications and improve health outcomes, among other benefits.
+servers:
+- url: https://sandbox.ab2d.cms.gov
+  description: Generated server url
+security:
+- bearerAuth: []
+tags:
+- name: admin-api
+paths:
+  /api/v1/admin/client:
+    put:
+      tags:
+      - admin-api
+      operationId: udpateClient
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PdpClientDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PdpClientDTO'
+    post:
+      tags:
+      - admin-api
+      operationId: createClient
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PdpClientDTO'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PdpClientDTO'
+  /api/v1/admin/client/{contractNumber}/enable:
+    put:
+      tags:
+      - admin-api
+      operationId: enableClient
+      parameters:
+      - name: contractNumber
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PdpClientDTO'
+  /api/v1/admin/client/{contractNumber}/disable:
+    put:
+      tags:
+      - admin-api
+      operationId: disableClient
+      parameters:
+      - name: contractNumber
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PdpClientDTO'
+  /api/v1/admin/job/{contractNumber}:
+    post:
+      tags:
+      - admin-api
+      operationId: createJobByContractOnBehalfOfClient
+      parameters:
+      - name: contractNumber
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      - name: _type
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ExplanationOfBenefit
+      - name: _outputFormat
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: _since
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: _until
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      responses:
+        '200':
+          description: OK
+  /api/v1/admin/client/{contractNumber}:
+    get:
+      tags:
+      - admin-api
+      operationId: getClient
+      parameters:
+      - name: contractNumber
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PdpClientDTO'
+components:
+  schemas:
+    PdpClientDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        clientId:
+          type: string
+        organization:
+          type: string
+        enabled:
+          type: boolean
+        role:
+          type: string
+        contract:
+          $ref: '#/components/schemas/ContractDTO'
+      required:
+      - clientId
+      - enabled
+      - organization
+    ContractDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        contractNumber:
+          type: string
+        contractName:
+          type: string
+        attestedOn:
+          type: string
+          format: date-time
+        contractType:
+          type: string
+          enum:
+          - NORMAL
+          - CLASSIC_TEST
+          - SYNTHEA
+        totalEnrollment:
+          type: integer
+          format: int32
+        medicareEligible:
+          type: integer
+          format: int32
+      required:
+      - contractName
+      - contractNumber
+      - id
+  securitySchemes:
+    bearerAuth:
+      type: http
+      name: bearerAuth
+      scheme: bearer
+      bearerFormat: JWT

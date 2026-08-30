@@ -1,0 +1,27 @@
+openapi: 3.2.0
+info:
+  title: AB2D Health API
+  description: This API Provides Part A (Hospital Insurance) & B (Medical Insurance) claim data to Part D (Prescription Drug Benefit) sponsors. Consistent with CMS' Final Rule to implement Section 50354 of the Bipartisan Budget Act of 2018, CMS is providing standalone Medicare Part D plan (PDP) sponsors the opportunity to request access to Medicare claims data. Access to Medicare claims data for their enrollees will help plans promote the appropriate use of medications and improve health outcomes, among other benefits.
+servers:
+- url: https://sandbox.ab2d.cms.gov
+  description: Generated server url
+security:
+- bearerAuth: []
+tags:
+- name: health-api
+paths:
+  /health:
+    get:
+      tags:
+      - health-api
+      operationId: getHealth
+      responses:
+        '200':
+          description: OK
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      name: bearerAuth
+      scheme: bearer
+      bearerFormat: JWT

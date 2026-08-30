@@ -1,0 +1,141 @@
+openapi: 3.2.0
+info:
+  title: AB2D 2. Status API
+  description: This API Provides Part A (Hospital Insurance) & B (Medical Insurance) claim data to Part D (Prescription Drug Benefit) sponsors. Consistent with CMS' Final Rule to implement Section 50354 of the Bipartisan Budget Act of 2018, CMS is providing standalone Medicare Part D plan (PDP) sponsors the opportunity to request access to Medicare claims data. Access to Medicare claims data for their enrollees will help plans promote the appropriate use of medications and improve health outcomes, among other benefits.
+servers:
+- url: https://sandbox.ab2d.cms.gov
+  description: Generated server url
+security:
+- bearerAuth: []
+tags:
+- name: 2. Status
+  description: API to determine the status of the job, the files to download once the job is complete and an endpoint to cancel a job
+paths:
+  /api/v1/fhir/Job/{jobUuid}/$status:
+    get:
+      tags:
+      - 2. Status
+      summary: Returns a status of an export job.
+      operationId: getJobStatus_2
+      parameters:
+      - name: jobUuid
+        in: path
+        description: A job identifier
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      responses:
+        '202':
+          description: The job is still in progress.
+          headers:
+            Retry-After:
+              description: A delay time in seconds before another status request will be accepted.
+              style: simple
+              schema:
+                type: integer
+            X-Progress:
+              description: Completion percentage, such as 50%
+              style: simple
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobCompletedResponse'
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/JobCompletedResponse'
+        '200':
+          description: The job is complete.
+          headers:
+            Expires:
+              description: Indicates when (an HTTP-date timestamp) the files listed will no longer be available for access.
+              style: simple
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobCompletedResponse'
+        '404':
+          description: Job not found. The body will contain a FHIR OperationOutcome resource in JSON format. https://www.hl7.org/fhir/operationoutcome.html Please refer to the body of the response for details.
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcome'
+    delete:
+      tags:
+      - 2. Status
+      summary: Cancel a pending or in progress export job
+      operationId: deleteRequest_2
+      parameters:
+      - name: jobUuid
+        in: path
+        description: A job identifier
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      responses:
+        '202':
+          description: Job canceled
+          content:
+            application/json:
+              schema:
+                type: string
+            application/fhir+json:
+              schema:
+                type: string
+        '404':
+          description: Job not found. The body will contain a FHIR OperationOutcome resource in JSON format. https://www.hl7.org/fhir/operationoutcome.html Please refer to the body of the response for details.
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/OperationOutcome'
+components:
+  schemas:
+    FileMetadata:
+      type: object
+      properties:
+        url:
+          type: string
+        valueString:
+          type: string
+        valueDecimal:
+          type: integer
+          format: int64
+    JobCompletedResponse:
+      type: object
+      properties:
+        transactionTime:
+          type: string
+        request:
+          type: string
+        requiresAccessToken:
+          type: boolean
+        output:
+          type: array
+          items:
+            $ref: '#/components/schemas/Output'
+        error:
+          type: array
+          items:
+            $ref: '#/components/schemas/Output'
+    Output:
+      type: object
+      properties:
+        type:
+          type: string
+        url:
+          type: string
+        extension:
+          type: array
+          items:
+            $ref: '#/components/schemas/FileMetadata'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      name: bearerAuth
+      scheme: bearer
+      bearerFormat: JWT
