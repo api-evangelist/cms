@@ -490,7 +490,7 @@ apis:
   tags:
   - Coverage
   - LCD
-  - MAC
+  - Mac
   - NCD
   - Policy
   tags_raw:
@@ -515,7 +515,7 @@ apis:
   humanURL: https://bluebutton.cms.gov/
   baseURL: https://api.bluebutton.cms.gov/v2/fhir/
   tags:
-  - Capability
+  - Capabilities
   tags_raw:
   - Capability
   properties:
