@@ -71,6 +71,13 @@ apis:
   tags:
   - Medicare
   - FHIR
+  - Providers
+  - Point of Care
+  - Claims Data
+  - Care Coordination
+  tags_raw:
+  - Medicare
+  - FHIR
   - Provider
   - Point of Care
   - Claims Data
@@ -222,6 +229,8 @@ apis:
   humanURL: https://developer.cms.gov/marketplace-api/
   baseURL: https://marketplace.api.healthcare.gov/api/v1
   tags:
+  - Enrollment
+  tags_raw:
   - Enrollments
   properties:
   - type: OpenAPI
@@ -585,6 +594,8 @@ apis:
   humanURL: https://bluebutton.cms.gov/
   baseURL: https://api.bluebutton.cms.gov/v2/fhir/
   tags:
+  - Patients
+  tags_raw:
   - Patient
   properties:
   - type: OpenAPI
