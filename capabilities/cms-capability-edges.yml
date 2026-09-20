@@ -11,8 +11,20 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 3
+edge_count: 4
 edges:
+- tag: Coverage
+  spec_file: cms-coverage-api-openapi.yml
+  capability_id: BC-2800.30
+  capability_id_l1: BC-2800
+  capability_name: Eligibility & Benefits Verification
+  confidence: 0.7
+  evidence: GET /Coverage  searchCoverage — "delivers Medicare Part A, B, and D claims data" via "HL7
+    FHIR R4 API"
+  reason: FHIR Coverage resource exposes a beneficiary's insurance coverage details, which is the data
+    substrate for verifying insurance coverage and benefits before service. Moderate confidence since
+    the API is a payer-side data feed rather than a provider verification workflow.
+  recovered_from: healthcare-vertical-edges.json
 - tag: ExplanationOfBenefit
   spec_file: cms-explanationofbenefit-api-openapi.yml
   capability_id: BC-2900.60
