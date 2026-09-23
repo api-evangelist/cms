@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: AB2D Status API
-  description: This API Provides Part A (Hospital Insurance) & B (Medical Insurance) claim data to Part D (Prescription Drug Benefit) sponsors. Consistent with CMS' Final Rule to implement Section 50354 of the Bipartisan Budget Act of 2018, CMS is providing standalone Medicare Part D plan (PDP) sponsors the opportunity to request access to Medicare claims data. Access to Medicare claims data for their enrollees will help plans promote the appropriate use of medications and improve health outcomes, among other benefits.
+  description: This API Provides Part A (Hospital Insurance) & B (Medical Insurance) claim data to Part D (Prescription Drug Benefit) sponsors.
 servers:
 - url: https://sandbox.ab2d.cms.gov
   description: Generated server url
@@ -15,7 +15,7 @@ paths:
     get:
       tags:
       - Status
-      summary: Returns a status of an export job.
+      summary: Returns a status of an export job
       operationId: getJobStatus
       parameters:
       - name: jobUuid
@@ -97,7 +97,7 @@ paths:
     get:
       tags:
       - Status
-      summary: Returns a status of an export job.
+      summary: Returns a status of an export job
       operationId: getJobStatus_1
       parameters:
       - name: jobUuid
@@ -177,6 +177,17 @@ paths:
                 $ref: '#/components/schemas/OperationOutcome'
 components:
   schemas:
+    Output:
+      type: object
+      properties:
+        type:
+          type: string
+        url:
+          type: string
+        extension:
+          type: array
+          items:
+            $ref: '#/components/schemas/FileMetadata'
     FileMetadata:
       type: object
       properties:
@@ -204,17 +215,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Output'
-    Output:
-      type: object
-      properties:
-        type:
-          type: string
-        url:
-          type: string
-        extension:
-          type: array
-          items:
-            $ref: '#/components/schemas/FileMetadata'
   securitySchemes:
     bearerAuth:
       type: http

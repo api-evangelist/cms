@@ -1,21 +1,7 @@
 openapi: 3.2.0
 info:
   title: Beneficiary Claims Data Group API
-  description: 'The Beneficiary Claims Data API (BCDA) allows downloading of claims data in accordance with the FHIR Bulk Data Export specification.
-
-
-    If you have a Client ID and Secret you can use this page to explore the API.  To do this:
-
-    1. Click the green "Authorize" button below and enter your Client ID and secret in the Basic Authentication boxes.
-
-    2. Request a bearer token from /auth/token
-
-    3. Click the green "Authorize" button below and put "Bearer {YOUR_TOKEN}" in the bearer_token box.
-
-
-    Until you click logout your token will be presented with every request made.  To make requests click on the
-
-    "Try it out" button for the desired endpoint.'
+  description: The Beneficiary Claims Data API (BCDA) allows downloading of claims data in accordance with the FHIR Bulk Data Export specification.
   contact:
     email: bcapi@cms.hhs.gov
   license:
@@ -24,14 +10,17 @@ info:
   version: 1.0.0
 servers: []
 tags:
-- name: group
+- name: Group
 paths:
   /api/v1/Group/{groupId}/$export:
     get:
       tags:
-      - group
-      summary: Start FHIR STU3 data export job for the specified group identifier and resource type(s)
-      description: "Initiates a job to collect data from the Beneficiary FHIR Data API for your ACO. The supported Group identifiers are `all` and `runout`. The `all` identifier returns data for the group of all patients attributed to the requesting ACO. The `runout` identifier returns claims runouts data. \n\nIf used when specifying `_since`: all claims data which has been updated since the specified date will be returned for beneficiaries which have been attributed to the ACO since before the specified date; and all historical claims data will be returned for beneficiaries which have been newly attributed to the ACO since the specified date.\n\n"
+      - Group
+      summary: Start FHIR STU3 data export job for the specified group identifier and resource…
+      description: 'Initiates a job to collect data from the Beneficiary FHIR Data API for your ACO. The supported Group identifiers are `all` and `runout`. The `all` identifier returns data for the group of all patients attributed to the requesting ACO. The `runout` identifier returns claims runouts data.
+
+
+        If used when specifying `_since`: all claims data which has been updated since the specified date will be returned for beneficiaries which have been attributed to the ACO since before the specified date; and all historical claims data will be returned for beneficiaries which have been newly attributed to the ACO since the specified date.'
       operationId: bulkGroupRequest
       parameters:
       - name: _type
@@ -102,9 +91,12 @@ paths:
   /api/v2/Group/{groupId}/$export:
     get:
       tags:
-      - group
-      summary: Start FHIR R4 data export job for the specified group identifier and resource type(s)
-      description: "Initiates a job to collect data from the Beneficiary FHIR Data API for your ACO. The supported Group identifiers are `all` and `runout`. The `all` identifier returns data for the group of all patients attributed to the requesting ACO. The `runout` identifier returns claims runouts data. \n\nIf used when specifying `_since`: all claims data which has been updated since the specified date will be returned for beneficiaries which have been attributed to the ACO since before the specified date; and all historical claims data will be returned for beneficiaries which have been newly attributed to the ACO since the specified date.\n\n"
+      - Group
+      summary: Start FHIR R4 data export job for the specified group identifier and resource…
+      description: 'Initiates a job to collect data from the Beneficiary FHIR Data API for your ACO. The supported Group identifiers are `all` and `runout`. The `all` identifier returns data for the group of all patients attributed to the requesting ACO. The `runout` identifier returns claims runouts data.
+
+
+        If used when specifying `_since`: all claims data which has been updated since the specified date will be returned for beneficiaries which have been attributed to the ACO since before the specified date; and all historical claims data will be returned for beneficiaries which have been newly attributed to the ACO since the specified date.'
       operationId: bulkGroupRequestV2
       parameters:
       - name: _type

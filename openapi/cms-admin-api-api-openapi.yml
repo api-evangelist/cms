@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: AB2D Admin API
-  description: This API Provides Part A (Hospital Insurance) & B (Medical Insurance) claim data to Part D (Prescription Drug Benefit) sponsors. Consistent with CMS' Final Rule to implement Section 50354 of the Bipartisan Budget Act of 2018, CMS is providing standalone Medicare Part D plan (PDP) sponsors the opportunity to request access to Medicare claims data. Access to Medicare claims data for their enrollees will help plans promote the appropriate use of medications and improve health outcomes, among other benefits.
+  description: This API Provides Part A (Hospital Insurance) & B (Medical Insurance) claim data to Part D (Prescription Drug Benefit) sponsors.
 servers:
 - url: https://sandbox.ab2d.cms.gov
   description: Generated server url
@@ -28,6 +28,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PdpClientDTO'
+      summary: Udpate client
+      x-summary-source: derived
     post:
       tags:
       - admin-api
@@ -45,6 +47,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PdpClientDTO'
+      summary: Create client
+      x-summary-source: derived
   /api/v1/admin/client/{contractNumber}/enable:
     put:
       tags:
@@ -64,6 +68,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PdpClientDTO'
+      summary: Enable client
+      x-summary-source: derived
   /api/v1/admin/client/{contractNumber}/disable:
     put:
       tags:
@@ -83,6 +89,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PdpClientDTO'
+      summary: Disable client
+      x-summary-source: derived
   /api/v1/admin/job/{contractNumber}:
     post:
       tags:
@@ -121,6 +129,8 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Create job by contract on behalf of client
+      x-summary-source: derived
   /api/v1/admin/client/{contractNumber}:
     get:
       tags:
@@ -140,28 +150,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PdpClientDTO'
+      summary: Get client
+      x-summary-source: derived
 components:
   schemas:
-    PdpClientDTO:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        clientId:
-          type: string
-        organization:
-          type: string
-        enabled:
-          type: boolean
-        role:
-          type: string
-        contract:
-          $ref: '#/components/schemas/ContractDTO'
-      required:
-      - clientId
-      - enabled
-      - organization
     ContractDTO:
       type: object
       properties:
@@ -191,6 +183,26 @@ components:
       - contractName
       - contractNumber
       - id
+    PdpClientDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        clientId:
+          type: string
+        organization:
+          type: string
+        enabled:
+          type: boolean
+        role:
+          type: string
+        contract:
+          $ref: '#/components/schemas/ContractDTO'
+      required:
+      - clientId
+      - enabled
+      - organization
   securitySchemes:
     bearerAuth:
       type: http
